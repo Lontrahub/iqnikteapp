@@ -13,14 +13,24 @@ export default function Header() {
 
   return (
     <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-50 w-full border-b">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link href="/home" className="flex items-center gap-2">
+      <div className="container mx-auto flex h-16 items-center px-4">
+        <Link href="/home" className="flex items-center gap-2 mr-6">
           <Leaf className="h-6 w-6 text-primary" />
           <span className="font-headline text-2xl font-bold text-primary">
             IQ Nikte'
           </span>
         </Link>
-        <div className="flex items-center gap-2">
+        
+        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+            <Link href="/plants" className="text-muted-foreground transition-colors hover:text-foreground">
+                Plants
+            </Link>
+            <Link href="/blogs" className="text-muted-foreground transition-colors hover:text-foreground">
+                Articles
+            </Link>
+        </nav>
+
+        <div className="flex flex-1 items-center justify-end gap-2">
           {loading ? (
             <Skeleton className="h-8 w-20" />
           ) : user ? (

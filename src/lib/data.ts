@@ -47,3 +47,29 @@ export async function getRecentBlogs(): Promise<Blog[]> {
         return [];
     }
 }
+
+export async function getAllPlants(): Promise<Plant[]> {
+    try {
+        const plantsRef = collection(db, 'plants');
+        const q = query(plantsRef, orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
+        const plants = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Plant));
+        return plants;
+    } catch (error) {
+        console.error("Error fetching all plants:", error);
+        return [];
+    }
+}
+
+export async function getAllBlogs(): Promise<Blog[]> {
+    try {
+        const blogsRef = collection(db, 'blogs');
+        const q = query(blogsRef, orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
+        const blogs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Blog));
+        return blogs;
+    } catch (error) {
+        console.error("Error fetching all blogs:", error);
+        return [];
+    }
+}
