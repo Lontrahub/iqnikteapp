@@ -8,20 +8,32 @@ export interface UserProfile {
   createdAt: Timestamp;
 }
 
+export type BilingualString = {
+  en: string;
+  es: string;
+};
+
 export interface Plant {
   id: string;
-  name: string;
-  imageUrl: string;
+  name: BilingualString;
+  description: BilingualString;
+  properties?: BilingualString;
+  uses?: BilingualString;
+  culturalSignificance?: BilingualString;
+  imageUrl?: string;
   isLocked: boolean;
   createdAt: Timestamp;
+  tags?: string[];
 }
 
 export interface Blog {
   id: string;
-  title: string;
-  imageUrl: string;
+  title: BilingualString;
+  content: BilingualString;
+  imageUrl?: string;
   isLocked: boolean;
   createdAt: Timestamp;
+  relatedPlants?: string[];
 }
 
 export interface Banner {

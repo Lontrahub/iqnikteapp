@@ -1,14 +1,20 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Lock } from 'lucide-react';
 import type { Blog } from '@/lib/types';
+import { useLanguage } from '@/hooks/use-language';
 
 interface BlogCardProps {
   blog: Blog;
 }
 
 export function BlogCard({ blog }: BlogCardProps) {
+  const language = useLanguage();
+  const title = blog.title?.[language] || blog.title?.en || 'Untitled Blog';
+  
   return (
     <Link href={`/blogs/${blog.id}`} className="block group">
       <Card className="overflow-hidden transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1">
@@ -16,7 +22,7 @@ export function BlogCard({ blog }: BlogCardProps) {
           <div className="relative h-40 w-full">
             <Image
               src={blog.imageUrl || 'https://placehold.co/400x400.png'}
-              alt={blog.title}
+              alt={title}
               fill
               className="object-cover"
               data-ai-hint="article illustration"
@@ -28,7 +34,7 @@ export function BlogCard({ blog }: BlogCardProps) {
             )}
           </div>
           <div className="p-4 bg-card">
-            <h3 className="font-headline text-lg text-primary truncate">{blog.title}</h3>
+            <h3 className="font-headline text-lg text-primary truncate">{title}</h3>
           </div>
         </CardContent>
       </Card>
