@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import type { Blog as BlogWithTimestamp, Plant as PlantWithTimestamp, BilingualString } from '@/lib/types';
+import type { Blog as BlogWithTimestamp, Plant as PlantWithTimestamp, BilingualString, BilingualTag } from '@/lib/types';
 import { useAuth } from '@/hooks/use-auth';
 import { useLanguage } from '@/hooks/use-language';
 import LockedContentPrompt from '@/components/locked-content-prompt';
@@ -27,7 +27,7 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
   const { user, loading } = useAuth();
   const language = useLanguage();
 
-  const getBilingualText = (text?: BilingualString) => {
+  const getBilingualText = (text?: BilingualString | BilingualTag) => {
     if (!text) return '';
     return text[language] || text.en;
   };
