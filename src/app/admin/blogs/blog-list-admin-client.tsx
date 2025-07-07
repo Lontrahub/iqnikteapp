@@ -5,6 +5,7 @@ import type { Blog } from '@/lib/types';
 import { useLanguage } from '@/hooks/use-language';
 import { useToast } from '@/hooks/use-toast';
 import { deleteBlog } from '@/lib/data';
+import Link from 'next/link';
 
 import {
   Table,
@@ -60,9 +61,11 @@ export default function BlogListAdminClient({ blogs: initialBlogs }: { blogs: Bl
   return (
     <>
       <div className="flex justify-end mb-4">
-        <Button disabled>
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Create New Article (soon)
+        <Button asChild>
+          <Link href="/admin/blogs/new">
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Create New Article
+          </Link>
         </Button>
       </div>
       <div className="border rounded-md">
@@ -81,9 +84,11 @@ export default function BlogListAdminClient({ blogs: initialBlogs }: { blogs: Bl
                   <TableCell className="font-medium">{blog.title[language] || blog.title.en}</TableCell>
                   <TableCell>{blog.createdAt.toDate().toLocaleDateString()}</TableCell>
                   <TableCell className="text-right space-x-2">
-                    <Button variant="ghost" size="icon" disabled>
-                      <Edit className="h-4 w-4" />
-                      <span className="sr-only">Edit</span>
+                    <Button variant="ghost" size="icon" asChild>
+                      <Link href={`/admin/blogs/edit/${blog.id}`}>
+                        <Edit className="h-4 w-4" />
+                        <span className="sr-only">Edit</span>
+                      </Link>
                     </Button>
                     <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive" onClick={() => setBlogToDelete(blog)}>
                       <Trash2 className="h-4 w-4" />
