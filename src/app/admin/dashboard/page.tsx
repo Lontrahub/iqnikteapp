@@ -141,7 +141,9 @@ export default function AdminDashboardPage() {
               <div className="flex flex-wrap gap-4">
                 <Button variant="outline" disabled>Manage Plants (soon)</Button>
                 <Button variant="outline" disabled>Manage Articles (soon)</Button>
-                <Button variant="outline" disabled>Manage Users (soon)</Button>
+                <Button asChild variant="outline">
+                    <Link href="/admin/users">Manage Users</Link>
+                </Button>
                 <Button asChild>
                     <Link href="/home">Go to Home</Link>
                 </Button>

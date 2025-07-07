@@ -2,7 +2,7 @@
 
 import { collection, getDocs, getDoc, doc, query, orderBy, limit, where, documentId, getCountFromServer } from 'firebase/firestore';
 import { db } from './firebase';
-import type { Plant, Blog, Banner } from './types';
+import type { Plant, Blog, Banner, UserProfile } from './types';
 
 export async function getAdminDashboardStats(): Promise<{ users: number; plants: number; blogs: number }> {
     try {
@@ -24,6 +24,25 @@ export async function getAdminDashboardStats(): Promise<{ users: number; plants:
     } catch (error) {
         console.error("Error fetching admin dashboard stats:", error);
         return { users: 0, plants: 0, blogs: 0 };
+    }
+}
+
+export async function getAllUsers(): Promise<UserProfile[]> {
+    try {
+        const usersRef = collection(db, 'users');
+        const q = query(usersRef, orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
+        const users = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            return { 
+                ...data,
+                id: doc.id // Add this line
+            } as UserProfile;
+        });
+        return users;
+    } catch (error) {
+        console.error("Error fetching all users:", error);
+        return [];
     }
 }
 
