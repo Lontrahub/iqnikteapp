@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Leaf } from 'phosphor-react';
+import Image from 'next/image';
 
 export default function LanguageSelectionPage() {
   const router = useRouter();
@@ -19,7 +19,7 @@ export default function LanguageSelectionPage() {
     <div className="flex min-h-screen flex-col items-center justify-center p-4 bg-background">
       <Card className="w-full max-w-sm">
         <CardHeader className="items-center text-center">
-            <Leaf className="h-12 w-12 text-primary mb-2" />
+            <Image src="/logo.png" alt="IQ Nikte' Logo" width={48} height={48} className="mb-2" />
             <CardTitle className="text-2xl font-headline">Welcome to IQ Nikte'</CardTitle>
             <CardDescription>Please select your language.</CardDescription>
             <CardDescription className="text-xs">Por favor, seleccione su idioma.</CardDescription>

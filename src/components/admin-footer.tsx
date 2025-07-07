@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Leaf, InstagramLogo, YoutubeLogo, LinkedinLogo } from 'phosphor-react';
+import Image from 'next/image';
+import { InstagramLogo, YoutubeLogo, LinkedinLogo } from 'phosphor-react';
 
 export default function AdminFooter() {
   return (
@@ -7,7 +8,7 @@ export default function AdminFooter() {
       <div className="container mx-auto py-6 px-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <Leaf className="h-6 w-6 text-primary" />
+            <Image src="/logo.png" alt="IQ Nikte' Logo" width={24} height={24} />
             <span className="font-headline text-lg font-bold text-primary">
               IQ Nikte'
             </span>

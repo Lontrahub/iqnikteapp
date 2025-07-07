@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Leaf } from 'phosphor-react';
+import Image from 'next/image';
 import { useAuth } from '@/hooks/use-auth';
 import { UserNav } from './user-nav';
 import { Button } from './ui/button';
@@ -16,7 +16,7 @@ export default function Header() {
     <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-50 w-full border-b">
       <div className="container mx-auto flex h-16 items-center px-4">
         <Link href="/home" className="flex items-center gap-2 mr-6">
-          <Leaf className="h-6 w-6 text-primary" />
+          <Image src="/logo.png" alt="IQ Nikte' Logo" width={24} height={24} />
           <span className="font-headline text-2xl font-bold text-primary">
             IQ Nikte'
           </span>

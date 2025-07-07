@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Leaf, Users, FileText, Gear, Bell } from 'phosphor-react';
+import Image from 'next/image';
+import { Users, FileText, Gear, Bell } from 'phosphor-react';
 
 import { useAuth } from '@/hooks/use-auth';
 import { getAdminDashboardStats } from '@/lib/data';
@@ -118,7 +119,7 @@ export default function AdminDashboardPage() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Total Plants</CardTitle>
-                    <Leaf className="h-5 w-5 text-muted-foreground" />
+                    <Image src="/logo.png" alt="Plant Icon" width={20} height={20} />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">{stats?.plants ?? 0}</div>

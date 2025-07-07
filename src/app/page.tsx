@@ -3,7 +3,8 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
-import { Leaf, CircleNotch } from 'phosphor-react';
+import { CircleNotch } from 'phosphor-react';
+import Image from 'next/image';
 
 export default function SplashScreen() {
   const { user, loading } = useAuth();
@@ -33,7 +34,7 @@ export default function SplashScreen() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background">
       <div className="flex items-center gap-4 mb-4">
-        <Leaf className="h-16 w-16 text-primary" />
+        <Image src="/logo.png" alt="IQ Nikte' Logo" width={64} height={64} />
         <span className="font-headline text-5xl font-bold text-primary">
           IQ Nikte'
         </span>
