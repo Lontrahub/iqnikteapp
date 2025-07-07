@@ -3,11 +3,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import type { Blog, Plant, BilingualString } from '@/lib/types';
+import type { Blog as BlogWithTimestamp, Plant as PlantWithTimestamp, BilingualString } from '@/lib/types';
 import { useAuth } from '@/hooks/use-auth';
 import { useLanguage } from '@/hooks/use-language';
 import LockedContentPrompt from '@/components/locked-content-prompt';
 import { LoaderCircle, Leaf } from 'lucide-react';
+
+// Client-safe types
+type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
+  createdAt: string;
+};
+type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
+  createdAt: string;
+};
 
 interface BlogDetailClientProps {
   blog: Blog;

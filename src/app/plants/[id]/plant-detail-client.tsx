@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import type { Plant, Blog, BilingualString } from '@/lib/types';
+import type { Plant as PlantWithTimestamp, Blog as BlogWithTimestamp, BilingualString } from '@/lib/types';
 import { useAuth } from '@/hooks/use-auth';
 import { useLanguage } from '@/hooks/use-language';
 import {
@@ -15,6 +15,15 @@ import {
 import { Badge } from '@/components/ui/badge';
 import LockedContentPrompt from '@/components/locked-content-prompt';
 import { BookOpen, Sprout, HandHeart, Globe, LoaderCircle } from 'lucide-react';
+
+// Client-safe types
+type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
+  createdAt: string;
+};
+type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
+  createdAt: string;
+};
+
 
 interface PlantDetailClientProps {
   plant: Plant;

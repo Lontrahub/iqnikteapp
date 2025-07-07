@@ -32,13 +32,23 @@ export async function generateMetadata(
 }
 
 export default async function BlogDetailPage({ params }: Props) {
-    const blog = await getBlogById(params.id);
+    const blogData = await getBlogById(params.id);
     
-    if (!blog) {
+    if (!blogData) {
         notFound();
     }
 
-    const relatedPlants = await getPlantsByIds(blog.relatedPlants || []);
+    const relatedPlantsData = await getPlantsByIds(blogData.relatedPlants || []);
+
+    const blog = {
+        ...blogData,
+        createdAt: blogData.createdAt.toDate().toISOString(),
+    };
+
+    const relatedPlants = relatedPlantsData.map(plant => ({
+        ...plant,
+        createdAt: plant.createdAt.toDate().toISOString(),
+    }));
     
     return (
         <main className="flex-1">
