@@ -3,6 +3,7 @@
 import {
   SignOut,
   User,
+  House
 } from 'phosphor-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -79,6 +80,12 @@ export function UserNav() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
+          <DropdownMenuItem asChild>
+            <Link href="/home">
+              <House className="mr-2 h-4 w-4" />
+              <span>Dashboard</span>
+            </Link>
+          </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Link href="/profile">
               <User className="mr-2 h-4 w-4" />
