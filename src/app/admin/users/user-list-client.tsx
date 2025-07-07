@@ -15,8 +15,9 @@ import { Button } from '@/components/ui/button';
 import { ArrowsVertical, MagnifyingGlass } from 'phosphor-react';
 
 // Define a client-safe version of the UserProfile type
-type UserProfile = Omit<UserProfileWithTimestamp, 'createdAt'> & {
+type UserProfile = Omit<UserProfileWithTimestamp, 'createdAt' | 'lastCheckedNotifications'> & {
   createdAt: string; // The serialized date
+  lastCheckedNotifications?: string;
 };
 
 type SortKey = keyof Pick<UserProfile, 'displayName' | 'email' | 'createdAt'>;

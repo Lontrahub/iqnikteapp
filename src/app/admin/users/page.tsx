@@ -7,6 +7,7 @@ export default async function AdminUsersPage() {
     const users = usersRaw.map(user => ({
         ...user,
         createdAt: user.createdAt.toDate().toISOString(),
+        lastCheckedNotifications: user.lastCheckedNotifications?.toDate().toISOString(),
     }));
     
     return (
