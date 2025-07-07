@@ -17,10 +17,16 @@ export type BilingualString = {
 export interface Plant {
   id: string;
   name: BilingualString;
+  scientificName?: string;
+  family?: BilingualString;
   description: BilingualString;
   properties?: BilingualString;
   uses?: BilingualString;
   culturalSignificance?: BilingualString;
+  preparationMethods?: BilingualString;
+  dosage?: BilingualString;
+  precautions?: BilingualString;
+  ethicalHarvesting?: BilingualString;
   imageUrl?: string;
   isLocked: boolean;
   createdAt: Timestamp;
