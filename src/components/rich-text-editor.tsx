@@ -1,7 +1,8 @@
+
 'use client';
 
 import React from 'react';
-import { Bold, Heading1, Paragraph } from 'lucide-react';
+import { Bold, Heading1, Pilcrow } from 'lucide-react';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { useFormField } from './ui/form';
 
@@ -44,7 +45,7 @@ const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorProps>(
               <Heading1 className="h-4 w-4" />
             </ToggleGroupItem>
             <ToggleGroupItem value="p" aria-label="Toggle Paragraph" onMouseDown={(e) => { e.preventDefault(); handleCommand('formatBlock', '<p>'); }}>
-              <Paragraph className="h-4 w-4" />
+              <Pilcrow className="h-4 w-4" />
             </ToggleGroupItem>
           </ToggleGroup>
         </div>
