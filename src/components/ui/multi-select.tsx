@@ -38,22 +38,25 @@ export function MultiSelect({
   const [open, setOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState('');
 
+  // De-duplicate the selected values to prevent key errors.
+  const uniqueSelected = React.useMemo(() => [...new Set(selected)], [selected]);
+
   const handleUnselect = (value: string) => {
-    onChange(selected.filter((s) => s !== value));
+    onChange(uniqueSelected.filter((s) => s !== value));
   };
 
   const handleSelect = (value: string) => {
-    if (!selected.includes(value)) {
-      onChange([...selected, value]);
+    if (!uniqueSelected.includes(value)) {
+      onChange([...uniqueSelected, value]);
     }
     setInputValue('');
   };
 
-  const selectedObjects = selected
+  const selectedObjects = uniqueSelected
     .map((s) => options.find((opt) => opt.value === s) || (creatable ? { value: s, label: s } : null))
     .filter(Boolean) as Option[];
   
-  const filteredOptions = options.filter(opt => !selected.includes(opt.value));
+  const filteredOptions = options.filter(opt => !uniqueSelected.includes(opt.value));
   const showCreateOption = creatable && inputValue && !options.some(opt => opt.label.toLowerCase() === inputValue.toLowerCase());
 
 
