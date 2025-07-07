@@ -3,7 +3,7 @@
 
 import { collection, getDocs, getDoc, doc, query, orderBy, limit, where, documentId, getCountFromServer, deleteDoc, setDoc, Timestamp, addDoc } from 'firebase/firestore';
 import { db } from './firebase';
-import type { Plant, Blog, Banner, UserProfile, BilingualString, Notification } from './types';
+import type { Plant, Blog, Banner, UserProfile, BilingualString, Notification, BilingualTag } from './types';
 
 type PlantData = Omit<Plant, 'id' | 'createdAt'> & {
     id?: string;
@@ -265,12 +265,35 @@ export async function getAllBlogTags(): Promise<string[]> {
         querySnapshot.docs.forEach(doc => {
             const blog = doc.data() as Blog;
             if (blog.tags) {
-                blog.tags.forEach(tag => tags.add(tag));
+                // This will need to be updated to handle bilingual tags if the model changes
+                blog.tags.forEach(tag => tags.add(tag.en));
             }
         });
         return Array.from(tags).sort();
     } catch (error) {
         console.error("Error fetching all blog tags:", error);
+        return [];
+    }
+}
+
+export async function getAllBlogTagsBilingual(): Promise<BilingualTag[]> {
+    try {
+        const blogsRef = collection(db, 'blogs');
+        const querySnapshot = await getDocs(blogsRef);
+        const tagsMap = new Map<string, BilingualTag>();
+        querySnapshot.docs.forEach(doc => {
+            const blog = doc.data() as Blog;
+            if (blog.tags) {
+                blog.tags.forEach(tag => {
+                    if (tag.id && !tagsMap.has(tag.id)) {
+                        tagsMap.set(tag.id, tag);
+                    }
+                });
+            }
+        });
+        return Array.from(tagsMap.values()).sort((a, b) => a.en.localeCompare(b.en));
+    } catch (error) {
+        console.error("Error fetching all bilingual blog tags:", error);
         return [];
     }
 }

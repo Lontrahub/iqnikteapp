@@ -1,12 +1,14 @@
 'use client';
 
+import * as React from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { createOrUpdateBlog } from '@/lib/data';
-import type { Blog as BlogWithTimestamp } from '@/lib/types';
+import type { Blog as BlogWithTimestamp, BilingualTag } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
+import { useLanguage } from '@/hooks/use-language';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -25,6 +27,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { BilingualTagCreateDialog } from '@/components/bilingual-tag-dialog';
 
 
 const formSchema = z.object({
@@ -39,7 +42,11 @@ const formSchema = z.object({
   imageUrl: z.string().url('Must be a valid URL').optional().or(z.literal('')),
   isLocked: z.boolean(),
   relatedPlants: z.array(z.string()).optional(),
-  tags: z.array(z.string()).optional(),
+  tags: z.array(z.object({
+    id: z.string(),
+    en: z.string(),
+    es: z.string(),
+  })).optional(),
 });
 
 type BlogFormValues = z.infer<typeof formSchema>;
@@ -52,13 +59,17 @@ type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
 interface BlogFormProps {
   blog?: Blog;
   plants: { id: string; title: string }[];
-  existingTags: string[];
+  existingTags: BilingualTag[];
 }
 
 export default function BlogForm({ blog, plants, existingTags }: BlogFormProps) {
   const router = useRouter();
+  const language = useLanguage();
   const { toast } = useToast();
   const isEditMode = !!blog;
+
+  const [isCreatingTag, setIsCreatingTag] = React.useState(false);
+  const [newTagValue, setNewTagValue] = React.useState('');
 
   const form = useForm<BlogFormValues>({
     resolver: zodResolver(formSchema),
@@ -72,7 +83,20 @@ export default function BlogForm({ blog, plants, existingTags }: BlogFormProps) 
     },
   });
 
-  const { handleSubmit, control, formState, getValues, trigger, setValue } = form;
+  const { handleSubmit, control, formState, watch } = form;
+
+  const allAvailableTags = React.useMemo(() => {
+    const formTags = watch('tags') || [];
+    const combined = [...existingTags, ...formTags];
+    return Array.from(new Map(combined.map(tag => [tag.id, tag])).values());
+  }, [existingTags, watch('tags')]);
+
+  const tagOptions = allAvailableTags.map(t => ({
+      value: t.id,
+      label: t[language] || t.en
+  }));
+
+  const plantOptions = plants.map(p => ({ value: p.id, label: p.title }));
 
   const onSubmit = async (data: BlogFormValues) => {
     const result = await createOrUpdateBlog({
@@ -96,8 +120,6 @@ export default function BlogForm({ blog, plants, existingTags }: BlogFormProps) 
     }
   };
 
-  const plantOptions = plants.map(p => ({ value: p.id, label: p.title }));
-  const tagOptions = existingTags.map(t => ({ value: t, label: t }));
 
   return (
     <Form {...form}>
@@ -141,7 +163,7 @@ export default function BlogForm({ blog, plants, existingTags }: BlogFormProps) 
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Content (English)</FormLabel>
-                  <RichTextEditor {...field} />
+                <RichTextEditor {...field} />
                 <FormMessage />
               </FormItem>
             )}
@@ -152,7 +174,7 @@ export default function BlogForm({ blog, plants, existingTags }: BlogFormProps) 
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Content (Spanish)</FormLabel>
-                  <RichTextEditor {...field} />
+                <RichTextEditor {...field} />
                 <FormMessage />
               </FormItem>
             )}
@@ -214,11 +236,33 @@ export default function BlogForm({ blog, plants, existingTags }: BlogFormProps) 
                       creatable
                       placeholder="Select or create tags..."
                       options={tagOptions}
-                      selected={field.value || []}
-                      onChange={field.onChange}
+                      selected={(field.value || []).map(t => t.id)}
+                      onChange={(selectedIds) => {
+                          const selectedTagObjects = selectedIds
+                              .map(id => allAvailableTags.find(t => t.id === id))
+                              .filter((t): t is BilingualTag => !!t);
+                          field.onChange(selectedTagObjects);
+                      }}
+                      onNewItemCreate={(value) => {
+                          setNewTagValue(value);
+                          setIsCreatingTag(true);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
+                  <BilingualTagCreateDialog
+                      isOpen={isCreatingTag}
+                      onOpenChange={setIsCreatingTag}
+                      initialEnValue={newTagValue}
+                      onSave={(newTagData) => {
+                          const newTag: BilingualTag = {
+                              id: `tag_${Date.now()}_${newTagData.en.toLowerCase().replace(/\s+/g, '_')}`,
+                              en: newTagData.en,
+                              es: newTagData.es,
+                          };
+                          field.onChange([...(field.value || []), newTag]);
+                      }}
+                  />
                 </FormItem>
               )}
             />

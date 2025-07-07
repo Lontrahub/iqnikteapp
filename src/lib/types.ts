@@ -14,6 +14,12 @@ export type BilingualString = {
   es: string;
 };
 
+export type BilingualTag = {
+  id: string;
+  en: string;
+  es: string;
+};
+
 export interface Plant {
   id: string;
   name: BilingualString;
@@ -43,7 +49,7 @@ export interface Blog {
   isLocked: boolean;
   createdAt: Timestamp;
   relatedPlants?: string[];
-  tags?: string[];
+  tags?: BilingualTag[];
 }
 
 export interface Banner {

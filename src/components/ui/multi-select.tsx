@@ -23,6 +23,7 @@ interface MultiSelectProps {
   onChange: (value: string[]) => void;
   placeholder?: string;
   creatable?: boolean;
+  onNewItemCreate?: (value: string) => void;
 }
 
 export function MultiSelect({
@@ -31,6 +32,7 @@ export function MultiSelect({
   onChange,
   placeholder = 'Select...',
   creatable = false,
+  onNewItemCreate,
 }: MultiSelectProps) {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
@@ -47,36 +49,20 @@ export function MultiSelect({
     setInputValue('');
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (!inputValue) return;
-    switch (e.key) {
-      case 'Enter':
-      case 'Tab':
-        if (creatable) {
-          const newOption = inputValue.trim();
-          if (newOption && !selected.includes(newOption) && !options.some(opt => opt.value.toLowerCase() === newOption.toLowerCase())) {
-            handleSelect(newOption);
-          }
-        }
-        e.preventDefault();
-        setInputValue('');
-        break;
-      default:
-        break;
-    }
-  };
-
   const selectedObjects = selected
     .map((s) => options.find((opt) => opt.value === s) || (creatable ? { value: s, label: s } : null))
     .filter(Boolean) as Option[];
   
   const filteredOptions = options.filter(opt => !selected.includes(opt.value));
-  if (creatable && inputValue && !options.some(opt => opt.label.toLowerCase() === inputValue.toLowerCase())) {
-      filteredOptions.unshift({ value: inputValue, label: `Create "${inputValue}"` });
-  }
+  const showCreateOption = creatable && inputValue && !options.some(opt => opt.label.toLowerCase() === inputValue.toLowerCase());
+
 
   return (
-    <Command onKeyDown={handleKeyDown} className="overflow-visible bg-transparent">
+    <Command onKeyDown={(e) => {
+        if (e.key === 'Escape') {
+            inputRef.current?.blur();
+        }
+    }} className="overflow-visible bg-transparent">
       <div className="group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
         <div className="flex flex-wrap gap-1">
           {selectedObjects.map(({ value, label }) => (
@@ -106,10 +92,27 @@ export function MultiSelect({
         </div>
       </div>
       <div className="relative mt-2">
-        {open && filteredOptions.length > 0 ? (
+        {open && (filteredOptions.length > 0 || showCreateOption) ? (
           <div className="absolute top-0 z-10 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in">
             <CommandList>
               <CommandGroup>
+                {showCreateOption && (
+                    <CommandItem
+                        key={inputValue}
+                        onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                        onSelect={() => {
+                            if (onNewItemCreate) {
+                                onNewItemCreate(inputValue);
+                            } else {
+                                handleSelect(inputValue);
+                            }
+                            setInputValue('');
+                        }}
+                        className="cursor-pointer"
+                    >
+                        {`Create "${inputValue}"`}
+                    </CommandItem>
+                )}
                 {filteredOptions.map((option) => (
                   <CommandItem
                     key={option.value}

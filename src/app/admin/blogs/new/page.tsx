@@ -1,12 +1,12 @@
 
 import BlogForm from "../blog-form";
-import { getAllPlantTitlesAndIds, getAllBlogTags } from "@/lib/data";
+import { getAllPlantTitlesAndIds, getAllBlogTagsBilingual } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function NewBlogPage() {
     const [plants, tags] = await Promise.all([
         getAllPlantTitlesAndIds(),
-        getAllBlogTags(),
+        getAllBlogTagsBilingual(),
     ]);
 
     return (
