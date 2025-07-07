@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Lock } from 'phosphor-react';
 import type { Plant as PlantWithTimestamp } from '@/lib/types';
 import { useLanguage } from '@/hooks/use-language';
+import { useAuth } from '@/hooks/use-auth';
 
 // Client-safe type
 type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
@@ -18,6 +19,7 @@ interface PlantCardProps {
 
 export function PlantCard({ plant }: PlantCardProps) {
   const language = useLanguage();
+  const { user } = useAuth();
   const name = plant.name?.[language] || plant.name?.en || 'Unnamed Plant';
 
   return (
@@ -32,7 +34,7 @@ export function PlantCard({ plant }: PlantCardProps) {
               className="object-cover"
               data-ai-hint="medicinal plant"
             />
-            {plant.isLocked && (
+            {plant.isLocked && !user && (
               <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                 <Lock className="h-8 w-8 text-white" />
               </div>

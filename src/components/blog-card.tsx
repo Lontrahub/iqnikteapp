@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Lock } from 'phosphor-react';
 import type { Blog as BlogWithTimestamp } from '@/lib/types';
 import { useLanguage } from '@/hooks/use-language';
+import { useAuth } from '@/hooks/use-auth';
 
 // Client-safe type
 type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
@@ -18,6 +19,7 @@ interface BlogCardProps {
 
 export function BlogCard({ blog }: BlogCardProps) {
   const language = useLanguage();
+  const { user } = useAuth();
   const title = blog.title?.[language] || blog.title?.en || 'Untitled Blog';
   
   return (
@@ -32,7 +34,7 @@ export function BlogCard({ blog }: BlogCardProps) {
               className="object-cover"
               data-ai-hint="article illustration"
             />
-            {blog.isLocked && (
+            {blog.isLocked && !user && (
               <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                 <Lock className="h-8 w-8 text-white" />
               </div>
