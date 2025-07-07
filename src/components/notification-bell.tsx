@@ -37,12 +37,12 @@ export function NotificationBell() {
     const notificationsRef = collection(db, 'notifications');
     const q = query(
       notificationsRef,
-      where('userId', '==', 'all'),
       where('createdAt', '>', userProfile.lastCheckedNotifications)
     );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      setHasUnread(!querySnapshot.empty);
+        const hasUnreadBroadcasts = querySnapshot.docs.some(doc => doc.data().userId === 'all');
+        setHasUnread(hasUnreadBroadcasts);
     }, (error) => {
         console.error("Error with notification snapshot:", error);
         setHasUnread(false);
@@ -60,15 +60,18 @@ export function NotificationBell() {
         const notificationsRef = collection(db, 'notifications');
         const q = query(
           notificationsRef,
-          where('userId', '==', 'all'),
           orderBy('createdAt', 'desc'),
-          limit(6)
+          limit(30) // Fetch more and filter in-app
         );
         const querySnapshot = await getDocs(q);
-        const fetchedNotifications = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        } as Notification));
+        const fetchedNotifications = querySnapshot.docs
+            .map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            } as Notification))
+            .filter(notif => notif.userId === 'all')
+            .slice(0, 6);
+            
         setNotifications(fetchedNotifications);
       } catch (error) {
         console.error("Failed to fetch notifications:", error);
