@@ -195,11 +195,7 @@ export default function PlantForm({ plant, blogs, existingTags }: PlantFormProps
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Detailed Preparation Methods (English)</FormLabel>
-                      <RichTextEditor
-                        ref={field.ref}
-                        value={field.value}
-                        onChange={field.onChange}
-                      />
+                      <RichTextEditor {...field} />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -210,11 +206,7 @@ export default function PlantForm({ plant, blogs, existingTags }: PlantFormProps
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Detailed Preparation Methods (Spanish)</FormLabel>
-                      <RichTextEditor
-                        ref={field.ref}
-                        value={field.value}
-                        onChange={field.onChange}
-                      />
+                      <RichTextEditor {...field} />
                       <FormMessage />
                     </FormItem>
                   )}
