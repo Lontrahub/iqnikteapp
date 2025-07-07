@@ -133,11 +133,13 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
               <FormItem>
                 <FormLabel>Content (English)</FormLabel>
                 <FormControl>
-                  <RichTextEditor
-                    ref={field.ref}
-                    value={field.value}
-                    onChange={field.onChange}
-                  />
+                  <div>
+                    <RichTextEditor
+                      ref={field.ref}
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -150,11 +152,13 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
               <FormItem>
                 <FormLabel>Content (Spanish)</FormLabel>
                 <FormControl>
-                  <RichTextEditor
-                    ref={field.ref}
-                    value={field.value}
-                    onChange={field.onChange}
-                  />
+                  <div>
+                    <RichTextEditor
+                      ref={field.ref}
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
