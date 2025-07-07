@@ -125,8 +125,7 @@ export default function LoginPage() {
           </div>
         </div>
         <Button variant="outline" className="w-full" onClick={handleGoogleLogin} disabled={isProviderLoading || isLoading}>
-            {isProviderLoading && <CircleNotch className="mr-2 h-4 w-4 animate-spin" />}
-            Sign in with Google
+            {isProviderLoading ? 'Signing in...' : 'Sign in with Google'}
         </Button>
       </CardContent>
       <CardFooter className="text-sm">
