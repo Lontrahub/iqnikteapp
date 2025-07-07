@@ -1,26 +1,40 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { Bell } from 'phosphor-react';
-import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { Bell, CircleNotch } from 'phosphor-react';
+import { collection, query, where, onSnapshot, orderBy, limit, getDocs } from 'firebase/firestore';
+import { formatDistanceToNow } from 'date-fns';
 
 import { useAuth } from '@/hooks/use-auth';
 import { db } from '@/lib/firebase';
 import { Button } from './ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { updateUserLastCheckedNotifications } from '@/lib/data';
+import type { Notification } from '@/lib/types';
+
 
 export function NotificationBell() {
   const { user, userProfile } = useAuth();
-  const [notificationCount, setNotificationCount] = useState(0);
+  const [hasUnread, setHasUnread] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
+  // Effect for the unread indicator dot
   useEffect(() => {
     if (!user || !userProfile?.lastCheckedNotifications) {
-      setNotificationCount(0);
+      setHasUnread(false);
       return;
     }
 
     const notificationsRef = collection(db, 'notifications');
-    
     const q = query(
       notificationsRef,
       where('userId', '==', 'all'),
@@ -28,27 +42,81 @@ export function NotificationBell() {
     );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      setNotificationCount(querySnapshot.size);
+      setHasUnread(!querySnapshot.empty);
     }, (error) => {
         console.error("Error with notification snapshot:", error);
-        setNotificationCount(0);
+        setHasUnread(false);
     });
 
     return () => unsubscribe();
   }, [user, userProfile]);
 
+  const handleOpenChange = async (open: boolean) => {
+    setIsOpen(open);
+    if (open) {
+      // Fetch notifications when dropdown opens
+      setIsLoading(true);
+      try {
+        const notificationsRef = collection(db, 'notifications');
+        const q = query(
+          notificationsRef,
+          where('userId', '==', 'all'),
+          orderBy('createdAt', 'desc'),
+          limit(6)
+        );
+        const querySnapshot = await getDocs(q);
+        const fetchedNotifications = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        } as Notification));
+        setNotifications(fetchedNotifications);
+      } catch (error) {
+        console.error("Failed to fetch notifications:", error);
+      } finally {
+        setIsLoading(false);
+      }
+
+      // Mark as read by updating the user's last checked timestamp
+      if (user && hasUnread) {
+        await updateUserLastCheckedNotifications(user.uid);
+      }
+    }
+  };
+
   return (
-    <Button variant="ghost" size="icon" className="relative" asChild>
-      <Link href="/notifications">
-        <Bell className="h-5 w-5" />
-        {notificationCount > 0 && (
-          <span className="absolute top-1.5 right-1.5 flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-destructive"></span>
-          </span>
+    <DropdownMenu open={isOpen} onOpenChange={handleOpenChange}>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon" className="relative">
+            <Bell className="h-5 w-5" />
+            {hasUnread && (
+                <span className="absolute top-1.5 right-1.5 flex h-2.5 w-2.5">
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-destructive"></span>
+                </span>
+            )}
+            <span className="sr-only">Notifications</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-80" align="end">
+        <DropdownMenuLabel>Recent Notifications</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {isLoading ? (
+          <div className="flex justify-center items-center p-4">
+            <CircleNotch className="h-6 w-6 animate-spin text-muted-foreground" />
+          </div>
+        ) : notifications.length > 0 ? (
+          notifications.map((notif) => (
+            <DropdownMenuItem key={notif.id} className="flex flex-col items-start gap-1 whitespace-normal cursor-default">
+              <p className="font-semibold">{notif.title}</p>
+              <p className="text-sm text-muted-foreground">{notif.message}</p>
+              <p className="text-xs text-muted-foreground/80">
+                {formatDistanceToNow(notif.createdAt.toDate(), { addSuffix: true })}
+              </p>
+            </DropdownMenuItem>
+          ))
+        ) : (
+          <p className="p-4 text-center text-sm text-muted-foreground">No new notifications.</p>
         )}
-        <span className="sr-only">Notifications</span>
-      </Link>
-    </Button>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
