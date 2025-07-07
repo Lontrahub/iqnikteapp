@@ -97,7 +97,7 @@ export function BilingualTagCreateDialog({
               <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
                 Cancel
               </Button>
-              <Button type="submit">Save Tag</Button>
+              <Button type="button" onClick={form.handleSubmit(onSubmit)}>Save Tag</Button>
             </DialogFooter>
           </form>
         </Form>
