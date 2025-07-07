@@ -1,13 +1,14 @@
 
 import BlogForm from "../../blog-form";
-import { getBlogById, getAllPlantTitlesAndIds } from "@/lib/data";
+import { getBlogById, getAllPlantTitlesAndIds, getAllBlogTags } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { notFound } from "next/navigation";
 
 export default async function EditBlogPage({ params }: { params: { id: string } }) {
-    const [blogData, plants] = await Promise.all([
+    const [blogData, plants, tags] = await Promise.all([
         getBlogById(params.id),
-        getAllPlantTitlesAndIds()
+        getAllPlantTitlesAndIds(),
+        getAllBlogTags(),
     ]);
 
     if (!blogData) {
@@ -27,7 +28,7 @@ export default async function EditBlogPage({ params }: { params: { id: string } 
                     <CardDescription>Update the details for "{blog.title.en}" below.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <BlogForm blog={blog} plants={plants} />
+                    <BlogForm blog={blog} plants={plants} existingTags={tags} />
                 </CardContent>
             </Card>
         </div>

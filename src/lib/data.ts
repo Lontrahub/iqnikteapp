@@ -257,6 +257,24 @@ export async function getAllPlantTags(): Promise<string[]> {
     }
 }
 
+export async function getAllBlogTags(): Promise<string[]> {
+    try {
+        const blogsRef = collection(db, 'blogs');
+        const querySnapshot = await getDocs(blogsRef);
+        const tags = new Set<string>();
+        querySnapshot.docs.forEach(doc => {
+            const blog = doc.data() as Blog;
+            if (blog.tags) {
+                blog.tags.forEach(tag => tags.add(tag));
+            }
+        });
+        return Array.from(tags).sort();
+    } catch (error) {
+        console.error("Error fetching all blog tags:", error);
+        return [];
+    }
+}
+
 export async function createOrUpdatePlant(
     data: PlantData
 ): Promise<{ success: boolean; error?: string; plantId?: string }> {

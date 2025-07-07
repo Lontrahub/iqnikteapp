@@ -1,10 +1,13 @@
 
 import BlogForm from "../blog-form";
-import { getAllPlantTitlesAndIds } from "@/lib/data";
+import { getAllPlantTitlesAndIds, getAllBlogTags } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function NewBlogPage() {
-    const plants = await getAllPlantTitlesAndIds();
+    const [plants, tags] = await Promise.all([
+        getAllPlantTitlesAndIds(),
+        getAllBlogTags(),
+    ]);
 
     return (
         <div className="container mx-auto py-10 px-4">
@@ -14,7 +17,7 @@ export default async function NewBlogPage() {
                     <CardDescription>Fill out the form below to add a new article to the database.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <BlogForm plants={plants} />
+                    <BlogForm plants={plants} existingTags={tags} />
                 </CardContent>
             </Card>
         </div>

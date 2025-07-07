@@ -43,6 +43,7 @@ export interface Blog {
   isLocked: boolean;
   createdAt: Timestamp;
   relatedPlants?: string[];
+  tags?: string[];
 }
 
 export interface Banner {

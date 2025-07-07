@@ -39,6 +39,7 @@ const formSchema = z.object({
   imageUrl: z.string().url('Must be a valid URL').optional().or(z.literal('')),
   isLocked: z.boolean(),
   relatedPlants: z.array(z.string()).optional(),
+  tags: z.array(z.string()).optional(),
 });
 
 type BlogFormValues = z.infer<typeof formSchema>;
@@ -51,9 +52,10 @@ type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
 interface BlogFormProps {
   blog?: Blog;
   plants: { id: string; title: string }[];
+  existingTags: string[];
 }
 
-export default function BlogForm({ blog, plants }: BlogFormProps) {
+export default function BlogForm({ blog, plants, existingTags }: BlogFormProps) {
   const router = useRouter();
   const { toast } = useToast();
   const isEditMode = !!blog;
@@ -66,10 +68,11 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
       imageUrl: blog?.imageUrl || '',
       isLocked: blog?.isLocked || false,
       relatedPlants: blog?.relatedPlants || [],
+      tags: blog?.tags || [],
     },
   });
 
-  const { handleSubmit, control, formState } = form;
+  const { handleSubmit, control, formState, getValues, trigger, setValue } = form;
 
   const onSubmit = async (data: BlogFormValues) => {
     const result = await createOrUpdateBlog({
@@ -94,6 +97,7 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
   };
 
   const plantOptions = plants.map(p => ({ value: p.id, label: p.title }));
+  const tagOptions = existingTags.map(t => ({ value: t, label: t }));
 
   return (
     <Form {...form}>
@@ -137,7 +141,7 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Content (English)</FormLabel>
-                <RichTextEditor {...field} />
+                  <RichTextEditor {...field} />
                 <FormMessage />
               </FormItem>
             )}
@@ -148,7 +152,7 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Content (Spanish)</FormLabel>
-                <RichTextEditor {...field} />
+                  <RichTextEditor {...field} />
                 <FormMessage />
               </FormItem>
             )}
@@ -180,7 +184,8 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
         
         <div className="space-y-4">
           <h3 className="text-lg font-medium">Metadata</h3>
-          <FormField
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <FormField
               control={control}
               name="relatedPlants"
               render={({ field }) => (
@@ -197,7 +202,27 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
                       <FormMessage />
                    </FormItem>
               )}
-          />
+            />
+            <FormField
+              control={control}
+              name="tags"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tags</FormLabel>
+                  <FormControl>
+                    <MultiSelect
+                      creatable
+                      placeholder="Select or create tags..."
+                      options={tagOptions}
+                      selected={field.value || []}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
         
         <Separator />
