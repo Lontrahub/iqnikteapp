@@ -10,7 +10,6 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-  OAuthProvider,
 } from 'firebase/auth';
 import { CircleNotch } from 'phosphor-react';
 
@@ -29,21 +28,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 
-const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg role="img" viewBox="0 0 24 24" {...props}>
-    <path
-      fill="currentColor"
-      d="M12.48 10.92v3.28h7.84c-.24 1.84-.85 3.18-1.73 4.1-1.02 1.02-2.6 1.84-5.18 1.84-4.59 0-8.34-3.77-8.34-8.34s3.75-8.34 8.34-8.34c2.61 0 4.21 1.04 5.18 1.95l2.72-2.72C19.01 1.48 16.25 0 12.48 0 5.88 0 0 5.88 0 12.48s5.88 12.48 12.48 12.48c7.34 0 12.03-4.83 12.03-12.03 0-.78-.08-1.56-.21-2.31H12.48z"
-    />
-  </svg>
-);
-
-const AppleIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg role="img" viewBox="0 0 24 24" {...props}>
-        <path fill="currentColor" d="M12.072 10.461C10.966 10.461 10.02 9.535 10.02 8.429c0-1.103.946-2.03 2.052-2.03.18 0 .36.02.535.053.946-.677 1.637-1.803 1.8-3.136-1.528-.32-3.135.213-3.96.958-.878.78-1.527 1.987-1.527 3.239 0 1.987-1.294 3.292-3.21 3.292-1.803 0-3.32-.958-4.32-2.085C.967 9.875.56 12.28.56 14.846c0 5.908 4.012 8.59 7.74 8.59 1.422 0 2.768-.532 4.012-.532s2.59.532 4.012.532c3.728 0 7.74-2.683 7.74-8.59 0-2.25-1.11-4.446-2.92-5.461-1.86-1.02-3.728-.85-4.374.904-.645.959-.36 2.303.588 3.024a2.03 2.03 0 0 1-2.286 1.293zM12.072.043C11.912 0 11.555 0 11.251 0c-1.92 0-3.617 1.163-4.533 2.897C7.41 2.316 8.654.904 10.13.904c1.163 0 2.408.85 3.292 1.86.825-.958 1.92-1.807 3.238-1.807a.23.23 0 0 1 .157.053c-.053-.106-.105-.213-.157-.32-.825-1.346-2.536-2.25-4.533-2.63a.23.23 0 0 1-.105 0z" />
-    </svg>
-);
-
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email.' }),
   password: z.string().min(1, { message: 'Please enter your password.' }),
@@ -55,7 +39,7 @@ export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const [isProviderLoading, setIsProviderLoading] = useState<string | null>(null);
+  const [isProviderLoading, setIsProviderLoading] = useState(false);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -78,11 +62,9 @@ export default function LoginPage() {
     }
   };
 
-  const handleProviderLogin = async (providerName: 'google' | 'apple') => {
-    setIsProviderLoading(providerName);
-    const provider = providerName === 'google' 
-      ? new GoogleAuthProvider() 
-      : new OAuthProvider('apple.com');
+  const handleGoogleLogin = async () => {
+    setIsProviderLoading(true);
+    const provider = new GoogleAuthProvider();
       
     try {
       await signInWithPopup(auth, provider);
@@ -91,10 +73,10 @@ export default function LoginPage() {
       toast({
         variant: 'destructive',
         title: 'Sign-in Failed',
-        description: error.message || `Could not sign in with ${providerName}. Please try again.`,
+        description: error.message || `Could not sign in with Google. Please try again.`,
       });
     } finally {
-      setIsProviderLoading(null);
+      setIsProviderLoading(false);
     }
   };
 
@@ -127,7 +109,7 @@ export default function LoginPage() {
               <p className="text-sm text-destructive">{form.formState.errors.password.message}</p>
             )}
           </div>
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button type="submit" className="w-full" disabled={isLoading || isProviderLoading}>
             {isLoading && <CircleNotch className="mr-2 h-4 w-4 animate-spin" />}
             Sign In
           </Button>
@@ -142,16 +124,10 @@ export default function LoginPage() {
             </span>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-2">
-            <Button variant="outline" onClick={() => handleProviderLogin('google')} disabled={!!isProviderLoading}>
-                {isProviderLoading === 'google' ? <CircleNotch className="mr-2 h-4 w-4 animate-spin" /> : <GoogleIcon className="mr-2 h-4 w-4" />}
-                Google
-            </Button>
-            <Button variant="outline" onClick={() => handleProviderLogin('apple')} disabled={!!isProviderLoading}>
-                {isProviderLoading === 'apple' ? <CircleNotch className="mr-2 h-4 w-4 animate-spin" /> : <AppleIcon className="mr-2 h-4 w-4" />}
-                Apple
-            </Button>
-        </div>
+        <Button variant="outline" className="w-full" onClick={handleGoogleLogin} disabled={isProviderLoading || isLoading}>
+            {isProviderLoading && <CircleNotch className="mr-2 h-4 w-4 animate-spin" />}
+            Sign in with Google
+        </Button>
       </CardContent>
       <CardFooter className="text-sm">
         <p>
