@@ -37,12 +37,12 @@ export function NotificationBell() {
     const notificationsRef = collection(db, 'notifications');
     const q = query(
       notificationsRef,
+      where('userId', '==', 'all'),
       where('createdAt', '>', userProfile.lastCheckedNotifications)
     );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const hasUnreadBroadcasts = querySnapshot.docs.some(doc => doc.data().userId === 'all');
-        setHasUnread(hasUnreadBroadcasts);
+        setHasUnread(!querySnapshot.empty);
     }, (error) => {
         console.error("Error with notification snapshot:", error);
         setHasUnread(false);
@@ -60,17 +60,16 @@ export function NotificationBell() {
         const notificationsRef = collection(db, 'notifications');
         const q = query(
           notificationsRef,
+          where('userId', '==', 'all'),
           orderBy('createdAt', 'desc'),
-          limit(30) // Fetch more and filter in-app
+          limit(6)
         );
         const querySnapshot = await getDocs(q);
         const fetchedNotifications = querySnapshot.docs
             .map(doc => ({
                 id: doc.id,
                 ...doc.data()
-            } as Notification))
-            .filter(notif => notif.userId === 'all')
-            .slice(0, 6);
+            } as Notification));
             
         setNotifications(fetchedNotifications);
       } catch (error) {
@@ -80,8 +79,9 @@ export function NotificationBell() {
       }
 
       // Mark as read by updating the user's last checked timestamp
-      if (user && hasUnread) {
+      if (user) {
         await updateUserLastCheckedNotifications(user.uid);
+        setHasUnread(false);
       }
     }
   };
@@ -93,6 +93,7 @@ export function NotificationBell() {
             <Bell className="h-5 w-5" />
             {hasUnread && (
                 <span className="absolute top-1.5 right-1.5 flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-destructive"></span>
                 </span>
             )}
@@ -112,7 +113,7 @@ export function NotificationBell() {
               <p className="font-semibold">{notif.title}</p>
               <p className="text-sm text-muted-foreground">{notif.message}</p>
               <p className="text-xs text-muted-foreground/80">
-                {formatDistanceToNow(notif.createdAt.toDate(), { addSuffix: true })}
+                {notif.createdAt ? formatDistanceToNow(notif.createdAt.toDate(), { addSuffix: true }) : ''}
               </p>
             </DropdownMenuItem>
           ))
