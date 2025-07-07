@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect } from 'react';
@@ -10,9 +11,19 @@ export default function SplashScreen() {
   const router = useRouter();
 
   useEffect(() => {
+    // Check for language preference first.
+    const language = typeof window !== 'undefined' ? localStorage.getItem('app_language') : null;
+
+    if (!language) {
+      router.replace('/language-selection');
+      return;
+    }
+
+    // If language is set, proceed with auth check
     if (loading) {
       return;
     }
+    
     if (user) {
       router.replace('/home');
     } else {
