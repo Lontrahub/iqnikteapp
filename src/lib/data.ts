@@ -1,4 +1,3 @@
-
 'use server';
 
 import { collection, getDocs, getDoc, doc, query, orderBy, limit, where, documentId, getCountFromServer, deleteDoc, setDoc, Timestamp, addDoc } from 'firebase/firestore';
@@ -253,25 +252,6 @@ export async function getAllPlantTags(): Promise<string[]> {
         return Array.from(tags).sort();
     } catch (error) {
         console.error("Error fetching all plant tags:", error);
-        return [];
-    }
-}
-
-export async function getAllBlogTags(): Promise<string[]> {
-    try {
-        const blogsRef = collection(db, 'blogs');
-        const querySnapshot = await getDocs(blogsRef);
-        const tags = new Set<string>();
-        querySnapshot.docs.forEach(doc => {
-            const blog = doc.data() as Blog;
-            if (blog.tags) {
-                // This will need to be updated to handle bilingual tags if the model changes
-                blog.tags.forEach(tag => tags.add(tag.en));
-            }
-        });
-        return Array.from(tags).sort();
-    } catch (error) {
-        console.error("Error fetching all blog tags:", error);
         return [];
     }
 }

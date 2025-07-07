@@ -1,4 +1,4 @@
-import { getAllBlogs, getAllBlogTags } from '@/lib/data';
+import { getAllBlogs, getAllBlogTagsBilingual } from '@/lib/data';
 import BlogListClient from './blog-list-client';
 import type { Metadata } from 'next';
 
@@ -13,7 +13,7 @@ export default async function BlogsPage() {
         ...blog,
         createdAt: blog.createdAt.toDate().toISOString(),
     }));
-    const allTags = await getAllBlogTags();
+    const allTags = await getAllBlogTagsBilingual();
 
     return (
         <main className="flex-1">

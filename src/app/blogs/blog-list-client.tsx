@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { BlogCard } from '@/components/blog-card';
-import type { Blog as BlogWithTimestamp } from '@/lib/types';
+import type { Blog as BlogWithTimestamp, BilingualTag } from '@/lib/types';
 import { useLanguage } from '@/hooks/use-language';
 import { MagnifyingGlass, FadersHorizontal, X } from 'phosphor-react';
 import {
@@ -24,7 +24,7 @@ type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
 
 interface BlogListClientProps {
     blogs: Blog[];
-    tags: string[];
+    tags: BilingualTag[];
 }
 
 export default function BlogListClient({ blogs, tags }: BlogListClientProps) {
@@ -35,17 +35,29 @@ export default function BlogListClient({ blogs, tags }: BlogListClientProps) {
     const filteredBlogs = useMemo(() => {
         return blogs.filter(blog => {
             const title = blog.title?.[language] || blog.title?.en || '';
-            const matchesSearch = title.toLowerCase().includes(searchTerm.toLowerCase());
+            const content = blog.content?.[language] || blog.content?.en || '';
+            const searchLower = searchTerm.toLowerCase();
+
+            const matchesSearch = searchTerm === '' ||
+                title.toLowerCase().includes(searchLower) ||
+                content.toLowerCase().includes(searchLower) ||
+                (blog.tags || []).some(tag => 
+                    tag.en.toLowerCase().includes(searchLower) || 
+                    tag.es.toLowerCase().includes(searchLower)
+                );
             
-            const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => blog.tags?.includes(tag));
+            const matchesTags = selectedTags.length === 0 || 
+                selectedTags.every(selectedTagId => 
+                    blog.tags?.some(blogTag => blogTag.id === selectedTagId)
+                );
 
             return matchesSearch && matchesTags;
         });
     }, [blogs, searchTerm, selectedTags, language]);
 
-    const handleTagToggle = (tag: string) => {
+    const handleTagToggle = (tagId: string) => {
         setSelectedTags(prev => 
-            prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+            prev.includes(tagId) ? prev.filter(t => t !== tagId) : [...prev, tagId]
         );
     }
 
@@ -58,7 +70,7 @@ export default function BlogListClient({ blogs, tags }: BlogListClientProps) {
                 <div className="relative flex-1">
                     <MagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                     <Input 
-                        placeholder="Search for an article..."
+                        placeholder="Search articles by title, content, or tag..."
                         className="pl-10"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
@@ -76,11 +88,11 @@ export default function BlogListClient({ blogs, tags }: BlogListClientProps) {
                         <DropdownMenuSeparator />
                         {tags.map(tag => (
                              <DropdownMenuCheckboxItem
-                                key={tag}
-                                checked={selectedTags.includes(tag)}
-                                onCheckedChange={() => handleTagToggle(tag)}
+                                key={tag.id}
+                                checked={selectedTags.includes(tag.id)}
+                                onCheckedChange={() => handleTagToggle(tag.id)}
                              >
-                                {tag}
+                                {tag[language] || tag.en}
                              </DropdownMenuCheckboxItem>
                         ))}
                     </DropdownMenuContent>
@@ -90,14 +102,18 @@ export default function BlogListClient({ blogs, tags }: BlogListClientProps) {
             {selectedTags.length > 0 && (
                 <div className="mb-4 flex gap-2 items-center flex-wrap">
                     <span className="text-sm font-medium">Active Filters:</span>
-                    {selectedTags.map(tag => (
-                        <Badge key={tag} variant="secondary">
-                            {tag}
-                            <button onClick={() => handleTagToggle(tag)} className="ml-1 rounded-full hover:bg-background/50 p-0.5">
-                                <X className="h-3 w-3" />
-                            </button>
-                        </Badge>
-                    ))}
+                    {selectedTags.map(tagId => {
+                        const tag = tags.find(t => t.id === tagId);
+                        if (!tag) return null;
+                        return (
+                            <Badge key={tag.id} variant="secondary">
+                                {tag[language] || tag.en}
+                                <button onClick={() => handleTagToggle(tag.id)} className="ml-1 rounded-full hover:bg-background/50 p-0.5">
+                                    <X className="h-3 w-3" />
+                                </button>
+                            </Badge>
+                        );
+                    })}
                     <Button variant="ghost" size="sm" onClick={() => setSelectedTags([])} className="h-auto py-1 px-2">Clear all</Button>
                 </div>
             )}

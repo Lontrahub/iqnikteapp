@@ -8,6 +8,7 @@ import { useAuth } from '@/hooks/use-auth';
 import { useLanguage } from '@/hooks/use-language';
 import LockedContentPrompt from '@/components/locked-content-prompt';
 import { CircleNotch } from 'phosphor-react';
+import { Badge } from '@/components/ui/badge';
 
 // Client-safe types
 type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
@@ -61,6 +62,14 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
         </div>
         
         <h1 className="font-headline text-4xl md:text-5xl text-primary mt-6">{title}</h1>
+
+        {blog.tags && blog.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-4">
+                {blog.tags.map(tag => (
+                    <Badge key={tag.id} variant="secondary">{getBilingualText(tag)}</Badge>
+                ))}
+            </div>
+        )}
         
         <div 
           className="prose prose-lg max-w-none mt-8 text-foreground/90 font-body 
