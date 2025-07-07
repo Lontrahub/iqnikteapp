@@ -1,6 +1,6 @@
 'use server';
 
-import { collection, getDocs, getDoc, doc, query, orderBy, limit, where, documentId, getCountFromServer } from 'firebase/firestore';
+import { collection, getDocs, getDoc, doc, query, orderBy, limit, where, documentId, getCountFromServer, deleteDoc } from 'firebase/firestore';
 import { db } from './firebase';
 import type { Plant, Blog, Banner, UserProfile } from './types';
 
@@ -175,5 +175,27 @@ export async function getPlantsByIds(ids: string[]): Promise<Plant[]> {
     } catch (error) {
         console.error("Error fetching plants by IDs:", error);
         return [];
+    }
+}
+
+export async function deletePlant(id: string): Promise<{ success: boolean; error?: string }> {
+    try {
+        const plantDocRef = doc(db, 'plants', id);
+        await deleteDoc(plantDocRef);
+        return { success: true };
+    } catch (error: any) {
+        console.error(`Error deleting plant with ID ${id}:`, error);
+        return { success: false, error: error.message };
+    }
+}
+
+export async function deleteBlog(id: string): Promise<{ success: boolean; error?: string }> {
+    try {
+        const blogDocRef = doc(db, 'blogs', id);
+        await deleteDoc(blogDocRef);
+        return { success: true };
+    } catch (error: any) {
+        console.error(`Error deleting blog with ID ${id}:`, error);
+        return { success: false, error: error.message };
     }
 }

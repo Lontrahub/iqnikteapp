@@ -139,8 +139,12 @@ export default function AdminDashboardPage() {
             <section>
               <h2 className="text-xl font-semibold mb-4 text-primary/90">Quick Links</h2>
               <div className="flex flex-wrap gap-4">
-                <Button variant="outline" disabled>Manage Plants (soon)</Button>
-                <Button variant="outline" disabled>Manage Articles (soon)</Button>
+                <Button asChild variant="outline">
+                  <Link href="/admin/plants">Manage Plants</Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <Link href="/admin/blogs">Manage Articles</Link>
+                </Button>
                 <Button asChild variant="outline">
                     <Link href="/admin/users">Manage Users</Link>
                 </Button>
