@@ -1,4 +1,4 @@
-import { getAllBlogs } from '@/lib/data';
+import { getAllBlogs, getAllBlogTags } from '@/lib/data';
 import BlogListClient from './blog-list-client';
 import type { Metadata } from 'next';
 
@@ -13,11 +13,12 @@ export default async function BlogsPage() {
         ...blog,
         createdAt: blog.createdAt.toDate().toISOString(),
     }));
+    const allTags = await getAllBlogTags();
 
     return (
         <main className="flex-1">
             <div className="container mx-auto py-8 px-4">
-                <BlogListClient blogs={allBlogs} />
+                <BlogListClient blogs={allBlogs} tags={allTags} />
             </div>
         </main>
     )
