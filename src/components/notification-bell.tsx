@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { updateUserLastCheckedNotifications } from '@/lib/data';
 import type { Notification } from '@/lib/types';
+import { cn } from '@/lib/utils';
 
 
 export function NotificationBell() {
@@ -90,13 +91,7 @@ export function NotificationBell() {
     <DropdownMenu open={isOpen} onOpenChange={handleOpenChange}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="relative">
-            <Bell className="h-5 w-5" />
-            {hasUnread && (
-                <span className="absolute top-1.5 right-1.5 flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-destructive"></span>
-                </span>
-            )}
+            <Bell className={cn("h-5 w-5", hasUnread && "animate-jiggle")} />
             <span className="sr-only">Notifications</span>
         </Button>
       </DropdownMenuTrigger>
