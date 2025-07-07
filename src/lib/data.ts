@@ -1,8 +1,31 @@
 'use server';
 
-import { collection, getDocs, getDoc, doc, query, orderBy, limit, where, documentId } from 'firebase/firestore';
+import { collection, getDocs, getDoc, doc, query, orderBy, limit, where, documentId, getCountFromServer } from 'firebase/firestore';
 import { db } from './firebase';
 import type { Plant, Blog, Banner } from './types';
+
+export async function getAdminDashboardStats(): Promise<{ users: number; plants: number; blogs: number }> {
+    try {
+        const usersRef = collection(db, 'users');
+        const plantsRef = collection(db, 'plants');
+        const blogsRef = collection(db, 'blogs');
+
+        const [usersSnap, plantsSnap, blogsSnap] = await Promise.all([
+            getCountFromServer(usersRef),
+            getCountFromServer(plantsRef),
+            getCountFromServer(blogsRef)
+        ]);
+
+        return {
+            users: usersSnap.data().count,
+            plants: plantsSnap.data().count,
+            blogs: blogsSnap.data().count,
+        };
+    } catch (error) {
+        console.error("Error fetching admin dashboard stats:", error);
+        return { users: 0, plants: 0, blogs: 0 };
+    }
+}
 
 export async function getMainBanner(): Promise<Banner | null> {
     try {
