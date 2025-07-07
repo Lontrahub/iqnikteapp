@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function ProfilePage() {
   const { user, userProfile, loading } = useAuth();
@@ -69,6 +71,13 @@ export default function ProfilePage() {
                     <span className="text-foreground">{userProfile?.createdAt.toDate().toLocaleDateString()}</span>
                 </div>
             </div>
+            {userProfile?.role === 'admin' && (
+              <div className="mt-6">
+                <Button asChild>
+                  <Link href="/admin">Go to Admin Panel</Link>
+                </Button>
+              </div>
+            )}
         </CardContent>
       </Card>
     </div>

@@ -1,15 +1,34 @@
-import RecommendationClient from './recommendation-client';
+'use client';
 
-export default function Home() {
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/hooks/use-auth';
+import { Leaf, LoaderCircle } from 'lucide-react';
+
+export default function SplashScreen() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (loading) {
+      return;
+    }
+    if (user) {
+      router.replace('/home');
+    } else {
+      router.replace('/login');
+    }
+  }, [user, loading, router]);
+
   return (
-    <main className="flex flex-col items-center justify-center p-4 md:p-8 bg-gradient-to-b from-background to-secondary/30">
-        <div className="text-center my-12">
-            <h1 className="text-5xl md:text-7xl font-headline text-primary drop-shadow-sm">Mayan Medicine Guide</h1>
-            <p className="mt-4 text-lg md:text-xl text-foreground/80 max-w-3xl mx-auto font-body">
-                Rediscover ancient wisdom. Find traditional Mayan medicinal plants for your wellness needs.
-            </p>
-        </div>
-        <RecommendationClient />
-    </main>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-background">
+      <div className="flex items-center gap-4 mb-4">
+        <Leaf className="h-16 w-16 text-primary" />
+        <span className="font-headline text-5xl font-bold text-primary">
+          IQ Nikte'
+        </span>
+      </div>
+      <LoaderCircle className="h-8 w-8 animate-spin text-primary" />
+    </div>
   );
 }

@@ -66,7 +66,7 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      router.push('/profile');
+      router.replace('/home');
     } catch (error: any) {
       toast({
         variant: 'destructive',
@@ -86,7 +86,7 @@ export default function LoginPage() {
       
     try {
       await signInWithPopup(auth, provider);
-      router.push('/profile');
+      router.replace('/home');
     } catch (error: any) {
       toast({
         variant: 'destructive',

@@ -64,7 +64,7 @@ export default function RegisterPage() {
       };
       await setDoc(userRef, newUserProfile);
 
-      router.push('/profile');
+      router.replace('/home');
     } catch (error: any) {
       toast({
         variant: 'destructive',
