@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/accordion"
 import { Badge } from '@/components/ui/badge';
 import LockedContentPrompt from '@/components/locked-content-prompt';
-import { BookOpen, Sprout, HeartHand, Globe, LoaderCircle } from 'lucide-react';
+import { BookOpen, Sprout, HandHeart, Globe, LoaderCircle } from 'lucide-react';
 
 interface PlantDetailClientProps {
   plant: Plant;
@@ -97,7 +97,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 {uses && (
                      <AccordionItem value="uses">
                         <AccordionTrigger className="text-2xl font-headline hover:no-underline">
-                           <HeartHand className="mr-3 h-6 w-6 text-accent" /> Basic Uses
+                           <HandHeart className="mr-3 h-6 w-6 text-accent" /> Basic Uses
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-12">
                             <p>{uses}</p>
