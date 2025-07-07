@@ -12,9 +12,10 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import LockedContentPrompt from '@/components/locked-content-prompt';
-import { BookOpen, FirstAidKit, Globe, CircleNotch } from 'phosphor-react';
+import { BookOpen, FirstAidKit, Globe, CircleNotch, Flask, Heartbeat, Handshake, WarningCircle } from 'phosphor-react';
 
 // Client-safe types
 type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
@@ -40,10 +41,16 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
   };
 
   const name = getBilingualText(plant.name);
+  const family = getBilingualText(plant.family);
   const description = getBilingualText(plant.description);
   const properties = getBilingualText(plant.properties);
   const uses = getBilingualText(plant.uses);
   const culturalSignificance = getBilingualText(plant.culturalSignificance);
+  const preparationMethods = getBilingualText(plant.preparationMethods);
+  const dosage = getBilingualText(plant.dosage);
+  const precautions = getBilingualText(plant.precautions);
+  const ethicalHarvesting = getBilingualText(plant.ethicalHarvesting);
+
 
   if (loading) {
     return (
@@ -72,6 +79,11 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
         </div>
         
         <h1 className="font-headline text-4xl md:text-5xl text-primary mt-6">{name}</h1>
+        {(plant.scientificName || family) && (
+            <p className="text-lg text-muted-foreground mt-1">
+                <em>{plant.scientificName}</em> {family && `(${family})`}
+            </p>
+        )}
         
         {plant.tags && plant.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-4">
@@ -79,6 +91,16 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                     <Badge key={tag} variant="secondary">{tag}</Badge>
                 ))}
             </div>
+        )}
+
+        {precautions && (
+          <Alert variant="destructive" className="mt-8">
+            <WarningCircle className="h-5 w-5"/>
+            <AlertTitle className="font-headline text-xl">Precautions & Warnings</AlertTitle>
+            <AlertDescription>
+              {precautions}
+            </AlertDescription>
+          </Alert>
         )}
 
         <div className="mt-8">
@@ -113,6 +135,28 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                         </AccordionContent>
                     </AccordionItem>
                 )}
+                
+                {(preparationMethods || dosage) && (
+                    <AccordionItem value="preparation">
+                        <AccordionTrigger className="text-2xl font-headline hover:no-underline">
+                            <Flask className="mr-3 h-6 w-6 text-accent" /> Preparation & Dosage
+                        </AccordionTrigger>
+                        <AccordionContent className="text-base text-foreground/80 pl-12 space-y-4">
+                            {preparationMethods && (
+                                <div>
+                                    <h4 className="font-semibold text-lg mb-2">Preparation Methods</h4>
+                                    <div className="prose prose-sm dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: preparationMethods }} />
+                                </div>
+                            )}
+                             {dosage && (
+                                <div>
+                                    <h4 className="font-semibold text-lg mb-2 flex items-center gap-2"><Heartbeat /> Dosage</h4>
+                                    <p>{dosage}</p>
+                                </div>
+                            )}
+                        </AccordionContent>
+                    </AccordionItem>
+                )}
 
                 {culturalSignificance && (
                     <AccordionItem value="culturalSignificance">
@@ -121,6 +165,17 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-12">
                             <p>{culturalSignificance}</p>
+                        </AccordionContent>
+                    </AccordionItem>
+                )}
+
+                 {ethicalHarvesting && (
+                    <AccordionItem value="harvesting">
+                        <AccordionTrigger className="text-2xl font-headline hover:no-underline">
+                           <Handshake className="mr-3 h-6 w-6 text-accent" /> Ethical Harvesting
+                        </AccordionTrigger>
+                        <AccordionContent className="text-base text-foreground/80 pl-12">
+                            <p>{ethicalHarvesting}</p>
                         </AccordionContent>
                     </AccordionItem>
                 )}

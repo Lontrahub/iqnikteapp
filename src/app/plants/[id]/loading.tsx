@@ -9,9 +9,13 @@ export default function PlantDetailLoading() {
                 {/* Image */}
                 <Skeleton className="w-full h-64 md:h-96 rounded-lg" />
                 
-                {/* Title */}
+                {/* Title and Subtitle */}
                 <Skeleton className="h-10 w-2/3 mt-6" />
                 <Skeleton className="h-5 w-1/3 mt-2" />
+                <Skeleton className="h-5 w-1/2 mt-4" />
+
+                {/* Precautions Box */}
+                <Skeleton className="h-24 w-full mt-8" />
 
                 <div className="mt-8">
                     <Accordion type="single" collapsible defaultValue="item-1">
@@ -29,7 +33,7 @@ export default function PlantDetailLoading() {
                             <AccordionTrigger><Skeleton className="h-7 w-40" /></AccordionTrigger>
                         </AccordionItem>
                         <AccordionItem value="item-3">
-                            <AccordionTrigger><Skeleton className="h-7 w-32" /></AccordionTrigger>
+                            <AccordionTrigger><Skeleton className="h-7 w-56" /></AccordionTrigger>
                         </AccordionItem>
                         <AccordionItem value="item-4">
                             <AccordionTrigger><Skeleton className="h-7 w-52" /></AccordionTrigger>
