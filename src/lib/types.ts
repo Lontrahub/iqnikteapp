@@ -24,6 +24,7 @@ export interface Plant {
   isLocked: boolean;
   createdAt: Timestamp;
   tags?: string[];
+  relatedBlogs?: string[];
 }
 
 export interface Blog {
