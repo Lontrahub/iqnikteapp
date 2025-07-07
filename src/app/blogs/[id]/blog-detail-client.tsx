@@ -65,8 +65,8 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
 
         {blog.tags && blog.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-4">
-                {blog.tags.map(tag => (
-                    <Badge key={tag.id} variant="secondary">{getBilingualText(tag)}</Badge>
+                {blog.tags.map((tag, index) => (
+                    <Badge key={`${tag.id}-${index}`} variant="secondary">{getBilingualText(tag)}</Badge>
                 ))}
             </div>
         )}
