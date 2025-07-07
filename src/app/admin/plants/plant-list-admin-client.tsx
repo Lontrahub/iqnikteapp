@@ -1,6 +1,8 @@
+
 'use client';
 
 import { useState, useTransition } from 'react';
+import Link from 'next/link';
 import type { Plant } from '@/lib/types';
 import { useLanguage } from '@/hooks/use-language';
 import { useToast } from '@/hooks/use-toast';
@@ -60,9 +62,11 @@ export default function PlantListAdminClient({ plants: initialPlants }: { plants
   return (
     <>
       <div className="flex justify-end mb-4">
-        <Button disabled>
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Create New Plant (soon)
+        <Button asChild>
+          <Link href="/admin/plants/new">
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Create New Plant
+          </Link>
         </Button>
       </div>
       <div className="border rounded-md">
@@ -81,9 +85,11 @@ export default function PlantListAdminClient({ plants: initialPlants }: { plants
                   <TableCell className="font-medium">{plant.name[language] || plant.name.en}</TableCell>
                   <TableCell>{plant.createdAt.toDate().toLocaleDateString()}</TableCell>
                   <TableCell className="text-right space-x-2">
-                    <Button variant="ghost" size="icon" disabled>
-                      <Edit className="h-4 w-4" />
-                      <span className="sr-only">Edit</span>
+                    <Button variant="ghost" size="icon" asChild>
+                      <Link href={`/admin/plants/edit/${plant.id}`}>
+                        <Edit className="h-4 w-4" />
+                        <span className="sr-only">Edit</span>
+                      </Link>
                     </Button>
                     <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive" onClick={() => setPlantToDelete(plant)}>
                       <Trash2 className="h-4 w-4" />
