@@ -320,3 +320,17 @@ export async function createOrUpdateBlog(
         return { success: false, error: error.message };
     }
 }
+
+export async function updateGlobalSettings(settings: Banner): Promise<{ success: boolean; error?: string }> {
+    try {
+        const bannerDocRef = doc(db, 'appConfig', 'mainBanner');
+        await setDoc(bannerDocRef, {
+            ...settings,
+            updatedAt: Timestamp.now()
+        }, { merge: true });
+        return { success: true };
+    } catch (error: any) {
+        console.error("Error updating global settings:", error);
+        return { success: false, error: error.message };
+    }
+}
