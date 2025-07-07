@@ -189,8 +189,36 @@ export default function PlantForm({ plant, blogs, existingTags }: PlantFormProps
             <h3 className="text-lg font-medium">Usage &amp; Safety Information</h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                <FormField control={control} name="preparationMethods.en" render={({ field }) => ( <FormItem> <FormLabel>Detailed Preparation Methods (English)</FormLabel> <FormControl><div><RichTextEditor ref={field.ref} value={field.value} onChange={field.onChange} /></div></FormControl> <FormMessage /> </FormItem>)} />
-                <FormField control={control} name="preparationMethods.es" render={({ field }) => ( <FormItem> <FormLabel>Detailed Preparation Methods (Spanish)</FormLabel> <FormControl><div><RichTextEditor ref={field.ref} value={field.value} onChange={field.onChange} /></div></FormControl> <FormMessage /> </FormItem>)} />
+                <FormField
+                  control={control}
+                  name="preparationMethods.en"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Detailed Preparation Methods (English)</FormLabel>
+                      <RichTextEditor
+                        ref={field.ref}
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={control}
+                  name="preparationMethods.es"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Detailed Preparation Methods (Spanish)</FormLabel>
+                      <RichTextEditor
+                        ref={field.ref}
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField control={control} name="dosage.en" render={({ field }) => ( <FormItem> <FormLabel>Dosage Guidelines (English)</FormLabel> <FormControl><Textarea {...field} /></FormControl> <FormMessage /> </FormItem>)} />
                 <FormField control={control} name="dosage.es" render={({ field }) => ( <FormItem> <FormLabel>Dosage Guidelines (Spanish)</FormLabel> <FormControl><Textarea {...field} /></FormControl> <FormMessage /> </FormItem>)} />
             </div>

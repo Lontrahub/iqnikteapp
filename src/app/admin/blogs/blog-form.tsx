@@ -132,15 +132,11 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Content (English)</FormLabel>
-                <FormControl>
-                  <div>
-                    <RichTextEditor
-                      ref={field.ref}
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
-                  </div>
-                </FormControl>
+                <RichTextEditor
+                  ref={field.ref}
+                  value={field.value}
+                  onChange={field.onChange}
+                />
                 <FormMessage />
               </FormItem>
             )}
@@ -151,15 +147,11 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Content (Spanish)</FormLabel>
-                <FormControl>
-                  <div>
-                    <RichTextEditor
-                      ref={field.ref}
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
-                  </div>
-                </FormControl>
+                <RichTextEditor
+                  ref={field.ref}
+                  value={field.value}
+                  onChange={field.onChange}
+                />
                 <FormMessage />
               </FormItem>
             )}
