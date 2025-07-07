@@ -8,36 +8,34 @@ import { useAuth } from '@/hooks/use-auth';
 import { db } from '@/lib/firebase';
 
 export function NotificationBell() {
-  const { user } = useAuth();
+  const { user, userProfile } = useAuth();
   const [notificationCount, setNotificationCount] = useState(0);
 
   useEffect(() => {
-    if (!user) {
+    // We need both the user and their profile with the timestamp to proceed.
+    if (!user || !userProfile?.lastCheckedNotifications) {
       setNotificationCount(0);
       return;
     }
 
-    try {
-        // This query currently looks for user-specific notifications which are not yet implemented.
-        // The bell count will remain at 0 for broadcast messages.
-        const notificationsRef = collection(db, 'notifications');
-        const q = query(
-        notificationsRef,
-        where('userId', '==', user.uid),
-        where('read', '==', false)
-        );
+    const notificationsRef = collection(db, 'notifications');
+    
+    // Query for broadcast notifications created after the user last checked.
+    const q = query(
+      notificationsRef,
+      where('userId', '==', 'all'),
+      where('createdAt', '>', userProfile.lastCheckedNotifications)
+    );
 
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        setNotificationCount(querySnapshot.size);
-        }, (error) => {
-            console.error("Error with notification snapshot:", error);
-        });
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      setNotificationCount(querySnapshot.size);
+    }, (error) => {
+        console.error("Error with notification snapshot:", error);
+        setNotificationCount(0);
+    });
 
-        return () => unsubscribe();
-    } catch(error) {
-        console.error("Error setting up notification listener:", error);
-    }
-  }, [user]);
+    return () => unsubscribe();
+  }, [user, userProfile]);
 
   return (
     <div className="relative inline-flex items-center justify-center h-8 w-8 rounded-full hover:bg-accent/50 transition-colors" role="button">

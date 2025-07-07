@@ -41,6 +41,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             displayName: authUser.displayName,
             role: 'user',
             createdAt: Timestamp.now(),
+            lastCheckedNotifications: Timestamp.now(),
           };
           await setDoc(userRef, newUserProfile);
           setUserProfile(newUserProfile);

@@ -1,8 +1,12 @@
 
 'use client';
 
+import { useEffect } from 'react';
 import type { Notification as NotificationWithTimestamp } from '@/lib/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useAuth } from '@/hooks/use-auth';
+import { updateUserLastCheckedNotifications } from '@/lib/data';
+
 
 // Client-safe type
 type Notification = Omit<NotificationWithTimestamp, 'createdAt'> & {
@@ -14,6 +18,14 @@ interface NotificationListClientProps {
 }
 
 export default function NotificationListClient({ notifications }: NotificationListClientProps) {
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      updateUserLastCheckedNotifications(user.uid);
+    }
+  }, [user]);
+
   return (
     <div className="space-y-4">
       {notifications.length > 0 ? (

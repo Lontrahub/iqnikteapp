@@ -364,3 +364,16 @@ export async function getNotifications(): Promise<Notification[]> {
         return [];
     }
 }
+
+export async function updateUserLastCheckedNotifications(userId: string): Promise<{ success: boolean; error?: string }> {
+    try {
+        const userRef = doc(db, 'users', userId);
+        await setDoc(userRef, {
+            lastCheckedNotifications: Timestamp.now()
+        }, { merge: true });
+        return { success: true };
+    } catch (error: any) {
+        console.error("Error updating last checked notifications:", error);
+        return { success: false, error: error.message };
+    }
+}

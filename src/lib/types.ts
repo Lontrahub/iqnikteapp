@@ -6,6 +6,7 @@ export interface UserProfile {
   displayName: string | null;
   role: 'user' | 'admin';
   createdAt: Timestamp;
+  lastCheckedNotifications?: Timestamp;
 }
 
 export type BilingualString = {
