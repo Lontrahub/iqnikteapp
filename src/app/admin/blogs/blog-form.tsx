@@ -136,7 +136,6 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
                   <RichTextEditor
                     value={field.value}
                     onChange={field.onChange}
-                    ref={field.ref}
                   />
                 </FormControl>
                 <FormMessage />
@@ -153,7 +152,6 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
                   <RichTextEditor
                     value={field.value}
                     onChange={field.onChange}
-                    ref={field.ref}
                   />
                 </FormControl>
                 <FormMessage />
