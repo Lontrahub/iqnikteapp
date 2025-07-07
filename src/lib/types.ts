@@ -7,3 +7,24 @@ export interface UserProfile {
   role: 'user' | 'admin';
   createdAt: Timestamp;
 }
+
+export interface Plant {
+  id: string;
+  name: string;
+  imageUrl: string;
+  isLocked: boolean;
+  createdAt: Timestamp;
+}
+
+export interface Blog {
+  id: string;
+  title: string;
+  imageUrl: string;
+  isLocked: boolean;
+  createdAt: Timestamp;
+}
+
+export interface Banner {
+  imageUrl: string;
+  enabled: boolean;
+}

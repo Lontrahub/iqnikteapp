@@ -6,6 +6,7 @@ import { useAuth } from '@/hooks/use-auth';
 import { UserNav } from './user-nav';
 import { Button } from './ui/button';
 import { Skeleton } from './ui/skeleton';
+import { NotificationBell } from './notification-bell';
 
 export default function Header() {
   const { user, loading } = useAuth();
@@ -23,7 +24,10 @@ export default function Header() {
           {loading ? (
             <Skeleton className="h-8 w-20" />
           ) : user ? (
-            <UserNav />
+            <>
+              <NotificationBell />
+              <UserNav />
+            </>
           ) : (
             <>
               <Button asChild variant="ghost">
