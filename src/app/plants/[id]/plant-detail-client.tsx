@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/accordion"
 import { Badge } from '@/components/ui/badge';
 import LockedContentPrompt from '@/components/locked-content-prompt';
-import { BookOpen, Sprout, HandHeart, Globe, LoaderCircle } from 'lucide-react';
+import { BookOpen, Plant, FirstAidKit, Globe, CircleNotch } from 'phosphor-react';
 
 // Client-safe types
 type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
@@ -48,7 +48,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
   if (loading) {
     return (
         <div className="flex flex-col justify-center items-center min-h-[50vh]">
-            <LoaderCircle className="h-8 w-8 animate-spin text-primary" />
+            <CircleNotch className="h-8 w-8 animate-spin text-primary" />
             <p className="mt-2 text-muted-foreground">Checking access...</p>
         </div>
     );
@@ -95,7 +95,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 {properties && (
                     <AccordionItem value="properties">
                         <AccordionTrigger className="text-2xl font-headline hover:no-underline">
-                           <Sprout className="mr-3 h-6 w-6 text-accent" /> Key Properties
+                           <Plant className="mr-3 h-6 w-6 text-accent" /> Key Properties
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-12">
                            <p>{properties}</p>
@@ -106,7 +106,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 {uses && (
                      <AccordionItem value="uses">
                         <AccordionTrigger className="text-2xl font-headline hover:no-underline">
-                           <HandHeart className="mr-3 h-6 w-6 text-accent" /> Basic Uses
+                           <FirstAidKit className="mr-3 h-6 w-6 text-accent" /> Basic Uses
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-12">
                             <p>{uses}</p>

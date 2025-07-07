@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
-import { Lock } from 'lucide-react';
+import { Lock } from 'phosphor-react';
 import type { Blog as BlogWithTimestamp } from '@/lib/types';
 import { useLanguage } from '@/hooks/use-language';
 

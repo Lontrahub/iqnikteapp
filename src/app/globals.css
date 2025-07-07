@@ -4,19 +4,19 @@
 
 @layer base {
   :root {
-    --background: 43 23% 83%; /* New Beige (#DCD7C9) */
+    --background: 43 23% 83%;
     --foreground: 20 14.3% 4.1%;
-    --card: 43 23% 88%; /* Lighter version of new background */
+    --card: 43 23% 88%;
     --card-foreground: 20 14.3% 4.1%;
     --popover: 43 23% 88%;
     --popover-foreground: 20 14.3% 4.1%;
-    --primary: 135 22% 33%; /* New Deep Green (#41644A) */
+    --primary: 135 22% 33%;
     --primary-foreground: 60 93.3% 97.1%;
-    --secondary: 43 20% 78%; /* Derived from new background */
+    --secondary: 43 20% 78%;
     --secondary-foreground: 135 22% 33%;
     --muted: 43 20% 78%;
     --muted-foreground: 25 5.3% 44.7%;
-    --accent: 25 74% 31%; /* Earthy Brown (#8B4513) - kept for contrast */
+    --accent: 25 74% 31%;
     --accent-foreground: 60 93.3% 97.1%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 60 93.3% 97.1%;

@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { Leaf, Bot, LoaderCircle } from 'lucide-react';
+import { Leaf, Robot, CircleNotch } from 'phosphor-react';
 import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
@@ -63,7 +63,7 @@ export default function RecommendationClient() {
       <Card className="border-primary/20 shadow-lg">
         <CardHeader>
           <div className="flex items-center gap-3">
-            <Bot className="w-8 h-8 text-primary" />
+            <Robot className="w-8 h-8 text-primary" />
             <div className="flex-1">
               <CardTitle className="font-headline text-2xl">AI Plant Recommendation</CardTitle>
               <CardDescription className="font-body">Describe your symptoms and our AI will suggest traditional Mayan plants that may help.</CardDescription>
@@ -94,7 +94,7 @@ export default function RecommendationClient() {
               <Button type="submit" disabled={isLoading} className="w-full">
                 {isLoading ? (
                   <>
-                    <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+                    <CircleNotch className="mr-2 h-4 w-4 animate-spin" />
                     Getting Recommendations...
                   </>
                 ) : (

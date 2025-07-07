@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
-import { LoaderCircle } from 'lucide-react';
+import { CircleNotch } from 'phosphor-react';
 
 export default function AdminRootPage() {
   const { user, userProfile, loading } = useAuth();
@@ -27,7 +27,7 @@ export default function AdminRootPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <LoaderCircle className="h-8 w-8 animate-spin text-primary" />
+      <CircleNotch className="h-8 w-8 animate-spin text-primary" />
       <p className="mt-2 text-muted-foreground">Verifying access...</p>
     </div>
   );

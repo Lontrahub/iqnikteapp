@@ -11,8 +11,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Urbanist', 'sans-serif'],
-        headline: ['DM Serif Text', 'serif'],
-        code: ['monospace'],
+        headline: ['"DM Serif Text"', 'serif'],
       },
       colors: {
         background: 'hsl(var(--background))',

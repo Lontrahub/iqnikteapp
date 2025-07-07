@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useRouter } from 'next/navigation';
@@ -13,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
-import { LoaderCircle } from 'lucide-react';
+import { CircleNotch } from 'phosphor-react';
 import ImageUploader from '@/components/image-uploader';
 import { MultiSelect } from '@/components/ui/multi-select';
 import { RichTextEditor } from '@/components/rich-text-editor';
@@ -239,7 +238,7 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
             Cancel
           </Button>
           <Button type="submit" disabled={formState.isSubmitting}>
-            {formState.isSubmitting && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
+            {formState.isSubmitting && <CircleNotch className="mr-2 h-4 w-4 animate-spin" />}
             {isEditMode ? 'Update' : 'Create'} Article
           </Button>
         </div>

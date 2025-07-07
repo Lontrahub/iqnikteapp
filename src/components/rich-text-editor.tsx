@@ -1,8 +1,7 @@
-
 'use client';
 
 import React from 'react';
-import { Bold, Heading1, Pilcrow } from 'lucide-react';
+import { TextB, TextHOne, Paragraph } from 'phosphor-react';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 interface RichTextEditorProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
@@ -37,13 +36,13 @@ const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorProps>(
         <div className="p-1 border-b">
           <ToggleGroup type="multiple" size="sm">
             <ToggleGroupItem value="bold" aria-label="Toggle bold" onMouseDown={(e) => { e.preventDefault(); handleCommand('bold'); }}>
-              <Bold className="h-4 w-4" />
+              <TextB className="h-4 w-4" />
             </ToggleGroupItem>
             <ToggleGroupItem value="h1" aria-label="Toggle H1" onMouseDown={(e) => { e.preventDefault(); handleCommand('formatBlock', '<h1>'); }}>
-              <Heading1 className="h-4 w-4" />
+              <TextHOne className="h-4 w-4" />
             </ToggleGroupItem>
             <ToggleGroupItem value="p" aria-label="Toggle Paragraph" onMouseDown={(e) => { e.preventDefault(); handleCommand('formatBlock', '<p>'); }}>
-              <Pilcrow className="h-4 w-4" />
+              <Paragraph className="h-4 w-4" />
             </ToggleGroupItem>
           </ToggleGroup>
         </div>

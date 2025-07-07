@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import { LoaderCircle } from 'lucide-react';
+import { CircleNotch } from 'phosphor-react';
 
 import { auth, db } from '@/lib/firebase';
 import { useToast } from '@/hooks/use-toast';
@@ -97,7 +97,7 @@ export default function AdminLoginPage() {
             )}
           </div>
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
+            {isLoading && <CircleNotch className="mr-2 h-4 w-4 animate-spin" />}
             Sign In
           </Button>
         </form>

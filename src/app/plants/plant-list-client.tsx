@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { PlantCard } from '@/components/plant-card';
 import type { Plant as PlantWithTimestamp } from '@/lib/types';
 import { useLanguage } from '@/hooks/use-language';
-import { Search, SlidersHorizontal, X } from 'lucide-react';
+import { MagnifyingGlass, FadersHorizontal, X } from 'phosphor-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -56,7 +56,7 @@ export default function PlantListClient({ plants, tags }: PlantListClientProps) 
             
             <div className="flex flex-col md:flex-row gap-4 mb-8">
                 <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                    <MagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                     <Input 
                         placeholder="Search for a plant..."
                         className="pl-10"
@@ -67,7 +67,7 @@ export default function PlantListClient({ plants, tags }: PlantListClientProps) 
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline">
-                            <SlidersHorizontal className="mr-2 h-4 w-4" />
+                            <FadersHorizontal className="mr-2 h-4 w-4" />
                             Filter by Tag ({selectedTags.length})
                         </Button>
                     </DropdownMenuTrigger>

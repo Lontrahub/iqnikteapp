@@ -7,7 +7,7 @@ import type { Blog as BlogWithTimestamp, Plant as PlantWithTimestamp, BilingualS
 import { useAuth } from '@/hooks/use-auth';
 import { useLanguage } from '@/hooks/use-language';
 import LockedContentPrompt from '@/components/locked-content-prompt';
-import { LoaderCircle, Leaf } from 'lucide-react';
+import { CircleNotch, Leaf } from 'phosphor-react';
 
 // Client-safe types
 type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
@@ -37,7 +37,7 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
   if (loading) {
     return (
         <div className="flex flex-col justify-center items-center min-h-[50vh]">
-            <LoaderCircle className="h-8 w-8 animate-spin text-primary" />
+            <CircleNotch className="h-8 w-8 animate-spin text-primary" />
             <p className="mt-2 text-muted-foreground">Checking access...</p>
         </div>
     );

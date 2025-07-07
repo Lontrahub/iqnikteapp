@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -9,7 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { Upload, XCircle, Image as ImageIcon } from 'lucide-react';
+import { UploadSimple, XCircle, Image as ImageIcon } from 'phosphor-react';
 
 interface ImageUploaderProps {
   initialImageUrl?: string | null;
@@ -104,7 +103,7 @@ export default function ImageUploader({ initialImageUrl, onUploadComplete }: Ima
       <div className="flex flex-col sm:flex-row gap-4">
         <Input type="file" accept="image/*" onChange={handleFileChange} className="flex-grow" disabled={uploading}/>
         <Button type="button" onClick={handleUpload} disabled={!imageFile || uploading}>
-          <Upload className="mr-2 h-4 w-4" />
+          <UploadSimple className="mr-2 h-4 w-4" />
           {uploading ? 'Uploading...' : 'Upload Image'}
         </Button>
       </div>

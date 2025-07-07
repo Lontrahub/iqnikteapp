@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
-import { LoaderCircle } from 'lucide-react';
+import { CircleNotch } from 'phosphor-react';
 import {
   Form,
   FormControl,
@@ -111,7 +111,7 @@ export default function NotificationClient({ initialNotifications }: Notificatio
                 )}
                 />
                 <Button type="submit" disabled={formState.isSubmitting}>
-                    {formState.isSubmitting && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
+                    {formState.isSubmitting && <CircleNotch className="mr-2 h-4 w-4 animate-spin" />}
                     Send Notification
                 </Button>
             </form>

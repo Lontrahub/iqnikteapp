@@ -12,7 +12,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { ArrowUpDown, Search } from 'lucide-react';
+import { ArrowsVertical, MagnifyingGlass } from 'phosphor-react';
 
 // Define a client-safe version of the UserProfile type
 type UserProfile = Omit<UserProfileWithTimestamp, 'createdAt'> & {
@@ -72,7 +72,7 @@ export default function UserListClient({ users }: { users: UserProfile[] }) {
 
   const getSortIcon = (key: SortKey) => {
     if (sortConfig.key !== key) {
-        return <ArrowUpDown className="ml-2 h-4 w-4 opacity-50" />;
+        return <ArrowsVertical className="ml-2 h-4 w-4 opacity-50" />;
     }
     return sortConfig.direction === 'asc' ? '▲' : '▼';
   };
@@ -81,7 +81,7 @@ export default function UserListClient({ users }: { users: UserProfile[] }) {
     <div>
       <div className="flex justify-between items-center mb-4">
         <div className="relative flex-1 max-w-sm">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <MagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input
                 placeholder="Search by name or email..."
                 className="pl-10"

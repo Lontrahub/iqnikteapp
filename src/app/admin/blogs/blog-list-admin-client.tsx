@@ -26,7 +26,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { PlusCircle, Trash2, Edit } from 'lucide-react';
+import { PlusCircle, Trash, PencilSimple } from 'phosphor-react';
 
 // Define a client-safe version of the Blog type
 type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
@@ -92,12 +92,12 @@ export default function BlogListAdminClient({ blogs: initialBlogs }: { blogs: Bl
                   <TableCell className="text-right space-x-2">
                     <Button variant="ghost" size="icon" asChild>
                       <Link href={`/admin/blogs/edit/${blog.id}`}>
-                        <Edit className="h-4 w-4" />
+                        <PencilSimple className="h-4 w-4" />
                         <span className="sr-only">Edit</span>
                       </Link>
                     </Button>
                     <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive" onClick={() => setBlogToDelete(blog)}>
-                      <Trash2 className="h-4 w-4" />
+                      <Trash className="h-4 w-4" />
                        <span className="sr-only">Delete</span>
                     </Button>
                   </TableCell>

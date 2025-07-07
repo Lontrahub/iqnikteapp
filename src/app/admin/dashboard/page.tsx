@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Leaf, Users, FileText, Settings, Bell } from 'lucide-react';
+import { Leaf, Users, FileText, Gear, Bell } from 'phosphor-react';
 
 import { useAuth } from '@/hooks/use-auth';
 import { getAdminDashboardStats } from '@/lib/data';
@@ -152,7 +152,7 @@ export default function AdminDashboardPage() {
                     <Link href="/admin/notifications"><Bell className="mr-2 h-4 w-4" />Manage Notifications</Link>
                 </Button>
                  <Button asChild variant="outline">
-                    <Link href="/admin/settings"><Settings className="mr-2 h-4 w-4" />Global Settings</Link>
+                    <Link href="/admin/settings"><Gear className="mr-2 h-4 w-4" />Global Settings</Link>
                 </Button>
                 <Button asChild>
                     <Link href="/home">Go to Home</Link>

@@ -12,7 +12,7 @@ import {
   GoogleAuthProvider,
   OAuthProvider,
 } from 'firebase/auth';
-import { LoaderCircle } from 'lucide-react';
+import { CircleNotch } from 'phosphor-react';
 
 import { auth } from '@/lib/firebase';
 import { useToast } from '@/hooks/use-toast';
@@ -128,7 +128,7 @@ export default function LoginPage() {
             )}
           </div>
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
+            {isLoading && <CircleNotch className="mr-2 h-4 w-4 animate-spin" />}
             Sign In
           </Button>
         </form>
@@ -144,11 +144,11 @@ export default function LoginPage() {
         </div>
         <div className="grid grid-cols-2 gap-2">
             <Button variant="outline" onClick={() => handleProviderLogin('google')} disabled={!!isProviderLoading}>
-                {isProviderLoading === 'google' ? <LoaderCircle className="mr-2 h-4 w-4 animate-spin" /> : <GoogleIcon className="mr-2 h-4 w-4" />}
+                {isProviderLoading === 'google' ? <CircleNotch className="mr-2 h-4 w-4 animate-spin" /> : <GoogleIcon className="mr-2 h-4 w-4" />}
                 Google
             </Button>
             <Button variant="outline" onClick={() => handleProviderLogin('apple')} disabled={!!isProviderLoading}>
-                {isProviderLoading === 'apple' ? <LoaderCircle className="mr-2 h-4 w-4 animate-spin" /> : <AppleIcon className="mr-2 h-4 w-4" />}
+                {isProviderLoading === 'apple' ? <CircleNotch className="mr-2 h-4 w-4 animate-spin" /> : <AppleIcon className="mr-2 h-4 w-4" />}
                 Apple
             </Button>
         </div>

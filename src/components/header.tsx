@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Leaf } from 'lucide-react';
+import { Leaf } from 'phosphor-react';
 import { useAuth } from '@/hooks/use-auth';
 import { UserNav } from './user-nav';
 import { Button } from './ui/button';

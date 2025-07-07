@@ -1,10 +1,9 @@
-
 'use client';
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
-import { Leaf, LoaderCircle } from 'lucide-react';
+import { Leaf, CircleNotch } from 'phosphor-react';
 
 export default function SplashScreen() {
   const { user, loading } = useAuth();
@@ -39,7 +38,7 @@ export default function SplashScreen() {
           IQ Nikte'
         </span>
       </div>
-      <LoaderCircle className="h-8 w-8 animate-spin text-primary" />
+      <CircleNotch className="h-8 w-8 animate-spin text-primary" />
     </div>
   );
 }

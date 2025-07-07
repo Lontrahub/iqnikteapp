@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useRouter } from 'next/navigation';
@@ -15,7 +14,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
-import { LoaderCircle } from 'lucide-react';
+import { CircleNotch } from 'phosphor-react';
 import ImageUploader from '@/components/image-uploader';
 import { MultiSelect } from '@/components/ui/multi-select';
 
@@ -246,7 +245,7 @@ export default function PlantForm({ plant, blogs, existingTags }: PlantFormProps
           Cancel
         </Button>
         <Button type="submit" disabled={formState.isSubmitting}>
-          {formState.isSubmitting && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
+          {formState.isSubmitting && <CircleNotch className="mr-2 h-4 w-4 animate-spin" />}
           {isEditMode ? 'Update' : 'Create'} Plant
         </Button>
       </div>
