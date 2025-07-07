@@ -35,7 +35,9 @@ export default function Header() {
             <Skeleton className="h-8 w-20" />
           ) : user ? (
             <>
-              <NotificationBell />
+              <Link href="/notifications" aria-label="View notifications">
+                <NotificationBell />
+              </Link>
               <UserNav />
             </>
           ) : (

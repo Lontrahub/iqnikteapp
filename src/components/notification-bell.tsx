@@ -6,7 +6,6 @@ import { collection, query, where, onSnapshot } from 'firebase/firestore';
 
 import { useAuth } from '@/hooks/use-auth';
 import { db } from '@/lib/firebase';
-import { Button } from '@/components/ui/button';
 
 export function NotificationBell() {
   const { user } = useAuth();
@@ -19,6 +18,8 @@ export function NotificationBell() {
     }
 
     try {
+        // This query currently looks for user-specific notifications which are not yet implemented.
+        // The bell count will remain at 0 for broadcast messages.
         const notificationsRef = collection(db, 'notifications');
         const q = query(
         notificationsRef,
@@ -39,7 +40,7 @@ export function NotificationBell() {
   }, [user]);
 
   return (
-    <Button variant="ghost" size="icon" className="relative h-8 w-8">
+    <div className="relative inline-flex items-center justify-center h-8 w-8 rounded-full hover:bg-accent/50 transition-colors" role="button">
       <Bell className="h-5 w-5" />
       {notificationCount > 0 && (
         <span className="absolute top-1 right-1 flex h-3 w-3">
@@ -47,6 +48,6 @@ export function NotificationBell() {
           <span className="relative inline-flex rounded-full h-3 w-3 bg-destructive"></span>
         </span>
       )}
-    </Button>
+    </div>
   );
 }
