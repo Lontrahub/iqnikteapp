@@ -7,6 +7,7 @@ import { UserNav } from './user-nav';
 import { Button } from './ui/button';
 import { Skeleton } from './ui/skeleton';
 import { NotificationBell } from './notification-bell';
+import { ThemeToggle } from './theme-toggle';
 
 export default function Header() {
   const { user, loading } = useAuth();
@@ -35,13 +36,13 @@ export default function Header() {
             <Skeleton className="h-8 w-20" />
           ) : user ? (
             <>
-              <Link href="/notifications" aria-label="View notifications">
-                <NotificationBell />
-              </Link>
+              <NotificationBell />
+              <ThemeToggle />
               <UserNav />
             </>
           ) : (
             <>
+              <ThemeToggle />
               <Button asChild variant="ghost">
                 <Link href="/login">Login</Link>
               </Button>
