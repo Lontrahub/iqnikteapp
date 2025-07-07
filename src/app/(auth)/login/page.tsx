@@ -116,7 +116,12 @@ export default function LoginPage() {
             )}
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
+            <div className="flex items-center">
+              <Label htmlFor="password">Password</Label>
+              <Link href="/forgot-password" className={cn(buttonVariants({variant: 'link'}), 'p-0 h-auto ml-auto text-sm')}>
+                Forgot password?
+              </Link>
+            </div>
             <Input id="password" type="password" {...form.register('password')} />
              {form.formState.errors.password && (
               <p className="text-sm text-destructive">{form.formState.errors.password.message}</p>
