@@ -8,8 +8,12 @@ export const metadata: Metadata = {
 };
 
 export default async function PlantsPage() {
-    const allPlants = await getAllPlants();
-    const allTags = [...new Set(allPlants.flatMap(plant => plant.tags || []))].sort();
+    const allPlantsRaw = await getAllPlants();
+    const allPlants = allPlantsRaw.map(plant => ({
+        ...plant,
+        createdAt: plant.createdAt.toDate().toISOString(),
+    }));
+    const allTags = [...new Set(allPlantsRaw.flatMap(plant => plant.tags || []))].sort();
 
     return (
         <main className="flex-1">

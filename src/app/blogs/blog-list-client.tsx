@@ -1,7 +1,12 @@
 'use client';
 
 import { BlogCard } from '@/components/blog-card';
-import type { Blog } from '@/lib/types';
+import type { Blog as BlogWithTimestamp } from '@/lib/types';
+
+// Client-safe type
+type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
+  createdAt: string;
+};
 
 interface BlogListClientProps {
     blogs: Blog[];

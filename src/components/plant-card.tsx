@@ -4,8 +4,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Lock } from 'lucide-react';
-import type { Plant } from '@/lib/types';
+import type { Plant as PlantWithTimestamp } from '@/lib/types';
 import { useLanguage } from '@/hooks/use-language';
+
+// Client-safe type
+type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
+    createdAt: string;
+};
 
 interface PlantCardProps {
   plant: Plant;

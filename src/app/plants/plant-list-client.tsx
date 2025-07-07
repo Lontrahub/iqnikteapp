@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { PlantCard } from '@/components/plant-card';
-import type { Plant } from '@/lib/types';
+import type { Plant as PlantWithTimestamp } from '@/lib/types';
 import { useLanguage } from '@/hooks/use-language';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 import {
@@ -16,6 +16,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Badge } from '@/components/ui/badge';
+
+// Client-safe type
+type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
+  createdAt: string;
+};
 
 interface PlantListClientProps {
     plants: Plant[];

@@ -12,8 +12,18 @@ import { BlogCard } from '@/components/blog-card';
 
 export default async function HomePage() {
   const banner = await getMainBanner();
-  const recentPlants = await getRecentPlants();
-  const recentBlogs = await getRecentBlogs();
+  const recentPlantsRaw = await getRecentPlants();
+  const recentBlogsRaw = await getRecentBlogs();
+
+  const recentPlants = recentPlantsRaw.map(plant => ({
+      ...plant,
+      createdAt: plant.createdAt.toDate().toISOString(),
+  }));
+
+  const recentBlogs = recentBlogsRaw.map(blog => ({
+      ...blog,
+      createdAt: blog.createdAt.toDate().toISOString(),
+  }));
 
   return (
     <main className="flex-1 bg-gradient-to-b from-background to-secondary/30">

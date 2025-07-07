@@ -8,7 +8,11 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogsPage() {
-    const allBlogs = await getAllBlogs();
+    const allBlogsRaw = await getAllBlogs();
+    const allBlogs = allBlogsRaw.map(blog => ({
+        ...blog,
+        createdAt: blog.createdAt.toDate().toISOString(),
+    }));
 
     return (
         <main className="flex-1">

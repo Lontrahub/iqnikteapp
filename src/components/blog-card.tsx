@@ -4,8 +4,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Lock } from 'lucide-react';
-import type { Blog } from '@/lib/types';
+import type { Blog as BlogWithTimestamp } from '@/lib/types';
 import { useLanguage } from '@/hooks/use-language';
+
+// Client-safe type
+type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
+    createdAt: string;
+};
 
 interface BlogCardProps {
   blog: Blog;
