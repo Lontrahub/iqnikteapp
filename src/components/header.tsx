@@ -16,7 +16,7 @@ export default function Header() {
     <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-50 w-full border-b">
       <div className="container mx-auto flex h-16 items-center px-4">
         <Link href="/home" className="flex items-center gap-2 mr-6">
-          <Image src="/logo.png" alt="IQ Nikte' Logo" width={24} height={24} />
+          <Image src="/logo.png" alt="IQ Nikte' Logo" width={32} height={32} />
           <span className="font-headline text-2xl font-bold text-primary">
             IQ Nikte'
           </span>

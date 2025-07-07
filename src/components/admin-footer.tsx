@@ -8,7 +8,7 @@ export default function AdminFooter() {
       <div className="container mx-auto py-6 px-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="IQ Nikte' Logo" width={24} height={24} />
+            <Image src="/logo.png" alt="IQ Nikte' Logo" width={32} height={32} />
             <span className="font-headline text-lg font-bold text-primary">
               IQ Nikte'
             </span>

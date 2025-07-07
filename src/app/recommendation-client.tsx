@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { z } from 'zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { Leaf, Robot, CircleNotch } from 'phosphor-react';
+import { Robot, CircleNotch } from 'phosphor-react';
 import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
@@ -99,7 +100,7 @@ export default function RecommendationClient() {
                   </>
                 ) : (
                   <>
-                    <Leaf className="mr-2 h-4 w-4" />
+                    <Image src="/logo.png" alt="Find Plants Icon" width={20} height={20} className="mr-2" />
                     Find Plants
                   </>
                 )}
@@ -116,7 +117,7 @@ export default function RecommendationClient() {
                 <Card key={index} className="bg-card/80">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-xl font-headline text-primary">
-                        <Leaf className="w-5 h-5"/>
+                        <Image src="/logo.png" alt="Plant Icon" width={20} height={20}/>
                         {plant.plantName}
                     </CardTitle>
                 </CardHeader>

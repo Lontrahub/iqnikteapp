@@ -7,7 +7,7 @@ import type { Blog as BlogWithTimestamp, Plant as PlantWithTimestamp, BilingualS
 import { useAuth } from '@/hooks/use-auth';
 import { useLanguage } from '@/hooks/use-language';
 import LockedContentPrompt from '@/components/locked-content-prompt';
-import { CircleNotch, Leaf } from 'phosphor-react';
+import { CircleNotch } from 'phosphor-react';
 
 // Client-safe types
 type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
@@ -73,7 +73,7 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
         {relatedPlants.length > 0 && (
             <div className="mt-12">
                 <h2 className="text-3xl font-headline text-primary mb-4 flex items-center">
-                    <Leaf className="mr-3 h-6 w-6 text-accent" />
+                    <Image src="/logo.png" alt="Related Plants Icon" width={24} height={24} className="mr-3" />
                     Related Plants
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
