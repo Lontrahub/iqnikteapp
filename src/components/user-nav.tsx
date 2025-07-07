@@ -3,7 +3,8 @@
 import {
   SignOut,
   User,
-  House
+  House,
+  Layout
 } from 'phosphor-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -83,7 +84,7 @@ export function UserNav() {
           <DropdownMenuItem asChild>
             <Link href="/home">
               <House className="mr-2 h-4 w-4" />
-              <span>Dashboard</span>
+              <span>Home</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
@@ -92,6 +93,14 @@ export function UserNav() {
               <span>Profile</span>
             </Link>
           </DropdownMenuItem>
+          {userProfile?.role === 'admin' && (
+            <DropdownMenuItem asChild>
+              <Link href="/admin/dashboard">
+                <Layout className="mr-2 h-4 w-4" />
+                <span>Admin Panel</span>
+              </Link>
+            </DropdownMenuItem>
+          )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut}>
