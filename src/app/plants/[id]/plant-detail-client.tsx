@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/accordion"
 import { Badge } from '@/components/ui/badge';
 import LockedContentPrompt from '@/components/locked-content-prompt';
-import { BookOpen, Plant, FirstAidKit, Globe, CircleNotch } from 'phosphor-react';
+import { BookOpen, Leaf, FirstAidKit, Globe, CircleNotch } from 'phosphor-react';
 
 // Client-safe types
 type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
@@ -95,7 +95,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 {properties && (
                     <AccordionItem value="properties">
                         <AccordionTrigger className="text-2xl font-headline hover:no-underline">
-                           <Plant className="mr-3 h-6 w-6 text-accent" /> Key Properties
+                           <Leaf className="mr-3 h-6 w-6 text-accent" /> Key Properties
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-12">
                            <p>{properties}</p>
