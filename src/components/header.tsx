@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
 import { UserNav } from './user-nav';
 import { Button } from './ui/button';
@@ -10,7 +11,12 @@ import { NotificationBell } from './notification-bell';
 import { ThemeToggle } from './theme-toggle';
 
 export default function Header() {
+  const pathname = usePathname();
   const { user, loading } = useAuth();
+
+  if (pathname.startsWith('/admin')) {
+    return null;
+  }
 
   return (
     <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-50 w-full border-b">

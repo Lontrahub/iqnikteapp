@@ -3,15 +3,21 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { InstagramLogo, YoutubeLogo, LinkedinLogo } from 'phosphor-react';
 import { Separator } from './ui/separator';
 
 export default function Footer() {
+  const pathname = usePathname();
   const [year, setYear] = useState(new Date().getFullYear());
 
   useEffect(() => {
     setYear(new Date().getFullYear());
   }, []);
+
+  if (pathname.startsWith('/admin')) {
+    return null;
+  }
 
   return (
     <footer className="bg-background border-t mt-auto">
