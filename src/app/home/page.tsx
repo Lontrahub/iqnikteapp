@@ -28,11 +28,6 @@ export default async function HomePage() {
                         priority
                         data-ai-hint="mayan temple"
                     />
-                     <div className="absolute inset-0 bg-black/30 flex items-center justify-center p-4">
-                        <h1 className="text-4xl md:text-6xl font-headline text-white drop-shadow-md text-center">
-                            Welcome to IQ Nikte'
-                        </h1>
-                    </div>
                 </div>
             )}
             
@@ -64,7 +59,7 @@ export default async function HomePage() {
 
                 {recentBlogs.length > 0 && (
                     <section>
-                        <h2 className="text-3xl font-headline text-primary mb-6">Popular Articles</h2>
+                        <h2 className="text-3xl font-headline text-primary mb-6">Recent Articles</h2>
                         <Carousel
                             opts={{
                                 align: "start",
