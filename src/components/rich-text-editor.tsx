@@ -4,18 +4,16 @@
 import React from 'react';
 import { Bold, Heading1, Pilcrow } from 'lucide-react';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { useFormField } from './ui/form';
 
-interface RichTextEditorProps {
+interface RichTextEditorProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   value?: string;
   onChange: (value: string) => void;
   placeholder?: string;
 }
 
 const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorProps>(
-    ({ value, onChange, placeholder }, ref) => {
+    ({ value, onChange, placeholder, ...props }, ref) => {
     const editorRef = React.useRef<HTMLDivElement>(null);
-    const { formItemId } = useFormField();
 
     const handleInput = (e: React.FormEvent<HTMLDivElement>) => {
       onChange(e.currentTarget.innerHTML);
@@ -50,14 +48,23 @@ const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorProps>(
           </ToggleGroup>
         </div>
         <div
-          id={formItemId}
-          ref={editorRef}
+          ref={(node) => {
+            if (node) {
+                editorRef.current = node;
+                if (typeof ref === 'function') {
+                    ref(node);
+                } else if (ref) {
+                    ref.current = node;
+                }
+            }
+          }}
           onInput={handleInput}
           contentEditable={isMounted}
           suppressContentEditableWarning
           className="min-h-[120px] w-full p-3 text-sm prose-p:my-0 prose-h1:my-1 prose-headings:font-headline dark:prose-invert max-w-none focus:outline-none"
           dangerouslySetInnerHTML={{ __html: isMounted ? (value || '') : '' }}
           data-placeholder={placeholder}
+          {...props}
         >
         </div>
       </div>

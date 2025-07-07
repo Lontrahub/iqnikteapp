@@ -1,7 +1,8 @@
+
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { createOrUpdateBlog } from '@/lib/data';
@@ -10,13 +11,22 @@ import { useToast } from '@/hooks/use-toast';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { LoaderCircle } from 'lucide-react';
 import ImageUploader from '@/components/image-uploader';
 import { MultiSelect } from '@/components/ui/multi-select';
 import { RichTextEditor } from '@/components/rich-text-editor';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+
 
 const formSchema = z.object({
   title: z.object({
@@ -27,7 +37,7 @@ const formSchema = z.object({
     en: z.string().min(1, 'English content is required'),
     es: z.string().min(1, 'Spanish content is required'),
   }),
-  imageUrl: z.string().url('Must be a valid URL').optional(),
+  imageUrl: z.string().url('Must be a valid URL').optional().or(z.literal('')),
   isLocked: z.boolean(),
   relatedPlants: z.array(z.string()).optional(),
 });
@@ -55,7 +65,7 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
     },
   });
 
-  const { formState, register, handleSubmit, control } = form;
+  const { handleSubmit, control, formState } = form;
 
   const onSubmit = async (data: BlogFormValues) => {
     const result = await createOrUpdateBlog({
@@ -82,118 +92,158 @@ export default function BlogForm({ blog, plants }: BlogFormProps) {
   const plantOptions = plants.map(p => ({ value: p.id, label: p.title }));
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-          <div>
-            <Label htmlFor="title.en">Title (English)</Label>
-            <Input id="title.en" {...register('title.en')} />
-            {formState.errors.title?.en && <p className="text-sm text-destructive mt-1">{formState.errors.title.en.message}</p>}
-          </div>
-          <div>
-            <Label htmlFor="title.es">Title (Spanish)</Label>
-            <Input id="title.es" {...register('title.es')} />
-            {formState.errors.title?.es && <p className="text-sm text-destructive mt-1">{formState.errors.title.es.message}</p>}
-          </div>
-      </div>
+    <Form {...form}>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+            <FormField
+              control={control}
+              name="title.en"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Title (English)</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={control}
+              name="title.es"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Title (Spanish)</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+        </div>
 
-      <Separator />
+        <Separator />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-        <Controller
-          control={control}
-          name="content.en"
-          render={({ field }) => (
-            <div className="space-y-2">
-              <Label htmlFor="content.en">Content (English)</Label>
-              <RichTextEditor
-                value={field.value}
-                onChange={field.onChange}
-              />
-              {formState.errors.content?.en && <p className="text-sm text-destructive mt-1">{formState.errors.content.en.message}</p>}
-            </div>
-          )}
-        />
-        <Controller
-          control={control}
-          name="content.es"
-          render={({ field }) => (
-            <div className="space-y-2">
-              <Label htmlFor="content.es">Content (Spanish)</Label>
-              <RichTextEditor
-                value={field.value}
-                onChange={field.onChange}
-              />
-              {formState.errors.content?.es && <p className="text-sm text-destructive mt-1">{formState.errors.content.es.message}</p>}
-            </div>
-          )}
-        />
-      </div>
-
-      <Separator />
-
-      <div className="space-y-4">
-        <h3 className="text-lg font-medium">Image</h3>
-         <Controller
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+          <FormField
             control={control}
-            name="imageUrl"
+            name="content.en"
             render={({ field }) => (
-                <ImageUploader 
-                    initialImageUrl={field.value} 
-                    onUploadComplete={(url) => field.onChange(url)}
-                />
+              <FormItem>
+                <FormLabel>Content (English)</FormLabel>
+                <FormControl>
+                  <RichTextEditor
+                    value={field.value}
+                    onChange={field.onChange}
+                    ref={field.ref}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
-        />
-        {formState.errors.imageUrl && <p className="text-sm text-destructive mt-1">{formState.errors.imageUrl.message}</p>}
-      </div>
-
-      <Separator />
-      
-      <div className="space-y-4">
-        <h3 className="text-lg font-medium">Metadata</h3>
-        <Controller
+          />
+          <FormField
             control={control}
-            name="relatedPlants"
+            name="content.es"
             render={({ field }) => (
-                 <div className="space-y-2">
-                    <Label>Related Plants</Label>
-                    <MultiSelect
-                        placeholder="Select related plants..."
-                        options={plantOptions}
-                        selected={field.value || []}
-                        onChange={field.onChange}
-                    />
-                 </div>
+              <FormItem>
+                <FormLabel>Content (Spanish)</FormLabel>
+                <FormControl>
+                  <RichTextEditor
+                    value={field.value}
+                    onChange={field.onChange}
+                    ref={field.ref}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
-        />
-      </div>
-      
-      <Separator />
+          />
+        </div>
 
-      <div className="flex items-center space-x-2">
-        <Controller
-            control={control}
-            name="isLocked"
-            render={({ field }) => (
+        <Separator />
+
+        <div className="space-y-4">
+          <h3 className="text-lg font-medium">Image</h3>
+           <FormField
+              control={control}
+              name="imageUrl"
+              render={({ field }) => (
+                  <FormItem>
+                      <FormControl>
+                          <ImageUploader 
+                              initialImageUrl={field.value} 
+                              onUploadComplete={(url) => field.onChange(url)}
+                          />
+                      </FormControl>
+                      <FormMessage />
+                  </FormItem>
+              )}
+          />
+        </div>
+
+        <Separator />
+        
+        <div className="space-y-4">
+          <h3 className="text-lg font-medium">Metadata</h3>
+          <FormField
+              control={control}
+              name="relatedPlants"
+              render={({ field }) => (
+                   <FormItem>
+                      <FormLabel>Related Plants</FormLabel>
+                      <FormControl>
+                          <MultiSelect
+                              placeholder="Select related plants..."
+                              options={plantOptions}
+                              selected={field.value || []}
+                              onChange={field.onChange}
+                          />
+                      </FormControl>
+                      <FormMessage />
+                   </FormItem>
+              )}
+          />
+        </div>
+        
+        <Separator />
+
+        <FormField
+          control={control}
+          name="isLocked"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border p-4">
+              <FormControl>
                 <Switch
-                    id="isLocked"
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
                 />
-            )}
+              </FormControl>
+              <div className="space-y-1 leading-none">
+                <FormLabel>
+                  Content is locked
+                </FormLabel>
+                <FormDescription>
+                  Requires user login to view.
+                </FormDescription>
+              </div>
+            </FormItem>
+          )}
         />
-        <Label htmlFor="isLocked">Content is locked (requires user login to view)</Label>
-      </div>
 
-      <div className="flex justify-end gap-4 mt-8">
-        <Button type="button" variant="outline" onClick={() => router.back()}>
-          Cancel
-        </Button>
-        <Button type="submit" disabled={formState.isSubmitting}>
-          {formState.isSubmitting && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
-          {isEditMode ? 'Update' : 'Create'} Article
-        </Button>
-      </div>
-    </form>
+
+        <div className="flex justify-end gap-4 mt-8">
+          <Button type="button" variant="outline" onClick={() => router.back()}>
+            Cancel
+          </Button>
+          <Button type="submit" disabled={formState.isSubmitting}>
+            {formState.isSubmitting && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
+            {isEditMode ? 'Update' : 'Create'} Article
+          </Button>
+        </div>
+      </form>
+    </Form>
   );
 }
