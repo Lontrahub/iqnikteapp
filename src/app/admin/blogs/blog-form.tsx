@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { createOrUpdateBlog } from '@/lib/data';
-import type { Blog } from '@/lib/types';
+import type { Blog as BlogWithTimestamp } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 
 import { Button } from '@/components/ui/button';
@@ -42,6 +42,11 @@ const formSchema = z.object({
 });
 
 type BlogFormValues = z.infer<typeof formSchema>;
+
+// Create a client-safe version of the Blog type for props
+type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
+  createdAt: string;
+};
 
 interface BlogFormProps {
   blog?: Blog;

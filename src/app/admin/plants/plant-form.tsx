@@ -1,11 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { createOrUpdatePlant } from '@/lib/data';
-import type { Plant } from '@/lib/types';
+import type { Plant as PlantWithTimestamp } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 
 import { Button } from '@/components/ui/button';
@@ -78,6 +78,11 @@ const formSchema = z.object({
 
 type PlantFormValues = z.infer<typeof formSchema>;
 
+// Create a client-safe version of the Plant type for props
+type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
+  createdAt: string;
+};
+
 interface PlantFormProps {
   plant?: Plant;
   blogs: { id: string; title: string }[];
@@ -128,7 +133,7 @@ export default function PlantForm({ plant, blogs, existingTags }: PlantFormProps
     },
   });
 
-  const { handleSubmit, control, formState, setValue } = form;
+  const { handleSubmit, control, formState } = form;
 
   const onSubmit = async (data: PlantFormValues) => {
     const result = await createOrUpdatePlant({
@@ -230,24 +235,24 @@ export default function PlantForm({ plant, blogs, existingTags }: PlantFormProps
         <div className="space-y-6">
           <h3 className="text-lg font-medium">Usage & Safety Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-            <Controller
-              control={control}
-              name="preparationMethods.en"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Detailed Preparation Methods (English)</FormLabel>
-                  <RichTextEditor value={field.value} onChange={field.onChange} />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Controller
+            <FormField
+                control={control}
+                name="preparationMethods.en"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Detailed Preparation Methods (English)</FormLabel>
+                    <RichTextEditor {...field} />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            <FormField
               control={control}
               name="preparationMethods.es"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Detailed Preparation Methods (Spanish)</FormLabel>
-                  <RichTextEditor value={field.value} onChange={field.onChange} />
+                  <RichTextEditor {...field} />
                   <FormMessage />
                 </FormItem>
               )}
@@ -269,7 +274,7 @@ export default function PlantForm({ plant, blogs, existingTags }: PlantFormProps
         <div className="space-y-4">
           <h3 className="text-lg font-medium">Metadata</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Controller
+            <FormField
               control={control}
               name="tags"
               render={({ field }) => (
@@ -282,7 +287,7 @@ export default function PlantForm({ plant, blogs, existingTags }: PlantFormProps
                 </FormItem>
               )}
             />
-            <Controller
+            <FormField
               control={control}
               name="relatedBlogs"
               render={({ field }) => (

@@ -5,15 +5,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { notFound } from "next/navigation";
 
 export default async function EditPlantPage({ params }: { params: { id: string } }) {
-    const [plant, blogs, tags] = await Promise.all([
+    const [plantData, blogs, tags] = await Promise.all([
         getPlantById(params.id),
         getAllBlogTitlesAndIds(),
         getAllPlantTags()
     ]);
 
-    if (!plant) {
+    if (!plantData) {
         notFound();
     }
+
+    const plant = {
+        ...plantData,
+        createdAt: plantData.createdAt.toDate().toISOString(),
+    };
 
     return (
         <div className="container mx-auto py-10 px-4">
