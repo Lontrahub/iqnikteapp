@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { createOrUpdatePlant } from '@/lib/data';
@@ -70,6 +70,7 @@ const formSchema = z.object({
     es: z.string().optional(),
   }),
   imageUrl: z.string().url('Must be a valid URL').optional().or(z.literal('')),
+  videoUrl: z.string().url('Must be a valid URL').optional().or(z.literal('')),
   isLocked: z.boolean(),
   tags: z.array(z.string()).optional(),
   relatedBlogs: z.array(z.string()).optional(),
@@ -82,6 +83,23 @@ interface PlantFormProps {
   blogs: { id: string; title: string }[];
   existingTags: string[];
 }
+
+const FormInput = ({ control, name, label, description, component: Component, ...props }: any) => (
+  <FormField
+    control={control}
+    name={name}
+    render={({ field }) => (
+      <FormItem>
+        <FormLabel>{label}</FormLabel>
+        <FormControl>
+          <Component {...field} {...props} />
+        </FormControl>
+        {description && <FormDescription>{description}</FormDescription>}
+        <FormMessage />
+      </FormItem>
+    )}
+  />
+);
 
 export default function PlantForm({ plant, blogs, existingTags }: PlantFormProps) {
   const router = useRouter();
@@ -103,13 +121,14 @@ export default function PlantForm({ plant, blogs, existingTags }: PlantFormProps
       precautions: { en: plant?.precautions?.en || '', es: plant?.precautions?.es || '' },
       ethicalHarvesting: { en: plant?.ethicalHarvesting?.en || '', es: plant?.ethicalHarvesting?.es || '' },
       imageUrl: plant?.imageUrl || '',
+      videoUrl: plant?.videoUrl || '',
       isLocked: plant?.isLocked || false,
       tags: plant?.tags || [],
       relatedBlogs: plant?.relatedBlogs || [],
     },
   });
 
-  const { handleSubmit, control, formState } = form;
+  const { handleSubmit, control, formState, setValue } = form;
 
   const onSubmit = async (data: PlantFormValues) => {
     const result = await createOrUpdatePlant({
@@ -141,87 +160,108 @@ export default function PlantForm({ plant, blogs, existingTags }: PlantFormProps
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-          <FormField control={control} name="name.en" render={({ field }) => ( <FormItem> <FormLabel>Name (English)</FormLabel> <FormControl><Input {...field} /></FormControl> <FormMessage /> </FormItem>)} />
-          <FormField control={control} name="name.es" render={({ field }) => ( <FormItem> <FormLabel>Name (Spanish)</FormLabel> <FormControl><Input {...field} /></FormControl> <FormMessage /> </FormItem>)} />
+          <FormInput control={control} name="name.en" label="Name (English)" component={Input} />
+          <FormInput control={control} name="name.es" label="Name (Spanish)" component={Input} />
         </div>
-        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-            <FormField control={control} name="scientificName" render={({ field }) => ( <FormItem> <FormLabel>Scientific Name</FormLabel> <FormControl><Input {...field} /></FormControl> <FormMessage /> </FormItem>)} />
-            <div className="grid grid-cols-2 gap-4">
-                <FormField control={control} name="family.en" render={({ field }) => ( <FormItem> <FormLabel>Plant Family (EN)</FormLabel> <FormControl><Input {...field} /></FormControl> <FormMessage /> </FormItem>)} />
-                <FormField control={control} name="family.es" render={({ field }) => ( <FormItem> <FormLabel>Plant Family (ES)</FormLabel> <FormControl><Input {...field} /></FormControl> <FormMessage /> </FormItem>)} />
-            </div>
+          <FormInput control={control} name="scientificName" label="Scientific Name" component={Input} />
+          <div className="grid grid-cols-2 gap-4">
+            <FormInput control={control} name="family.en" label="Plant Family (EN)" component={Input} />
+            <FormInput control={control} name="family.es" label="Plant Family (ES)" component={Input} />
+          </div>
         </div>
 
         <Separator />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-          <FormField control={control} name="description.en" render={({ field }) => ( <FormItem> <FormLabel>Description (English)</FormLabel> <FormControl><Textarea {...field} rows={5} /></FormControl> <FormMessage /> </FormItem>)} />
-          <FormField control={control} name="description.es" render={({ field }) => ( <FormItem> <FormLabel>Description (Spanish)</FormLabel> <FormControl><Textarea {...field} rows={5} /></FormControl> <FormMessage /> </FormItem>)} />
+          <FormInput control={control} name="description.en" label="Description (English)" component={Textarea} rows={5} />
+          <FormInput control={control} name="description.es" label="Description (Spanish)" component={Textarea} rows={5} />
+        </div>
+        
+        <Separator />
+
+        <div className="space-y-4">
+          <h3 className="text-lg font-medium">Image</h3>
+          <FormField
+            control={control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <ImageUploader initialImageUrl={field.value} onUploadComplete={(url) => field.onChange(url)} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         <Separator />
 
         <div className="space-y-4">
-          <h3 className="text-lg font-medium">Image</h3>
-          <FormField control={control} name="imageUrl" render={({ field }) => ( <FormItem> <FormControl><ImageUploader initialImageUrl={field.value} onUploadComplete={(url) => field.onChange(url)} /></FormControl> <FormMessage /> </FormItem>)} />
+            <h3 className="text-lg font-medium">YouTube Video (Optional)</h3>
+            <FormInput 
+                control={control} 
+                name="videoUrl" 
+                label="YouTube Video URL" 
+                component={Input} 
+                placeholder="e.g., https://www.youtube.com/watch?v=..."
+            />
         </div>
 
         <Separator />
-        
+
         <div className="space-y-6">
           <h3 className="text-lg font-medium">Content Details (Optional)</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-            <FormField control={control} name="properties.en" render={({ field }) => ( <FormItem> <FormLabel>Key Properties (English)</FormLabel> <FormControl><Textarea {...field} /></FormControl> <FormMessage /> </FormItem>)} />
-            <FormField control={control} name="properties.es" render={({ field }) => ( <FormItem> <FormLabel>Key Properties (Spanish)</FormLabel> <FormControl><Textarea {...field} /></FormControl> <FormMessage /> </FormItem>)} />
-            <FormField control={control} name="uses.en" render={({ field }) => ( <FormItem> <FormLabel>Basic Uses (English)</FormLabel> <FormControl><Textarea {...field} /></FormControl> <FormMessage /> </FormItem>)} />
-            <FormField control={control} name="uses.es" render={({ field }) => ( <FormItem> <FormLabel>Basic Uses (Spanish)</FormLabel> <FormControl><Textarea {...field} /></FormControl> <FormMessage /> </FormItem>)} />
-            <FormField control={control} name="culturalSignificance.en" render={({ field }) => ( <FormItem> <FormLabel>Cultural Significance (English)</FormLabel> <FormControl><Textarea {...field} /></FormControl> <FormMessage /> </FormItem>)} />
-            <FormField control={control} name="culturalSignificance.es" render={({ field }) => ( <FormItem> <FormLabel>Cultural Significance (Spanish)</FormLabel> <FormControl><Textarea {...field} /></FormControl> <FormMessage /> </FormItem>)} />
-             <FormField control={control} name="ethicalHarvesting.en" render={({ field }) => ( <FormItem> <FormLabel>Ethical Harvesting Notes (English)</FormLabel> <FormControl><Textarea {...field} /></FormControl> <FormMessage /> </FormItem>)} />
-            <FormField control={control} name="ethicalHarvesting.es" render={({ field }) => ( <FormItem> <FormLabel>Ethical Harvesting Notes (Spanish)</FormLabel> <FormControl><Textarea {...field} /></FormControl> <FormMessage /> </FormItem>)} />
+            <FormInput control={control} name="properties.en" label="Key Properties (English)" component={Textarea} />
+            <FormInput control={control} name="properties.es" label="Key Properties (Spanish)" component={Textarea} />
+            <FormInput control={control} name="uses.en" label="Basic Uses (English)" component={Textarea} />
+            <FormInput control={control} name="uses.es" label="Basic Uses (Spanish)" component={Textarea} />
+            <FormInput control={control} name="culturalSignificance.en" label="Cultural Significance (English)" component={Textarea} />
+            <FormInput control={control} name="culturalSignificance.es" label="Cultural Significance (Spanish)" component={Textarea} />
+            <FormInput control={control} name="ethicalHarvesting.en" label="Ethical Harvesting (English)" component={Textarea} />
+            <FormInput control={control} name="ethicalHarvesting.es" label="Ethical Harvesting (Spanish)" component={Textarea} />
           </div>
         </div>
 
         <Separator />
-        
+
         <div className="space-y-6">
-            <h3 className="text-lg font-medium">Usage &amp; Safety Information</h3>
-
+          <h3 className="text-lg font-medium">Usage & Safety Information</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+            <Controller
+              control={control}
+              name="preparationMethods.en"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Detailed Preparation Methods (English)</FormLabel>
+                  <RichTextEditor value={field.value} onChange={field.onChange} />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Controller
+              control={control}
+              name="preparationMethods.es"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Detailed Preparation Methods (Spanish)</FormLabel>
+                  <RichTextEditor value={field.value} onChange={field.onChange} />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormInput control={control} name="dosage.en" label="Dosage Guidelines (English)" component={Textarea} />
+            <FormInput control={control} name="dosage.es" label="Dosage Guidelines (Spanish)" component={Textarea} />
+          </div>
+          <div className="border-2 border-destructive/30 bg-destructive/5 rounded-lg p-4 space-y-6">
+            <h4 className="font-medium text-destructive">Precautions & Contraindications</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                <FormField
-                  control={control}
-                  name="preparationMethods.en"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Detailed Preparation Methods (English)</FormLabel>
-                      <RichTextEditor {...field} />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={control}
-                  name="preparationMethods.es"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Detailed Preparation Methods (Spanish)</FormLabel>
-                      <RichTextEditor {...field} />
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField control={control} name="dosage.en" render={({ field }) => ( <FormItem> <FormLabel>Dosage Guidelines (English)</FormLabel> <FormControl><Textarea {...field} /></FormControl> <FormMessage /> </FormItem>)} />
-                <FormField control={control} name="dosage.es" render={({ field }) => ( <FormItem> <FormLabel>Dosage Guidelines (Spanish)</FormLabel> <FormControl><Textarea {...field} /></FormControl> <FormMessage /> </FormItem>)} />
+              <FormInput control={control} name="precautions.en" label="Precautions (English)" component={Textarea} />
+              <FormInput control={control} name="precautions.es" label="Precautions (Spanish)" component={Textarea} />
             </div>
-
-            <div className="border-2 border-destructive/30 bg-destructive/5 rounded-lg p-4 space-y-6">
-                 <h4 className="font-medium text-destructive">Precautions & Contraindications</h4>
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                    <FormField control={control} name="precautions.en" render={({ field }) => ( <FormItem> <FormLabel>Precautions (English)</FormLabel> <FormControl><Textarea {...field} /></FormControl> <FormMessage /> </FormItem>)} />
-                    <FormField control={control} name="precautions.es" render={({ field }) => ( <FormItem> <FormLabel>Precautions (Spanish)</FormLabel> <FormControl><Textarea {...field} /></FormControl> <FormMessage /> </FormItem>)} />
-                 </div>
-            </div>
+          </div>
         </div>
 
         <Separator />
@@ -229,8 +269,32 @@ export default function PlantForm({ plant, blogs, existingTags }: PlantFormProps
         <div className="space-y-4">
           <h3 className="text-lg font-medium">Metadata</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <FormField control={control} name="tags" render={({ field }) => ( <FormItem> <FormLabel>Tags</FormLabel> <FormControl> <MultiSelect placeholder="Select or create tags..." options={tagOptions} selected={field.value || []} onChange={field.onChange} creatable /> </FormControl> <FormMessage /> </FormItem>)} />
-            <FormField control={control} name="relatedBlogs" render={({ field }) => ( <FormItem> <FormLabel>Related Blogs</FormLabel> <FormControl> <MultiSelect placeholder="Select related blogs..." options={blogOptions} selected={field.value || []} onChange={field.onChange} /> </FormControl> <FormMessage /> </FormItem>)} />
+            <Controller
+              control={control}
+              name="tags"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tags</FormLabel>
+                  <FormControl>
+                    <MultiSelect placeholder="Select or create tags..." options={tagOptions} selected={field.value || []} onChange={field.onChange} creatable />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Controller
+              control={control}
+              name="relatedBlogs"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Related Blogs</FormLabel>
+                  <FormControl>
+                    <MultiSelect placeholder="Select related blogs..." options={blogOptions} selected={field.value || []} onChange={field.onChange} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
         </div>
         

@@ -15,7 +15,7 @@ import {
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import LockedContentPrompt from '@/components/locked-content-prompt';
-import { BookOpen, FirstAidKit, Globe, CircleNotch, Flask, Heartbeat, Handshake, WarningCircle } from 'phosphor-react';
+import { BookOpen, FirstAidKit, Globe, CircleNotch, Flask, Heartbeat, Handshake, WarningCircle, YoutubeLogo } from 'phosphor-react';
 
 // Client-safe types
 type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
@@ -50,6 +50,31 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
   const dosage = getBilingualText(plant.dosage);
   const precautions = getBilingualText(plant.precautions);
   const ethicalHarvesting = getBilingualText(plant.ethicalHarvesting);
+
+  const getEmbedUrl = (url?: string) => {
+    if (!url) return null;
+    let videoId: string | null = null;
+    
+    // Standard URL: https://www.youtube.com/watch?v=VIDEO_ID
+    if (url.includes('watch?v=')) {
+        videoId = url.split('v=')[1];
+    } 
+    // Shortened URL: https://youtu.be/VIDEO_ID
+    else if (url.includes('youtu.be/')) {
+        videoId = url.split('youtu.be/')[1];
+    }
+
+    if (videoId) {
+        const ampersandPosition = videoId.indexOf('&');
+        if (ampersandPosition !== -1) {
+            return `https://www.youtube.com/embed/${videoId.substring(0, ampersandPosition)}`;
+        }
+        return `https://www.youtube.com/embed/${videoId}`;
+    }
+    return null;
+  };
+
+  const embedUrl = getEmbedUrl(plant.videoUrl);
 
 
   if (loading) {
@@ -181,6 +206,26 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 )}
             </Accordion>
         </div>
+
+        {embedUrl && (
+            <div className="mt-12">
+                <h2 className="text-3xl font-headline text-primary mb-4 flex items-center gap-3">
+                    <YoutubeLogo className="h-8 w-8 text-[#FF0000]" />
+                    Related Video
+                </h2>
+                <div className="aspect-video w-full rounded-lg overflow-hidden shadow-lg">
+                    <iframe 
+                        width="100%" 
+                        height="100%"
+                        src={embedUrl}
+                        title="YouTube video player" 
+                        frameBorder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowFullScreen
+                    ></iframe>
+                </div>
+            </div>
+        )}
         
         {relatedBlogs.length > 0 && (
             <div className="mt-12">

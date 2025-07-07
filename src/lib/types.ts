@@ -28,6 +28,7 @@ export interface Plant {
   precautions?: BilingualString;
   ethicalHarvesting?: BilingualString;
   imageUrl?: string;
+  videoUrl?: string;
   isLocked: boolean;
   createdAt: Timestamp;
   tags?: string[];
