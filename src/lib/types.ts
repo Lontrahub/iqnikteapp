@@ -41,3 +41,12 @@ export interface Banner {
   imageUrl: string;
   enabled: boolean;
 }
+
+export interface Notification {
+  id: string;
+  title: string;
+  message: string;
+  createdAt: Timestamp;
+  userId: 'all' | string; // 'all' for broadcast, or a specific user ID
+  read?: boolean;
+}

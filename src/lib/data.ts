@@ -3,7 +3,7 @@
 
 import { collection, getDocs, getDoc, doc, query, orderBy, limit, where, documentId, getCountFromServer, deleteDoc, setDoc, Timestamp, addDoc } from 'firebase/firestore';
 import { db } from './firebase';
-import type { Plant, Blog, Banner, UserProfile, BilingualString } from './types';
+import type { Plant, Blog, Banner, UserProfile, BilingualString, Notification } from './types';
 
 type PlantData = Omit<Plant, 'id' | 'createdAt'> & {
     id?: string;
@@ -332,5 +332,35 @@ export async function updateGlobalSettings(settings: Banner): Promise<{ success:
     } catch (error: any) {
         console.error("Error updating global settings:", error);
         return { success: false, error: error.message };
+    }
+}
+
+export async function sendNotification(
+    data: { title: string; message: string }
+): Promise<{ success: boolean; error?: string }> {
+    try {
+        const notificationCollection = collection(db, 'notifications');
+        await addDoc(notificationCollection, {
+            ...data,
+            userId: 'all', // Broadcast to all users
+            createdAt: Timestamp.now(),
+        });
+        return { success: true };
+    } catch (error: any) {
+        console.error("Error sending notification:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+export async function getNotifications(): Promise<Notification[]> {
+    try {
+        const notificationsRef = collection(db, 'notifications');
+        const q = query(notificationsRef, orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
+        const notifications = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Notification));
+        return notifications;
+    } catch (error) {
+        console.error("Error fetching notifications:", error);
+        return [];
     }
 }
