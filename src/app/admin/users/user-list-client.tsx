@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import type { UserProfile } from '@/lib/types';
+import type { UserProfile as UserProfileWithTimestamp } from '@/lib/types';
 import { Input } from '@/components/ui/input';
 import {
   Table,
@@ -13,6 +13,11 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { ArrowUpDown, Search } from 'lucide-react';
+
+// Define a client-safe version of the UserProfile type
+type UserProfile = Omit<UserProfileWithTimestamp, 'createdAt'> & {
+  createdAt: string; // The serialized date
+};
 
 type SortKey = keyof Pick<UserProfile, 'displayName' | 'email' | 'createdAt'>;
 
@@ -112,7 +117,7 @@ export default function UserListClient({ users }: { users: UserProfile[] }) {
                     <TableRow key={user.uid}>
                     <TableCell>{user.displayName || 'N/A'}</TableCell>
                     <TableCell>{user.email}</TableCell>
-                    <TableCell>{user.createdAt.toDate().toLocaleDateString()}</TableCell>
+                    <TableCell>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
                     </TableRow>
                 ))
             ) : (

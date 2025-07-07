@@ -3,7 +3,11 @@ import PlantListAdminClient from "./plant-list-admin-client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function AdminPlantsPage() {
-    const plants = await getAllPlants();
+    const plantsRaw = await getAllPlants();
+    const plants = plantsRaw.map(plant => ({
+        ...plant,
+        createdAt: plant.createdAt.toDate().toISOString(),
+    }));
     
     return (
         <div className="container mx-auto py-10 px-4">

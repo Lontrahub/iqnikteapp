@@ -3,7 +3,11 @@ import UserListClient from "./user-list-client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function AdminUsersPage() {
-    const users = await getAllUsers();
+    const usersRaw = await getAllUsers();
+    const users = usersRaw.map(user => ({
+        ...user,
+        createdAt: user.createdAt.toDate().toISOString(),
+    }));
     
     return (
         <div className="container mx-auto py-10 px-4">

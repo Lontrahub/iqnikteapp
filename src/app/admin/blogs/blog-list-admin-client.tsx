@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
-import type { Blog } from '@/lib/types';
+import type { Blog as BlogWithTimestamp } from '@/lib/types';
 import { useLanguage } from '@/hooks/use-language';
 import { useToast } from '@/hooks/use-toast';
 import { deleteBlog } from '@/lib/data';
@@ -27,6 +27,12 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { PlusCircle, Trash2, Edit } from 'lucide-react';
+
+// Define a client-safe version of the Blog type
+type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
+  createdAt: string; // The serialized date
+};
+
 
 export default function BlogListAdminClient({ blogs: initialBlogs }: { blogs: Blog[] }) {
   const language = useLanguage();
@@ -82,7 +88,7 @@ export default function BlogListAdminClient({ blogs: initialBlogs }: { blogs: Bl
               blogs.map((blog) => (
                 <TableRow key={blog.id}>
                   <TableCell className="font-medium">{blog.title[language] || blog.title.en}</TableCell>
-                  <TableCell>{blog.createdAt.toDate().toLocaleDateString()}</TableCell>
+                  <TableCell>{new Date(blog.createdAt).toLocaleDateString()}</TableCell>
                   <TableCell className="text-right space-x-2">
                     <Button variant="ghost" size="icon" asChild>
                       <Link href={`/admin/blogs/edit/${blog.id}`}>

@@ -3,7 +3,11 @@ import BlogListAdminClient from "./blog-list-admin-client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function AdminBlogsPage() {
-    const blogs = await getAllBlogs();
+    const blogsRaw = await getAllBlogs();
+    const blogs = blogsRaw.map(blog => ({
+        ...blog,
+        createdAt: blog.createdAt.toDate().toISOString(),
+    }));
     
     return (
         <div className="container mx-auto py-10 px-4">

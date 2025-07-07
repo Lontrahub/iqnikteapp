@@ -3,7 +3,7 @@
 
 import { useState, useTransition } from 'react';
 import Link from 'next/link';
-import type { Plant } from '@/lib/types';
+import type { Plant as PlantWithTimestamp } from '@/lib/types';
 import { useLanguage } from '@/hooks/use-language';
 import { useToast } from '@/hooks/use-toast';
 import { deletePlant } from '@/lib/data';
@@ -28,6 +28,11 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { PlusCircle, Trash2, Edit } from 'lucide-react';
+
+// Define a client-safe version of the Plant type
+type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
+  createdAt: string; // The serialized date
+};
 
 export default function PlantListAdminClient({ plants: initialPlants }: { plants: Plant[] }) {
   const language = useLanguage();
@@ -83,7 +88,7 @@ export default function PlantListAdminClient({ plants: initialPlants }: { plants
               plants.map((plant) => (
                 <TableRow key={plant.id}>
                   <TableCell className="font-medium">{plant.name[language] || plant.name.en}</TableCell>
-                  <TableCell>{plant.createdAt.toDate().toLocaleDateString()}</TableCell>
+                  <TableCell>{new Date(plant.createdAt).toLocaleDateString()}</TableCell>
                   <TableCell className="text-right space-x-2">
                     <Button variant="ghost" size="icon" asChild>
                       <Link href={`/admin/plants/edit/${plant.id}`}>
