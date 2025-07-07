@@ -56,6 +56,8 @@ export function BilingualTagCreateDialog({
     onOpenChange(false);
   };
 
+  const handleSaveClick = form.handleSubmit(onSubmit);
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent>
@@ -66,7 +68,7 @@ export function BilingualTagCreateDialog({
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <div className="space-y-4">
             <FormField
               control={form.control}
               name="en"
@@ -97,9 +99,9 @@ export function BilingualTagCreateDialog({
               <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
                 Cancel
               </Button>
-              <Button type="button" onClick={form.handleSubmit(onSubmit)}>Save Tag</Button>
+              <Button type="button" onClick={handleSaveClick}>Save Tag</Button>
             </DialogFooter>
-          </form>
+          </div>
         </Form>
       </DialogContent>
     </Dialog>
