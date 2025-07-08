@@ -3,13 +3,43 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
 import { useAuth } from '@/hooks/use-auth';
-import { UserNav } from './user-nav';
 import { Button } from './ui/button';
 import { Skeleton } from './ui/skeleton';
-import { NotificationBell } from './notification-bell';
-import { ThemeToggle } from './theme-toggle';
-import { LanguageSwitcher } from './language-switcher';
+
+const ThemeToggle = dynamic(
+  () => import('@/components/theme-toggle').then((mod) => mod.ThemeToggle),
+  {
+    ssr: false,
+    loading: () => <Skeleton className="h-10 w-10" />,
+  }
+);
+
+const LanguageSwitcher = dynamic(
+  () => import('@/components/language-switcher').then((mod) => mod.LanguageSwitcher),
+  {
+    ssr: false,
+    loading: () => <Skeleton className="h-10 w-10" />,
+  }
+);
+
+const NotificationBell = dynamic(
+  () => import('@/components/notification-bell').then((mod) => mod.NotificationBell),
+  {
+    ssr: false,
+    loading: () => <Skeleton className="h-10 w-10" />,
+  }
+);
+
+const UserNav = dynamic(
+  () => import('@/components/user-nav').then((mod) => mod.UserNav),
+  {
+    ssr: false,
+    loading: () => <Skeleton className="h-8 w-8 rounded-full" />,
+  }
+);
 
 export default function Header() {
   const pathname = usePathname();
