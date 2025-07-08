@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -27,6 +28,11 @@ export function NotificationBell() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Effect for the unread indicator dot
   useEffect(() => {
@@ -106,9 +112,9 @@ export function NotificationBell() {
           notifications.map((notif) => (
             <DropdownMenuItem key={notif.id} className="flex flex-col items-start gap-1 whitespace-normal cursor-default">
               <p className="font-semibold">{notif.title}</p>
-              <p className="text-sm text-muted-foreground">{notif.message}</p>
-              <p className="text-xs text-muted-foreground/80">
-                {notif.createdAt ? formatDistanceToNow(notif.createdAt.toDate(), { addSuffix: true }) : ''}
+              <p className="text-sm text-muted-foreground group-data-[highlighted]:text-accent-foreground">{notif.message}</p>
+              <p className="text-xs text-muted-foreground/80 group-data-[highlighted]:text-accent-foreground/80">
+                {isMounted && notif.createdAt ? formatDistanceToNow(notif.createdAt.toDate(), { addSuffix: true }) : ''}
               </p>
             </DropdownMenuItem>
           ))
