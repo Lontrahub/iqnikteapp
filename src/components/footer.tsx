@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -9,14 +8,7 @@ import { Separator } from './ui/separator';
 
 export default function Footer() {
   const pathname = usePathname();
-  const [year, setYear] = useState<number | null>(null);
-  const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-    setYear(new Date().getFullYear());
-  }, []);
-  
   if (pathname.startsWith('/admin')) {
     return null;
   }
@@ -67,7 +59,7 @@ export default function Footer() {
               digital-alignment.com
             </a>
           </p>
-          {isClient && <p className="mt-1">&copy; {year} Mayan Medicine Guide. All rights reserved.</p>}
+          <p className="mt-1">&copy; Mayan Medicine Guide. All rights reserved.</p>
         </div>
       </div>
     </footer>
