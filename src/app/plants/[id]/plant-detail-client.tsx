@@ -18,6 +18,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import LockedContentPrompt from '@/components/locked-content-prompt';
 import { BookOpen, FirstAidKit, Globe, CircleNotch, Flask, Heartbeat, Handshake, WarningCircle, Youtube } from 'phosphor-react';
+import ShareButton from '@/components/share-button';
 
 // Client-safe types
 type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
@@ -107,7 +108,13 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
             />
         </div>
         
-        <h1 className="font-serif text-4xl md:text-5xl text-primary mt-6 tracking-wide">{name}</h1>
+        <div className="flex justify-between items-start mt-6 gap-4">
+            <h1 className="font-serif text-4xl md:text-5xl text-primary tracking-wide">{name}</h1>
+            <div className="flex-shrink-0 mt-1">
+                <ShareButton title={name} />
+            </div>
+        </div>
+        
         {(plant.scientificName || family) && (
             <p className="text-lg text-muted-foreground mt-1">
                 <em>{plant.scientificName}</em> {family && `(${family})`}

@@ -11,6 +11,7 @@ import { useTranslation } from '@/hooks/use-translation';
 import LockedContentPrompt from '@/components/locked-content-prompt';
 import { CircleNotch } from 'phosphor-react';
 import { Badge } from '@/components/ui/badge';
+import ShareButton from '@/components/share-button';
 
 // Client-safe types
 type Blog = Omit<BlogWithTimestamp, 'createdAt'> & {
@@ -66,7 +67,12 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
             />
         </div>
         
-        <h1 className="font-serif text-4xl md:text-5xl text-primary mt-6">{title}</h1>
+        <div className="flex justify-between items-start mt-6 gap-4">
+            <h1 className="font-serif text-4xl md:text-5xl text-primary">{title}</h1>
+            <div className="flex-shrink-0 mt-1">
+                <ShareButton title={title} />
+            </div>
+        </div>
 
         {blog.tags && blog.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-4">

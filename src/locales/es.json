@@ -120,5 +120,9 @@
     "title": "Notificaciones",
     "description": "Anuncios y actualizaciones recientes de la comunidad.",
     "noNotifications": "No tienes notificaciones nuevas."
+  },
+  "shareButton": {
+    "label": "Compartir",
+    "toast": "¡Enlace copiado al portapapeles!"
   }
 }

@@ -120,5 +120,9 @@
     "title": "Notifications",
     "description": "Recent announcements and updates from the community.",
     "noNotifications": "You have no new notifications."
+  },
+  "shareButton": {
+    "label": "Share",
+    "toast": "Link copied to clipboard!"
   }
 }
