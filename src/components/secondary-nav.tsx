@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -5,10 +6,16 @@ import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks/use-translation';
 import { cn } from '@/lib/utils';
 import { Leaf, BookOpen } from 'phosphor-react';
+import { useState, useEffect } from 'react';
 
 export default function SecondaryNav() {
   const pathname = usePathname();
   const { t } = useTranslation();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const hiddenPaths = [
     '/admin',
@@ -31,8 +38,8 @@ export default function SecondaryNav() {
   }
 
   const navLinks = [
-    { href: '/plants', label: t('header.plants'), icon: <Leaf weight="bold" /> },
-    { href: '/blogs', label: t('header.articles'), icon: <BookOpen weight="bold" /> }
+    { href: '/plants', labelKey: 'header.plants', icon: <Leaf weight="bold" />, defaultLabel: 'Plants' },
+    { href: '/blogs', labelKey: 'header.articles', icon: <BookOpen weight="bold" />, defaultLabel: 'Articles' }
   ];
 
   return (
@@ -50,7 +57,7 @@ export default function SecondaryNav() {
             )}
           >
             <span className="md:hidden">{link.icon}</span>
-            <span className="hidden md:block">{link.label}</span>
+            <span className="hidden md:block">{isMounted ? t(link.labelKey) : link.defaultLabel}</span>
           </Link>
         ))}
       </div>
