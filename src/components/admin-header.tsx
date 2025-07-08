@@ -12,7 +12,7 @@ export default function AdminHeader() {
   const { user, loading } = useAuth();
 
   return (
-    <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-50 w-full border-b">
+    <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-50 ">
       <div className="container mx-auto flex h-16 items-center px-4">
         <Link href="/admin/dashboard" className="flex items-center gap-2 mr-6">
           <Image src="/logo.png" alt="IQ Nikte' Logo" width={32} height={32} className="rounded-lg" />
