@@ -78,7 +78,7 @@ export default function BlogListClient({ blogs, tags }: BlogListClientProps) {
                 </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline">
+                        <Button variant="secondary">
                             <FadersHorizontal className="mr-2 h-4 w-4" />
                             Filter by Tag ({selectedTags.length})
                         </Button>
