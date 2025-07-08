@@ -260,7 +260,7 @@ export default function PlantForm({ plant, blogs, existingTags }: PlantFormProps
             <FormInput control={control} name="dosage.en" label="Dosage Guidelines (English)" component={Textarea} />
             <FormInput control={control} name="dosage.es" label="Dosage Guidelines (Spanish)" component={Textarea} />
           </div>
-          <div className="border-2 border-destructive/30 bg-destructive/5 rounded-lg p-4 space-y-6">
+          <div className="bg-destructive/5 rounded-lg p-4 space-y-6">
             <h4 className="font-medium text-destructive">Precautions & Contraindications</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
               <FormInput control={control} name="precautions.en" label="Precautions (English)" component={Textarea} />
@@ -309,7 +309,7 @@ export default function PlantForm({ plant, blogs, existingTags }: PlantFormProps
           control={control}
           name="isLocked"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border p-4">
+            <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md bg-muted/50 p-4">
               <FormControl>
                 <Switch checked={field.value} onCheckedChange={field.onChange} />
               </FormControl>

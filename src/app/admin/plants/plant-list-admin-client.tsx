@@ -73,7 +73,7 @@ export default function PlantListAdminClient({ plants: initialPlants }: { plants
           </Link>
         </Button>
       </div>
-      <div className="border rounded-md">
+      <div className="rounded-md overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow>

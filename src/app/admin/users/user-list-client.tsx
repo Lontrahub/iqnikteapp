@@ -91,7 +91,7 @@ export default function UserListClient({ users }: { users: UserProfile[] }) {
             />
         </div>
       </div>
-      <div className="border rounded-md">
+      <div className="rounded-md overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow>

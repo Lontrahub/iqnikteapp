@@ -74,7 +74,7 @@ export default function BlogListAdminClient({ blogs: initialBlogs }: { blogs: Bl
           </Link>
         </Button>
       </div>
-      <div className="border rounded-md">
+      <div className="rounded-md overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow>

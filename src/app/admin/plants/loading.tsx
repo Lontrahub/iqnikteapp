@@ -14,7 +14,7 @@ export default function PlantsAdminLoading() {
             <div className="flex justify-end items-center mb-4">
                 <Skeleton className="h-10 w-44" />
             </div>
-            <div className="border rounded-md">
+            <div className="rounded-md overflow-hidden">
                 <Table>
                     <TableHeader>
                         <TableRow>

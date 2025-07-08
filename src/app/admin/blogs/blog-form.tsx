@@ -275,7 +275,7 @@ export default function BlogForm({ blog, plants, existingTags }: BlogFormProps) 
           control={control}
           name="isLocked"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border p-4">
+            <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md bg-muted/50 p-4">
               <FormControl>
                 <Switch
                   checked={field.value}
