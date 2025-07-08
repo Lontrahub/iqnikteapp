@@ -57,7 +57,6 @@ export default function ProfilePage() {
           role: "User Role:",
           joined: "Joined:",
           adminButton: "Go to Admin Panel",
-          language: "Language",
           notSet: "Not set"
       },
       es: {
@@ -68,7 +67,6 @@ export default function ProfilePage() {
           role: "Rol de Usuario:",
           joined: "Miembro desde:",
           adminButton: "Ir al Panel de Administrador",
-          language: "Idioma",
           notSet: "No establecido"
       }
   };
