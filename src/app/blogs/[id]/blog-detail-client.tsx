@@ -61,7 +61,7 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
             />
         </div>
         
-        <h1 className="font-headline text-4xl md:text-5xl text-primary mt-6">{title}</h1>
+        <h1 className="font-serif text-4xl md:text-5xl text-primary mt-6">{title}</h1>
 
         {blog.tags && blog.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-4">
@@ -72,8 +72,8 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
         )}
         
         <div 
-          className="prose prose-lg max-w-none mt-8 text-foreground/90 font-body 
-                     prose-headings:font-headline prose-headings:text-primary 
+          className="prose prose-lg max-w-none mt-8 text-foreground/90 
+                     prose-headings:font-serif prose-headings:text-primary 
                      prose-p:leading-relaxed
                      prose-a:text-accent hover:prose-a:text-accent/80"
           dangerouslySetInnerHTML={{ __html: content }} 
@@ -81,7 +81,7 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
         
         {relatedPlants.length > 0 && (
             <div className="mt-12">
-                <h2 className="text-3xl font-headline text-primary mb-4 flex items-center">
+                <h2 className="text-3xl font-serif text-primary mb-4 flex items-center">
                     <Image src="/logo.png" alt="Related Plants Icon" width={32} height={32} className="mr-3 rounded-lg" />
                     Related Plants
                 </h2>

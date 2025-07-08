@@ -99,7 +99,7 @@ export default function AdminDashboardPage() {
     <div className="container mx-auto py-10 px-4">
       <Card className="w-full max-w-5xl mx-auto">
         <CardHeader>
-          <CardTitle className="font-headline text-3xl">Admin Dashboard</CardTitle>
+          <CardTitle className="font-serif text-3xl">Admin Dashboard</CardTitle>
           <CardDescription>Welcome, {userProfile.displayName}. Manage your application content here.</CardDescription>
         </CardHeader>
         <CardContent>

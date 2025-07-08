@@ -16,7 +16,7 @@ export default function AdminHeader() {
       <div className="container mx-auto flex h-16 items-center px-4">
         <Link href="/admin/dashboard" className="flex items-center gap-2 mr-6">
           <Image src="/logo.png" alt="IQ Nikte' Logo" width={32} height={32} className="rounded-lg" />
-          <span className="font-headline text-xl font-bold text-primary">
+          <span className="font-serif text-xl font-bold text-primary">
             IQ Nikte' Admin
           </span>
         </Link>

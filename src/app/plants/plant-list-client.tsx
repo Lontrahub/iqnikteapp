@@ -51,7 +51,7 @@ export default function PlantListClient({ plants, tags }: PlantListClientProps) 
 
     return (
         <div>
-            <h1 className="text-4xl font-headline text-primary mb-2">Plant Database</h1>
+            <h1 className="text-4xl font-serif text-primary mb-2">Plant Database</h1>
             <p className="text-muted-foreground mb-6">Explore our collection of traditional medicinal plants.</p>
             
             <div className="flex flex-col md:flex-row gap-4 mb-8">

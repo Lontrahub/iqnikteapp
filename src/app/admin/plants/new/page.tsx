@@ -13,7 +13,7 @@ export default async function NewPlantPage() {
         <div className="container mx-auto py-10 px-4">
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
-                    <CardTitle className="font-headline text-3xl">Create New Plant</CardTitle>
+                    <CardTitle className="font-serif text-3xl">Create New Plant</CardTitle>
                     <CardDescription>Fill out the form below to add a new medicinal plant to the database.</CardDescription>
                 </CardHeader>
                 <CardContent>

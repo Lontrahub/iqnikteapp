@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Literata', 'serif'],
-        headline: ['Belleza', 'sans-serif'],
+        sans: ['Urbanist', 'sans-serif'],
+        serif: ['DM Serif Text', 'serif'],
       },
       colors: {
         background: 'hsl(var(--background))',

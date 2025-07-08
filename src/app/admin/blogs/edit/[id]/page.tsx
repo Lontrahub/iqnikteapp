@@ -24,7 +24,7 @@ export default async function EditBlogPage({ params }: { params: { id: string } 
         <div className="container mx-auto py-10 px-4">
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
-                    <CardTitle className="font-headline text-3xl">Edit Article</CardTitle>
+                    <CardTitle className="font-serif text-3xl">Edit Article</CardTitle>
                     <CardDescription>Update the details for "{blog.title.en}" below.</CardDescription>
                 </CardHeader>
                 <CardContent>

@@ -13,7 +13,7 @@ export default function AdminFooter() {
           <div className="flex-1 max-w-sm">
             <div className="flex items-center gap-3 mb-2">
               <Image src="/logo.png" alt="IQ Nikte' Logo" width={40} height={40} className="rounded-lg" />
-              <span className="font-headline text-2xl font-bold text-primary">
+              <span className="font-serif text-2xl font-bold text-primary">
                 IQ Nikte'
               </span>
             </div>

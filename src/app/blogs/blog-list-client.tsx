@@ -63,7 +63,7 @@ export default function BlogListClient({ blogs, tags }: BlogListClientProps) {
 
     return (
         <div>
-            <h1 className="text-4xl font-headline text-primary mb-2">Educational Resources</h1>
+            <h1 className="text-4xl font-serif text-primary mb-2">Educational Resources</h1>
             <p className="text-muted-foreground mb-6">Browse our collection of articles and educational content.</p>
             
             <div className="flex flex-col md:flex-row gap-4 mb-8">
@@ -108,7 +108,7 @@ export default function BlogListClient({ blogs, tags }: BlogListClientProps) {
                         return (
                             <Badge key={tag.id} variant="secondary">
                                 {tag[language] || tag.en}
-                                <button onClick={() => handleTagToggle(tag.id)} className="ml-1 rounded-full hover:bg-background/50 p-0.5">
+                                <button onClick={() => handleTagToggle(tagId)} className="ml-1 rounded-full hover:bg-background/50 p-0.5">
                                     <X className="h-3 w-3" />
                                 </button>
                             </Badge>

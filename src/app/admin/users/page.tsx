@@ -14,7 +14,7 @@ export default async function AdminUsersPage() {
         <div className="container mx-auto py-10 px-4">
             <Card className="w-full max-w-5xl mx-auto">
                 <CardHeader>
-                    <CardTitle className="font-headline text-3xl">User Management</CardTitle>
+                    <CardTitle className="font-serif text-3xl">User Management</CardTitle>
                     <CardDescription>View and manage all registered users in the application.</CardDescription>
                 </CardHeader>
                 <CardContent>

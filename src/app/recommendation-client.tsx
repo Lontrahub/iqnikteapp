@@ -66,8 +66,8 @@ export default function RecommendationClient() {
           <div className="flex items-center gap-3">
             <Robot className="w-8 h-8 text-primary" />
             <div className="flex-1">
-              <CardTitle className="font-headline text-2xl">AI Plant Recommendation</CardTitle>
-              <CardDescription className="font-body">Describe your symptoms and our AI will suggest traditional Mayan plants that may help.</CardDescription>
+              <CardTitle className="font-serif text-2xl">AI Plant Recommendation</CardTitle>
+              <CardDescription>Describe your symptoms and our AI will suggest traditional Mayan plants that may help.</CardDescription>
             </div>
           </div>
         </CardHeader>
@@ -112,17 +112,17 @@ export default function RecommendationClient() {
 
       {recommendations && (
         <div className="space-y-4 animate-in fade-in-50 duration-500">
-            <h2 className="text-2xl font-headline text-center">Recommended Plants</h2>
+            <h2 className="text-2xl font-serif text-center">Recommended Plants</h2>
             {recommendations.map((plant, index) => (
                 <Card key={index} className="bg-card/80">
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-xl font-headline text-primary">
+                    <CardTitle className="flex items-center gap-2 text-xl font-serif text-primary">
                         <Image src="/logo.png" alt="Plant Icon" width={20} height={20} className="rounded-lg"/>
                         {plant.plantName}
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <p className="font-body text-foreground/80">{plant.description}</p>
+                    <p className="text-foreground/80">{plant.description}</p>
                 </CardContent>
                 </Card>
             ))}

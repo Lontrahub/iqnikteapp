@@ -44,7 +44,7 @@ export default async function HomePage() {
             <div className="space-y-12">
                 {recentPlants.length > 0 && (
                     <section>
-                        <h2 className="text-3xl font-headline text-primary mb-6">New Plants</h2>
+                        <h2 className="text-3xl font-serif text-primary mb-6">New Plants</h2>
                         <Carousel
                             opts={{
                                 align: "start",
@@ -69,7 +69,7 @@ export default async function HomePage() {
 
                 {recentBlogs.length > 0 && (
                     <section>
-                        <h2 className="text-3xl font-headline text-primary mb-6">Recent Articles</h2>
+                        <h2 className="text-3xl font-serif text-primary mb-6">Recent Articles</h2>
                         <Carousel
                             opts={{
                                 align: "start",
@@ -94,8 +94,8 @@ export default async function HomePage() {
                 
                 {(recentPlants.length === 0 && recentBlogs.length === 0 && !banner) && (
                   <div className="text-center py-16">
-                    <h1 className="text-5xl md:text-7xl font-headline text-primary drop-shadow-sm">Mayan Medicine Guide</h1>
-                    <p className="mt-4 text-lg md:text-xl text-foreground/80 max-w-3xl mx-auto font-body">
+                    <h1 className="text-5xl md:text-7xl font-serif text-primary drop-shadow-sm">Mayan Medicine Guide</h1>
+                    <p className="mt-4 text-lg md:text-xl text-foreground/80 max-w-3xl mx-auto">
                       Content is coming soon! Please check back later for new plants and articles.
                     </p>
                   </div>

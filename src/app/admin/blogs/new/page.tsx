@@ -13,7 +13,7 @@ export default async function NewBlogPage() {
         <div className="container mx-auto py-10 px-4">
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
-                    <CardTitle className="font-headline text-3xl">Create New Article</CardTitle>
+                    <CardTitle className="font-serif text-3xl">Create New Article</CardTitle>
                     <CardDescription>Fill out the form below to add a new article to the database.</CardDescription>
                 </CardHeader>
                 <CardContent>

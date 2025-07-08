@@ -13,7 +13,7 @@ export default async function AdminPlantsPage() {
         <div className="container mx-auto py-10 px-4">
             <Card className="w-full max-w-5xl mx-auto">
                 <CardHeader>
-                    <CardTitle className="font-headline text-3xl">Plant Management</CardTitle>
+                    <CardTitle className="font-serif text-3xl">Plant Management</CardTitle>
                     <CardDescription>Create, edit, and delete medicinal plants.</CardDescription>
                 </CardHeader>
                 <CardContent>

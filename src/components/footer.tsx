@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -8,6 +9,11 @@ import { Separator } from './ui/separator';
 
 export default function Footer() {
   const pathname = usePathname();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   if (pathname.startsWith('/admin')) {
     return null;
@@ -20,7 +26,7 @@ export default function Footer() {
           <div className="flex-1 max-w-sm">
             <div className="flex items-center gap-3 mb-2">
               <Image src="/logo.png" alt="IQ Nikte' Logo" width={40} height={40} className="rounded-lg" />
-              <span className="font-headline text-2xl font-bold text-primary">
+              <span className="font-serif text-2xl font-bold text-primary">
                 IQ Nikte'
               </span>
             </div>
@@ -59,7 +65,9 @@ export default function Footer() {
               digital-alignment.com
             </a>
           </p>
-          <p className="mt-1">&copy; Mayan Medicine Guide. All rights reserved.</p>
+          {isClient && (
+            <p className="mt-1">&copy; {new Date().getFullYear()} Mayan Medicine Guide. All rights reserved.</p>
+          )}
         </div>
       </div>
     </footer>

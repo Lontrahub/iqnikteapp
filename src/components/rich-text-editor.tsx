@@ -60,7 +60,7 @@ const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorProps>(
           onInput={handleInput}
           contentEditable={isMounted}
           suppressContentEditableWarning
-          className="min-h-[120px] w-full p-3 text-sm prose-p:my-0 prose-h1:my-1 prose-headings:font-headline dark:prose-invert max-w-none focus:outline-none"
+          className="min-h-[120px] w-full p-3 text-sm prose-p:my-0 prose-h1:my-1 prose-headings:font-serif dark:prose-invert max-w-none focus:outline-none"
           dangerouslySetInnerHTML={{ __html: isMounted ? (value || '') : '' }}
           data-placeholder={placeholder}
           {...props}

@@ -103,7 +103,7 @@ export default function RegisterPage() {
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle className="text-2xl font-headline">Register</CardTitle>
+        <CardTitle className="text-2xl font-serif">Register</CardTitle>
         <CardDescription>Create an account to access all features.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">

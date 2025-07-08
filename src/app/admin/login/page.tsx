@@ -75,7 +75,7 @@ export default function AdminLoginPage() {
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle className="text-2xl font-headline">Admin Panel</CardTitle>
+        <CardTitle className="text-2xl font-serif">Admin Panel</CardTitle>
         <CardDescription>
           Enter your administrator credentials to continue.
         </CardDescription>

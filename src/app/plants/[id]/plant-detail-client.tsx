@@ -103,7 +103,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
             />
         </div>
         
-        <h1 className="font-headline text-4xl md:text-5xl text-primary mt-6">{name}</h1>
+        <h1 className="font-serif text-4xl md:text-5xl text-primary mt-6">{name}</h1>
         {(plant.scientificName || family) && (
             <p className="text-lg text-muted-foreground mt-1">
                 <em>{plant.scientificName}</em> {family && `(${family})`}
@@ -121,7 +121,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
         {precautions && (
           <Alert variant="destructive" className="mt-8">
             <WarningCircle className="h-5 w-5"/>
-            <AlertTitle className="font-headline text-xl">Precautions & Warnings</AlertTitle>
+            <AlertTitle className="font-serif text-xl">Precautions & Warnings</AlertTitle>
             <AlertDescription>
               {precautions}
             </AlertDescription>
@@ -131,7 +131,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
         <div className="mt-8">
             <Accordion type="multiple" defaultValue={['description']} className="w-full">
                 <AccordionItem value="description">
-                    <AccordionTrigger className="text-2xl font-headline hover:no-underline">
+                    <AccordionTrigger className="text-2xl font-serif hover:no-underline">
                         <BookOpen className="mr-3 h-6 w-6 text-accent" /> Description
                     </AccordionTrigger>
                     <AccordionContent className="text-base text-foreground/80 pl-12">
@@ -141,7 +141,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
 
                 {properties && (
                     <AccordionItem value="properties">
-                        <AccordionTrigger className="text-2xl font-headline hover:no-underline">
+                        <AccordionTrigger className="text-2xl font-serif hover:no-underline">
                            <Image src="/logo.png" alt="Property Icon" width={28} height={28} className="mr-3 rounded-lg" /> Key Properties
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-12">
@@ -152,7 +152,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
 
                 {uses && (
                      <AccordionItem value="uses">
-                        <AccordionTrigger className="text-2xl font-headline hover:no-underline">
+                        <AccordionTrigger className="text-2xl font-serif hover:no-underline">
                            <FirstAidKit className="mr-3 h-6 w-6 text-accent" /> Basic Uses
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-12">
@@ -163,7 +163,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 
                 {(preparationMethods || dosage) && (
                     <AccordionItem value="preparation">
-                        <AccordionTrigger className="text-2xl font-headline hover:no-underline">
+                        <AccordionTrigger className="text-2xl font-serif hover:no-underline">
                             <Flask className="mr-3 h-6 w-6 text-accent" /> Preparation & Dosage
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-12 space-y-4">
@@ -185,7 +185,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
 
                 {culturalSignificance && (
                     <AccordionItem value="culturalSignificance">
-                        <AccordionTrigger className="text-2xl font-headline hover:no-underline">
+                        <AccordionTrigger className="text-2xl font-serif hover:no-underline">
                            <Globe className="mr-3 h-6 w-6 text-accent" /> Cultural Significance
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-12">
@@ -196,7 +196,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
 
                  {ethicalHarvesting && (
                     <AccordionItem value="harvesting">
-                        <AccordionTrigger className="text-2xl font-headline hover:no-underline">
+                        <AccordionTrigger className="text-2xl font-serif hover:no-underline">
                            <Handshake className="mr-3 h-6 w-6 text-accent" /> Ethical Harvesting
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-12">
@@ -209,7 +209,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
 
         {embedUrl && (
             <div className="mt-12">
-                <h2 className="text-3xl font-headline text-primary mb-4 flex items-center gap-3">
+                <h2 className="text-3xl font-serif text-primary mb-4 flex items-center gap-3">
                     <YoutubeLogo className="h-8 w-8 text-[#FF0000]" />
                     Related Video
                 </h2>
@@ -229,7 +229,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
         
         {relatedBlogs.length > 0 && (
             <div className="mt-12">
-                <h2 className="text-3xl font-headline text-primary mb-4">Related Articles</h2>
+                <h2 className="text-3xl font-serif text-primary mb-4">Related Articles</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {relatedBlogs.map(blog => {
                         const blogTitle = getBilingualText(blog.title);

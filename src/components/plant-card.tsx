@@ -41,7 +41,7 @@ export function PlantCard({ plant }: PlantCardProps) {
             )}
           </div>
           <div className="p-4 bg-card">
-            <h3 className="font-headline text-lg text-primary truncate">{name}</h3>
+            <h3 className="font-serif text-lg text-primary truncate">{name}</h3>
           </div>
         </CardContent>
       </Card>

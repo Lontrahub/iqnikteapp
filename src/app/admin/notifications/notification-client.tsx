@@ -81,7 +81,7 @@ export default function NotificationClient({ initialNotifications }: Notificatio
     <div className="space-y-8">
         {/* Create Notification Form */}
         <section>
-            <h2 className="text-2xl font-headline mb-4">Create New Notification</h2>
+            <h2 className="text-2xl font-serif mb-4">Create New Notification</h2>
             <Form {...form}>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
@@ -122,7 +122,7 @@ export default function NotificationClient({ initialNotifications }: Notificatio
 
         {/* Previously Sent Notifications List */}
         <section>
-            <h2 className="text-2xl font-headline mb-4">Previously Sent Notifications</h2>
+            <h2 className="text-2xl font-serif mb-4">Previously Sent Notifications</h2>
             {initialNotifications.length > 0 ? (
                 <div className="space-y-4">
                     {initialNotifications.map((notif) => (
