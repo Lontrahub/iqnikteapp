@@ -9,8 +9,13 @@ import { Separator } from './ui/separator';
 
 export default function Footer() {
   const pathname = usePathname();
-  const [year, setYear] = useState<number | null>(null);
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [isClient, setIsClient] = useState(false);
 
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  
   useEffect(() => {
     setYear(new Date().getFullYear());
   }, []);
@@ -65,7 +70,7 @@ export default function Footer() {
               digital-alignment.com
             </a>
           </p>
-          {year && <p className="mt-1">&copy; {year} Mayan Medicine Guide. All rights reserved.</p>}
+          {isClient && <p className="mt-1">&copy; {year} Mayan Medicine Guide. All rights reserved.</p>}
         </div>
       </div>
     </footer>
