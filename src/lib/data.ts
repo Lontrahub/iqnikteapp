@@ -2,7 +2,7 @@
 
 import { collection, getDocs, getDoc, doc, query, orderBy, limit, where, documentId, getCountFromServer, deleteDoc, setDoc, Timestamp, addDoc } from 'firebase/firestore';
 import { db } from './firebase';
-import type { Plant, Blog, Banner, UserProfile, BilingualString, Notification, BilingualTag } from './types';
+import type { Plant, Blog, Banner, UserProfile, BilingualString, Notification, BilingualTag, Project } from './types';
 
 type PlantData = Omit<Plant, 'id' | 'createdAt'> & {
     id?: string;
@@ -12,26 +12,33 @@ type BlogData = Omit<Blog, 'id' | 'createdAt'> & {
     id?: string;
 };
 
-export async function getAdminDashboardStats(): Promise<{ users: number; plants: number; blogs: number }> {
+type ProjectData = Omit<Project, 'id' | 'createdAt'> & {
+    id?: string;
+};
+
+export async function getAdminDashboardStats(): Promise<{ users: number; plants: number; blogs: number; projects: number }> {
     try {
         const usersRef = collection(db, 'users');
         const plantsRef = collection(db, 'plants');
         const blogsRef = collection(db, 'blogs');
+        const projectsRef = collection(db, 'projects');
 
-        const [usersSnap, plantsSnap, blogsSnap] = await Promise.all([
+        const [usersSnap, plantsSnap, blogsSnap, projectsSnap] = await Promise.all([
             getCountFromServer(usersRef),
             getCountFromServer(plantsRef),
-            getCountFromServer(blogsRef)
+            getCountFromServer(blogsRef),
+            getCountFromServer(projectsRef)
         ]);
 
         return {
             users: usersSnap.data().count,
             plants: plantsSnap.data().count,
             blogs: blogsSnap.data().count,
+            projects: projectsSnap.data().count,
         };
     } catch (error) {
         console.error("Error fetching admin dashboard stats:", error);
-        return { users: 0, plants: 0, blogs: 0 };
+        return { users: 0, plants: 0, blogs: 0, projects: 0 };
     }
 }
 
@@ -395,6 +402,77 @@ export async function updateUserLastCheckedNotifications(userId: string): Promis
         return { success: true };
     } catch (error: any) {
         console.error("Error updating last checked notifications:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+
+export async function createOrUpdateProject(
+    data: ProjectData
+): Promise<{ success: boolean; error?: string; projectId?: string }> {
+    try {
+        const { id, ...projectData } = data;
+        
+        const projectCollection = collection(db, 'projects');
+        let docRef;
+        let isNew = false;
+
+        if (id) {
+            docRef = doc(db, 'projects', id);
+        } else {
+            docRef = doc(projectCollection);
+            isNew = true;
+        }
+        
+        const dataToSave = {
+            ...projectData,
+            ...(isNew ? { createdAt: Timestamp.now() } : {})
+        };
+
+        await setDoc(docRef, dataToSave, { merge: true });
+        
+        return { success: true, projectId: docRef.id };
+
+    } catch (error: any) {
+        console.error("Error creating/updating project:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+export async function getAllProjects(): Promise<Project[]> {
+    try {
+        const projectsRef = collection(db, 'projects');
+        const q = query(projectsRef, orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
+        const projects = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Project));
+        return projects;
+    } catch (error) {
+        console.error("Error fetching all projects:", error);
+        return [];
+    }
+}
+
+export async function getProjectById(id: string): Promise<Project | null> {
+    try {
+        const projectDocRef = doc(db, 'projects', id);
+        const projectSnap = await getDoc(projectDocRef);
+        if (projectSnap.exists()) {
+            return { id: projectSnap.id, ...projectSnap.data() } as Project;
+        }
+        return null;
+    } catch (error) {
+        console.error(`Error fetching project with ID ${id}:`, error);
+        return null;
+    }
+}
+
+export async function deleteProject(id: string): Promise<{ success: boolean; error?: string }> {
+    try {
+        const projectDocRef = doc(db, 'projects', id);
+        await deleteDoc(projectDocRef);
+        return { success: true };
+    } catch (error: any) {
+        console.error(`Error deleting project with ID ${id}:`, error);
         return { success: false, error: error.message };
     }
 }

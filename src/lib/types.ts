@@ -52,6 +52,24 @@ export interface Blog {
   tags?: BilingualTag[];
 }
 
+export interface Project {
+  id: string;
+  status: 'Ongoing' | 'Completed' | 'Upcoming';
+  title: BilingualString;
+  description: BilingualString;
+  imageUrls: string[];
+  goals: BilingualString;
+  team: BilingualString;
+  cta: {
+    title: BilingualString;
+    description: BilingualString;
+    imageUrl: string;
+    buttonText: BilingualString;
+    buttonUrl: string;
+  };
+  createdAt: Timestamp;
+}
+
 export interface Banner {
   imageUrl: string;
   enabled: boolean;

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Users, FileText, Gear, Bell } from 'phosphor-react';
+import { Users, FileText, Gear, Bell, Briefcase } from 'phosphor-react';
 
 import { useAuth } from '@/hooks/use-auth';
 import { getAdminDashboardStats } from '@/lib/data';
@@ -16,6 +16,7 @@ interface DashboardStats {
   users: number;
   plants: number;
   blogs: number;
+  projects: number;
 }
 
 export default function AdminDashboardPage() {
@@ -51,7 +52,7 @@ export default function AdminDashboardPage() {
           <CardContent className="space-y-8">
             <section>
               <Skeleton className="h-6 w-32 mb-4" />
-              <div className="grid gap-4 md:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-4">
                 <Card className="shadow-md">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <Skeleton className="h-4 w-24" />
@@ -71,6 +72,15 @@ export default function AdminDashboardPage() {
                   </CardContent>
                 </Card>
                 <Card className="shadow-md">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                     <Skeleton className="h-4 w-24" />
+                     <Skeleton className="h-5 w-5 rounded-lg" />
+                  </CardHeader>
+                  <CardContent>
+                    <Skeleton className="h-8 w-12" />
+                  </CardContent>
+                </Card>
+                 <Card className="shadow-md">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                      <Skeleton className="h-4 w-24" />
                      <Skeleton className="h-5 w-5 rounded-lg" />
@@ -106,7 +116,7 @@ export default function AdminDashboardPage() {
           <div className="space-y-8">
             <section>
               <h2 className="text-xl font-semibold mb-4 text-primary/90">At a Glance</h2>
-              <div className="grid gap-4 md:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-4">
                 <Card className="shadow-md">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Total Users</CardTitle>
@@ -134,6 +144,15 @@ export default function AdminDashboardPage() {
                     <div className="text-2xl font-bold">{stats?.blogs ?? 0}</div>
                   </CardContent>
                 </Card>
+                <Card className="shadow-md">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">Total Projects</CardTitle>
+                    <Briefcase className="h-5 w-5 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{stats?.projects ?? 0}</div>
+                  </CardContent>
+                </Card>
               </div>
             </section>
 
@@ -145,6 +164,9 @@ export default function AdminDashboardPage() {
                 </Button>
                 <Button asChild variant="outline">
                   <Link href="/admin/blogs">Manage Articles</Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <Link href="/admin/projects">Manage Projects</Link>
                 </Button>
                 <Button asChild variant="outline">
                     <Link href="/admin/users">Manage Users</Link>
