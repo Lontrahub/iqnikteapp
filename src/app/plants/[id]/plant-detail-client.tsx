@@ -12,7 +12,6 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import LockedContentPrompt from '@/components/locked-content-prompt';
 import { BookOpen, FirstAidKit, Globe, CircleNotch, Flask, Heartbeat, Handshake, WarningCircle, YoutubeLogo } from 'phosphor-react';
@@ -120,13 +119,21 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
         )}
 
         {precautions && (
-          <Alert variant="destructive" className="mt-8">
-            <WarningCircle className="h-5 w-5"/>
-            <AlertTitle className="font-serif text-xl">Precautions & Warnings</AlertTitle>
-            <AlertDescription>
-              {precautions}
-            </AlertDescription>
-          </Alert>
+          <Accordion type="single" collapsible className="w-full mt-8">
+            <AccordionItem value="precautions" className="border-none">
+              <div className="bg-destructive/5 rounded-lg">
+                <AccordionTrigger className="px-4 py-3 text-lg font-serif text-destructive hover:no-underline">
+                   <div className="flex items-center gap-3">
+                      <WarningCircle className="h-5 w-5 flex-shrink-0" />
+                      Precautions & Warnings
+                   </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-4 pb-4 text-base text-destructive/90">
+                  {precautions}
+                </AccordionContent>
+              </div>
+            </AccordionItem>
+          </Accordion>
         )}
 
         <div className="mt-8">
@@ -235,7 +242,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                     {relatedBlogs.map(blog => {
                         const blogTitle = getBilingualText(blog.title);
                         return (
-                            <Link key={blog.id} href={`/blogs/${blog.id}`} className="block p-4 border rounded-lg hover:bg-card transition-colors">
+                            <Link key={blog.id} href={`/blogs/${blog.id}`} className="block p-4 rounded-lg hover:bg-card transition-colors">
                                 <h3 className="font-semibold text-accent">{blogTitle}</h3>
                             </Link>
                         )
