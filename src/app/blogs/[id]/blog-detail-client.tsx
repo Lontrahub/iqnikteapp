@@ -34,6 +34,8 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
 
   const title = getBilingualText(blog.title);
   const content = getBilingualText(blog.content);
+  const sanitizedContent = content.replace(/style="[^"]*"/g, '');
+
 
   if (loading) {
     return (
@@ -72,11 +74,11 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
         )}
         
         <div 
-          className="prose prose-lg max-w-none mt-8 text-foreground/90 
+          className="prose prose-lg dark:prose-invert max-w-none mt-8 text-foreground/90 
                      prose-headings:font-serif prose-headings:text-primary 
                      prose-p:leading-relaxed
                      prose-a:text-accent hover:prose-a:text-accent/80"
-          dangerouslySetInnerHTML={{ __html: content }} 
+          dangerouslySetInnerHTML={{ __html: sanitizedContent }} 
         />
         
         {relatedPlants.length > 0 && (

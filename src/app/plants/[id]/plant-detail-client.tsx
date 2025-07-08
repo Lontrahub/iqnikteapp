@@ -75,6 +75,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
   };
 
   const embedUrl = getEmbedUrl(plant.videoUrl);
+  const sanitizedPreparationMethods = preparationMethods.replace(/style="[^"]*"/g, '');
 
 
   if (loading) {
@@ -170,7 +171,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                             {preparationMethods && (
                                 <div>
                                     <h4 className="font-semibold text-lg mb-2">Preparation Methods</h4>
-                                    <div className="prose prose-sm dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: preparationMethods }} />
+                                    <div className="prose prose-sm dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: sanitizedPreparationMethods }} />
                                 </div>
                             )}
                              {dosage && (
