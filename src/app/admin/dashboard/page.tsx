@@ -42,7 +42,7 @@ export default function AdminDashboardPage() {
 
   if (loading || !userProfile) {
     return (
-      <div className="container mx-auto py-10 px-4">
+      <div className="container py-10">
         <Card className="w-full max-w-5xl mx-auto">
           <CardHeader>
             <Skeleton className="h-8 w-48 mb-2" />
@@ -96,7 +96,7 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <div className="container mx-auto py-10 px-4">
+    <div className="container py-10">
       <Card className="w-full max-w-5xl mx-auto">
         <CardHeader>
           <CardTitle className="font-serif text-3xl">Admin Dashboard</CardTitle>

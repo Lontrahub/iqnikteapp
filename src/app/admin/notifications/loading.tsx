@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export default function NotificationsLoading() {
   return (
-    <div className="container mx-auto py-10 px-4">
+    <div className="container py-10">
       <Card className="w-full max-w-4xl mx-auto">
         <CardHeader>
             <Skeleton className="h-8 w-64 mb-2" />

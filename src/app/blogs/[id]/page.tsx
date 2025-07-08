@@ -52,7 +52,7 @@ export default async function BlogDetailPage({ params }: Props) {
     
     return (
         <main className="flex-1">
-            <div className="container mx-auto py-8 px-4">
+            <div className="container py-8">
                 <BlogDetailClient blog={blog} relatedPlants={relatedPlants} />
             </div>
         </main>

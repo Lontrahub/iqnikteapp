@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 export default function PlantsLoading() {
   return (
     <div className="flex-1">
-        <div className="container mx-auto py-8 px-4">
+        <div className="container py-8">
             <Skeleton className="h-10 w-1/3 mb-2" />
             <Skeleton className="h-5 w-1/2 mb-6" />
 

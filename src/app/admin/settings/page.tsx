@@ -6,7 +6,7 @@ export default async function AdminSettingsPage() {
     const settings = await getMainBanner();
     
     return (
-        <div className="container mx-auto py-10 px-4">
+        <div className="container py-10">
             <Card className="w-full max-w-2xl mx-auto">
                 <CardHeader>
                     <CardTitle className="font-serif text-3xl">Global Settings</CardTitle>

@@ -21,7 +21,7 @@ export default async function NotificationsPage() {
     
     return (
         <main className="flex-1">
-            <div className="container mx-auto py-10 px-4">
+            <div className="container py-10">
                <NotificationListClient initialNotifications={notifications} />
             </div>
         </main>

@@ -23,7 +23,7 @@ export default function ProfilePage() {
 
   if (loading || !user) {
     return (
-        <div className="container mx-auto py-10 px-4">
+        <div className="container py-10">
             <Card className="max-w-2xl mx-auto">
                 <CardHeader>
                     <Skeleton className="h-8 w-48" />
@@ -49,7 +49,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="container mx-auto py-10 px-4">
+    <div className="container py-10">
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
           <CardTitle className="font-serif text-3xl tracking-wide">{t('profilePage.title')}</CardTitle>

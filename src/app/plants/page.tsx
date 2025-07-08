@@ -17,7 +17,7 @@ export default async function PlantsPage() {
 
     return (
         <main className="flex-1">
-            <div className="container mx-auto py-8 px-4">
+            <div className="container py-8">
                 <PlantListClient plants={allPlants} tags={allTags} />
             </div>
         </main>

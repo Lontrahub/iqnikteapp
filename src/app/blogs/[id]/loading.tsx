@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function BlogDetailLoading() {
   return (
     <main className="flex-1">
-        <div className="container mx-auto py-10 px-4">
+        <div className="container py-10">
             <div className="max-w-4xl mx-auto">
                 {/* Image */}
                 <Skeleton className="w-full h-64 md:h-96 rounded-lg" />

@@ -10,7 +10,7 @@ export default async function NewPlantPage() {
     ]);
 
     return (
-        <div className="container mx-auto py-10 px-4">
+        <div className="container py-10">
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
                     <CardTitle className="font-serif text-3xl">Create New Plant</CardTitle>

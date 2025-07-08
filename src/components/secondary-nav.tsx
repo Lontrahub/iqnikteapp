@@ -32,7 +32,7 @@ export default function SecondaryNav() {
 
   return (
     <nav className="sticky top-16 z-40 w-full bg-background/80 backdrop-blur-sm border-b">
-      <div className="container mx-auto flex h-12 items-center justify-center gap-8 px-4">
+      <div className="container flex h-12 items-center justify-center gap-8">
         {navLinks.map(link => (
           <Link
             key={link.href}

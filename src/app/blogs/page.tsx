@@ -17,7 +17,7 @@ export default async function BlogsPage() {
 
     return (
         <main className="flex-1">
-            <div className="container mx-auto py-8 px-4">
+            <div className="container py-8">
                 <BlogListClient blogs={allBlogs} tags={allTags} />
             </div>
         </main>
