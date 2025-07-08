@@ -19,7 +19,7 @@ export default function LanguageSelectionPage() {
     <div className="flex min-h-screen flex-col items-center justify-center p-4 bg-background">
       <Card className="w-full max-w-sm">
         <CardHeader className="items-center text-center">
-            <Image src="/logo.png" alt="IQ Nikte' Logo" width={64} height={64} className="mb-2 rounded-full" />
+            <Image src="/logo.png" alt="IQ Nikte' Logo" width={64} height={64} className="mb-2 rounded-lg" />
             <CardTitle className="text-2xl font-headline">Welcome to IQ Nikte'</CardTitle>
             <CardDescription>Please select your language.</CardDescription>
             <CardDescription className="text-xs">Por favor, seleccione su idioma.</CardDescription>

@@ -142,7 +142,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 {properties && (
                     <AccordionItem value="properties">
                         <AccordionTrigger className="text-2xl font-headline hover:no-underline">
-                           <Image src="/logo.png" alt="Property Icon" width={28} height={28} className="mr-3 rounded-full" /> Key Properties
+                           <Image src="/logo.png" alt="Property Icon" width={28} height={28} className="mr-3 rounded-lg" /> Key Properties
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-12">
                            <p>{properties}</p>

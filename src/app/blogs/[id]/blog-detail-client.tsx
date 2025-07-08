@@ -82,7 +82,7 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
         {relatedPlants.length > 0 && (
             <div className="mt-12">
                 <h2 className="text-3xl font-headline text-primary mb-4 flex items-center">
-                    <Image src="/logo.png" alt="Related Plants Icon" width={32} height={32} className="mr-3 rounded-full" />
+                    <Image src="/logo.png" alt="Related Plants Icon" width={32} height={32} className="mr-3 rounded-lg" />
                     Related Plants
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

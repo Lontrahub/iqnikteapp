@@ -55,7 +55,7 @@ export default function AdminDashboardPage() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <Skeleton className="h-4 w-24" />
-                    <Skeleton className="h-5 w-5 rounded-full" />
+                    <Skeleton className="h-5 w-5 rounded-lg" />
                   </CardHeader>
                   <CardContent>
                     <Skeleton className="h-8 w-12" />
@@ -64,7 +64,7 @@ export default function AdminDashboardPage() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                      <Skeleton className="h-4 w-24" />
-                     <Skeleton className="h-5 w-5 rounded-full" />
+                     <Skeleton className="h-5 w-5 rounded-lg" />
                   </CardHeader>
                   <CardContent>
                     <Skeleton className="h-8 w-12" />
@@ -73,7 +73,7 @@ export default function AdminDashboardPage() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                      <Skeleton className="h-4 w-24" />
-                     <Skeleton className="h-5 w-5 rounded-full" />
+                     <Skeleton className="h-5 w-5 rounded-lg" />
                   </CardHeader>
                   <CardContent>
                     <Skeleton className="h-8 w-12" />
@@ -119,7 +119,7 @@ export default function AdminDashboardPage() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Total Plants</CardTitle>
-                    <Image src="/logo.png" alt="Plant Icon" width={24} height={24} className="rounded-full" />
+                    <Image src="/logo.png" alt="Plant Icon" width={24} height={24} className="rounded-lg" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">{stats?.plants ?? 0}</div>

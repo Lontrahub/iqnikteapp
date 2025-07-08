@@ -9,17 +9,14 @@ import { Separator } from './ui/separator';
 
 export default function Footer() {
   const pathname = usePathname();
-  const [year, setYear] = useState(new Date().getFullYear());
+  const [year, setYear] = useState<number | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
-  }, []);
-  
-  useEffect(() => {
     setYear(new Date().getFullYear());
   }, []);
-
+  
   if (pathname.startsWith('/admin')) {
     return null;
   }
@@ -30,7 +27,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start gap-8">
           <div className="flex-1 max-w-sm">
             <div className="flex items-center gap-3 mb-2">
-              <Image src="/logo.png" alt="IQ Nikte' Logo" width={40} height={40} className="rounded-full" />
+              <Image src="/logo.png" alt="IQ Nikte' Logo" width={40} height={40} className="rounded-lg" />
               <span className="font-headline text-2xl font-bold text-primary">
                 IQ Nikte'
               </span>

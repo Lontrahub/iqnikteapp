@@ -12,7 +12,7 @@ export default function AdminFooter() {
         <div className="flex flex-col md:flex-row justify-between items-start gap-8">
           <div className="flex-1 max-w-sm">
             <div className="flex items-center gap-3 mb-2">
-              <Image src="/logo.png" alt="IQ Nikte' Logo" width={40} height={40} className="rounded-full" />
+              <Image src="/logo.png" alt="IQ Nikte' Logo" width={40} height={40} className="rounded-lg" />
               <span className="font-headline text-2xl font-bold text-primary">
                 IQ Nikte'
               </span>
