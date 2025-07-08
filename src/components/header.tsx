@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import { useState, useEffect } from 'react';
 
 import { useAuth } from '@/hooks/use-auth';
 import { Button } from './ui/button';
@@ -47,6 +48,11 @@ export default function Header() {
   const pathname = usePathname();
   const { user, loading } = useAuth();
   const { t } = useTranslation();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   if (pathname.startsWith('/admin') || pathname === '/' || pathname.startsWith('/language-selection')) {
     return null;
@@ -59,15 +65,15 @@ export default function Header() {
           <Image src="/logo.png" alt="IQ Nikte' Logo" width={32} height={32} className="rounded-lg" />
           <span className={cn(
             "font-serif text-2xl font-bold text-primary",
-            !user && !loading && "hidden md:inline"
+            isMounted && !user && !loading && "hidden md:inline"
           )}>
             IQ Nikte'
           </span>
         </Link>
         
         <div className="flex flex-1 items-center justify-end gap-2">
-          {loading ? (
-            <Skeleton className="h-8 w-20" />
+          {!isMounted ? (
+            <Skeleton className="h-10 w-44" />
           ) : user ? (
             <>
               <NotificationBell />
