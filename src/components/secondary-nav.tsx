@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -18,9 +17,12 @@ export default function SecondaryNav() {
     setIsMounted(true);
 
     const handleScroll = () => {
-      setIsSticky(window.scrollY > 0);
+      // Header height is h-16 which is 4rem or 64px
+      setIsSticky(window.scrollY > 64);
     };
-
+    
+    handleScroll(); // Check initial scroll position
+    
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -55,7 +57,7 @@ export default function SecondaryNav() {
   return (
     <nav className={cn(
       "sticky top-0 z-40 w-full bg-background/80 backdrop-blur-sm transition-shadow duration-200",
-      isSticky ? 'shadow-md' : 'border-b border-transparent'
+      isMounted && isSticky ? 'shadow-md' : 'border-b border-transparent'
     )}>
       <div className="container flex h-12 items-center justify-center gap-8">
         {navLinks.map(link => (
