@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -50,6 +50,11 @@ interface NotificationClientProps {
 export default function NotificationClient({ initialNotifications }: NotificationClientProps) {
   const router = useRouter();
   const { toast } = useToast();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const form = useForm<NotificationFormValues>({
     resolver: zodResolver(formSchema),
@@ -130,7 +135,7 @@ export default function NotificationClient({ initialNotifications }: Notificatio
                             <CardHeader>
                                 <CardTitle className="text-lg">{notif.title}</CardTitle>
                                 <CardDescription>
-                                    Sent on {new Date(notif.createdAt).toLocaleString()}
+                                    Sent on {isMounted ? new Date(notif.createdAt).toLocaleString() : '...'}
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>

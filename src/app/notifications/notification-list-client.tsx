@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { Notification as NotificationWithTimestamp } from '@/lib/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/hooks/use-auth';
@@ -19,8 +19,10 @@ interface NotificationListClientProps {
 
 export default function NotificationListClient({ notifications }: NotificationListClientProps) {
   const { user } = useAuth();
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     if (user) {
       updateUserLastCheckedNotifications(user.uid);
     }
@@ -34,7 +36,7 @@ export default function NotificationListClient({ notifications }: NotificationLi
             <CardHeader>
               <CardTitle className="text-lg">{notif.title}</CardTitle>
               <CardDescription>
-                {new Date(notif.createdAt).toLocaleString()}
+                {isMounted ? new Date(notif.createdAt).toLocaleString() : '...'}
               </CardDescription>
             </CardHeader>
             <CardContent>
