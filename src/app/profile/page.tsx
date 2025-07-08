@@ -1,39 +1,25 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { useLanguage, type Language } from '@/hooks/use-language';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { Label } from '@/components/ui/label';
+import { useLanguage } from '@/hooks/use-language';
 
 export default function ProfilePage() {
   const { user, userProfile, loading } = useAuth();
   const router = useRouter();
   const language = useLanguage();
-  const [currentLanguage, setCurrentLanguage] = useState<Language>(language);
 
   useEffect(() => {
     if (!loading && !user) {
       router.push('/login');
     }
   }, [user, loading, router]);
-
-  useEffect(() => {
-    setCurrentLanguage(language);
-  }, [language]);
-
-  const handleLanguageChange = (lang: string) => {
-    if (lang && (lang === 'en' || lang === 'es')) {
-      localStorage.setItem('app_language', lang);
-      window.location.reload();
-    }
-  };
 
   if (loading || !user) {
     return (
@@ -93,7 +79,7 @@ export default function ProfilePage() {
     <div className="container mx-auto py-10 px-4">
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
-          <CardTitle className="font-serif text-3xl">{t.profileTitle}</CardTitle>
+          <CardTitle className="font-serif text-3xl tracking-wide">{t.profileTitle}</CardTitle>
           <CardDescription>{t.profileDescription}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -114,23 +100,6 @@ export default function ProfilePage() {
                     <span className="font-semibold text-muted-foreground">{t.joined}</span>
                     <span className="text-foreground">{userProfile?.createdAt.toDate().toLocaleDateString()}</span>
                 </div>
-            </div>
-            
-            <div className="space-y-3 border-t pt-6">
-                <Label className="text-base font-semibold">{t.language}</Label>
-                <ToggleGroup
-                    type="single"
-                    value={currentLanguage}
-                    onValueChange={handleLanguageChange}
-                    className="grid grid-cols-2 gap-2"
-                >
-                    <ToggleGroupItem value="en" aria-label="Set language to English" className="w-full">
-                        English
-                    </ToggleGroupItem>
-                    <ToggleGroupItem value="es" aria-label="Establecer idioma a Español" className="w-full">
-                        Español
-                    </ToggleGroupItem>
-                </ToggleGroup>
             </div>
 
             {userProfile?.role === 'admin' && (

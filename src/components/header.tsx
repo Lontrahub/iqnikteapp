@@ -9,6 +9,7 @@ import { Button } from './ui/button';
 import { Skeleton } from './ui/skeleton';
 import { NotificationBell } from './notification-bell';
 import { ThemeToggle } from './theme-toggle';
+import { LanguageSwitcher } from './language-switcher';
 
 export default function Header() {
   const pathname = usePathname();
@@ -43,11 +44,13 @@ export default function Header() {
           ) : user ? (
             <>
               <NotificationBell />
+              <LanguageSwitcher />
               <ThemeToggle />
               <UserNav />
             </>
           ) : (
             <>
+              <LanguageSwitcher />
               <ThemeToggle />
               <Button asChild variant="ghost">
                 <Link href="/login">Login</Link>
