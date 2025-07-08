@@ -125,10 +125,10 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
           <Accordion type="single" collapsible className="w-full mt-8">
             <AccordionItem value="precautions" className="border-none">
               <div className="bg-destructive/5 rounded-lg">
-                <AccordionTrigger className="px-4 py-3 text-lg font-serif text-destructive hover:no-underline">
+                <AccordionTrigger className="px-4 py-3 text-lg font-serif hover:no-underline">
                    <div className="flex items-center gap-3">
-                      <WarningCircle className="h-5 w-5 flex-shrink-0" />
-                      {t('plantDetailPage.precautions')}
+                      <WarningCircle className="h-5 w-5 flex-shrink-0 text-destructive" />
+                      <span className="text-destructive dark:text-primary">{t('plantDetailPage.precautions')}</span>
                    </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-4 pb-4 text-base text-foreground/90">

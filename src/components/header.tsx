@@ -65,7 +65,7 @@ export default function Header() {
           <Image src="/logo.png" alt="IQ Nikte' Logo" width={32} height={32} className="rounded-lg" />
           <span className={cn(
             "font-serif text-2xl font-bold text-primary",
-            isMounted && !user && !loading && "hidden md:inline"
+            isMounted && !user ? "hidden md:inline" : ""
           )}>
             IQ Nikte'
           </span>
