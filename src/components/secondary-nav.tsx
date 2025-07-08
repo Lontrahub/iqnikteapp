@@ -65,7 +65,7 @@ export default function SecondaryNav() {
             key={link.href}
             href={link.href}
             className={cn(
-              'flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary',
+              'flex items-center gap-2 text-base font-bold transition-colors hover:text-primary',
               pathname.startsWith(link.href)
                 ? 'text-primary'
                 : 'text-muted-foreground'
