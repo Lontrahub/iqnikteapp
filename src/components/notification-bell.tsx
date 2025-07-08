@@ -112,8 +112,8 @@ export function NotificationBell() {
           notifications.map((notif) => (
             <DropdownMenuItem key={notif.id} className="flex flex-col items-start gap-1 whitespace-normal cursor-default">
               <p className="font-semibold">{notif.title}</p>
-              <p className="text-sm text-muted-foreground group-data-[highlighted]:text-primary-foreground">{notif.message}</p>
-              <p className="text-xs text-muted-foreground/80 group-data-[highlighted]:text-primary-foreground/80">
+              <p className="text-sm text-muted-foreground group-data-[highlighted]:text-accent-foreground">{notif.message}</p>
+              <p className="text-xs text-muted-foreground/80 group-data-[highlighted]:text-accent-foreground/80">
                 {isMounted && notif.createdAt ? formatDistanceToNow(notif.createdAt.toDate(), { addSuffix: true }) : ''}
               </p>
             </DropdownMenuItem>

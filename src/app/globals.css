@@ -16,8 +16,8 @@
     --secondary-foreground: 94 45% 33%;
     --muted: 48 33% 84%;
     --muted-foreground: 24 10% 45%;
-    --accent: 30 74% 39%; /* #8B4513 - earthy brown */
-    --accent-foreground: 30 50% 95%;
+    --accent: 94 45% 33%; /* earthy brown -> primary green */
+    --accent-foreground: 94 25% 95%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 48 33% 89%;
@@ -39,8 +39,8 @@
     --secondary-foreground: 48 33% 92%;
     --muted: 30 74% 20%;
     --muted-foreground: 0 0% 95%; /* #f2f2f2 */
-    --accent: 30 74% 49%; /* lighter earthy brown */
-    --accent-foreground: 30 50% 95%;
+    --accent: 94 45% 35%; /* lighter earthy brown -> primary green */
+    --accent-foreground: 94 25% 95%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
     --border: 30 74% 25%;
