@@ -41,7 +41,7 @@ export function BlogCard({ blog }: BlogCardProps) {
             )}
           </div>
           <div className="p-4 bg-card">
-            <h3 className="font-serif text-lg text-primary truncate">{title}</h3>
+            <h3 className="font-serif text-lg text-foreground truncate">{title}</h3>
           </div>
         </CardContent>
       </Card>
