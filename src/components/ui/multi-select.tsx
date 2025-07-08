@@ -66,7 +66,7 @@ export function MultiSelect({
             inputRef.current?.blur();
         }
     }} className="overflow-visible bg-transparent">
-      <div className="group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
+      <div className="group rounded-md bg-secondary/20 px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
         <div className="flex flex-wrap gap-1">
           {selectedObjects.map(({ value, label }) => (
             <Badge key={value} variant="secondary">

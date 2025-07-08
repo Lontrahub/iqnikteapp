@@ -32,8 +32,8 @@ const RichTextEditor = React.forwardRef<HTMLDivElement, RichTextEditorProps>(
     }, []);
 
     return (
-      <div className="rounded-md border border-input ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
-        <div className="p-1 border-b">
+      <div className="rounded-md bg-secondary/20 ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
+        <div className="p-1 border-b border-foreground/10">
           <ToggleGroup type="multiple" size="sm">
             <ToggleGroupItem value="bold" aria-label="Toggle bold" onMouseDown={(e) => { e.preventDefault(); handleCommand('bold'); }}>
               <Bold className="h-4 w-4" />
