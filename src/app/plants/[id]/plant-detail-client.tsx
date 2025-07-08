@@ -138,7 +138,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
 
         <div className="mt-8">
             <Accordion type="multiple" defaultValue={['description']} className="w-full space-y-2">
-                <AccordionItem value="description" className="bg-muted/40 rounded-lg border-none">
+                <AccordionItem value="description" className="bg-accent/10 rounded-lg border-none">
                     <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                         <BookOpen className="mr-3 h-6 w-6 text-accent" /> Description
                     </AccordionTrigger>
@@ -148,7 +148,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 </AccordionItem>
 
                 {properties && (
-                    <AccordionItem value="properties" className="bg-muted/40 rounded-lg border-none">
+                    <AccordionItem value="properties" className="bg-accent/10 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                            <Image src="/logo.png" alt="Property Icon" width={28} height={28} className="mr-3 rounded-lg" /> Key Properties
                         </AccordionTrigger>
@@ -159,7 +159,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 )}
 
                 {uses && (
-                     <AccordionItem value="uses" className="bg-muted/40 rounded-lg border-none">
+                     <AccordionItem value="uses" className="bg-accent/10 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                            <FirstAidKit className="mr-3 h-6 w-6 text-accent" /> Basic Uses
                         </AccordionTrigger>
@@ -170,7 +170,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 )}
                 
                 {(preparationMethods || dosage) && (
-                    <AccordionItem value="preparation" className="bg-muted/40 rounded-lg border-none">
+                    <AccordionItem value="preparation" className="bg-accent/10 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                             <Flask className="mr-3 h-6 w-6 text-accent" /> Preparation & Dosage
                         </AccordionTrigger>
@@ -192,7 +192,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 )}
 
                 {culturalSignificance && (
-                    <AccordionItem value="culturalSignificance" className="bg-muted/40 rounded-lg border-none">
+                    <AccordionItem value="culturalSignificance" className="bg-accent/10 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                            <Globe className="mr-3 h-6 w-6 text-accent" /> Cultural Significance
                         </AccordionTrigger>
@@ -203,7 +203,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 )}
 
                  {ethicalHarvesting && (
-                    <AccordionItem value="harvesting" className="bg-muted/40 rounded-lg border-none">
+                    <AccordionItem value="harvesting" className="bg-accent/10 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                            <Handshake className="mr-3 h-6 w-6 text-accent" /> Ethical Harvesting
                         </AccordionTrigger>
