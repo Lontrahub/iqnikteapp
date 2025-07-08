@@ -28,11 +28,11 @@ export default function Header() {
           </span>
         </Link>
         
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-            <Link href="/plants" className="text-muted-foreground transition-colors hover:text-foreground">
+        <nav className="hidden md:flex items-center gap-6 text-base font-medium">
+            <Link href="/plants" className="text-muted-foreground transition-colors hover:text-foreground dark:text-foreground/90 dark:hover:text-foreground">
                 Plants
             </Link>
-            <Link href="/blogs" className="text-muted-foreground transition-colors hover:text-foreground">
+            <Link href="/blogs" className="text-muted-foreground transition-colors hover:text-foreground dark:text-foreground/90 dark:hover:text-foreground">
                 Articles
             </Link>
         </nav>
