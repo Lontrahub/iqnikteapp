@@ -128,7 +128,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                       Precautions & Warnings
                    </div>
                 </AccordionTrigger>
-                <AccordionContent className="px-4 pb-4 text-base text-destructive/90">
+                <AccordionContent className="px-4 pb-4 text-base text-foreground/90">
                   {precautions}
                 </AccordionContent>
               </div>
