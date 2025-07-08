@@ -50,7 +50,7 @@ export default function ProjectListAdminClient({ projects: initialProjects }: { 
         setProjects(prev => prev.filter(b => b.id !== projectToDelete.id));
         toast({
           title: "Project Deleted",
-          description: `The project "${projectToDelete.title[language] || projectToDelete.title.en}" has been deleted.`,
+          description: `The project "${projectToDelete.title?.[language] || projectToDelete.title?.en || 'Untitled Project'}" has been deleted.`,
         });
       } else {
         toast({
@@ -87,7 +87,7 @@ export default function ProjectListAdminClient({ projects: initialProjects }: { 
             {projects.length > 0 ? (
               projects.map((project) => (
                 <TableRow key={project.id}>
-                  <TableCell className="font-medium">{project.title[language] || project.title.en}</TableCell>
+                  <TableCell className="font-medium">{project.title?.[language] || project.title?.en || 'Untitled Project'}</TableCell>
                    <TableCell>
                     <Badge variant={
                       project.status === 'Completed' ? 'default' : 
@@ -128,7 +128,7 @@ export default function ProjectListAdminClient({ projects: initialProjects }: { 
               <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
               <AlertDialogDescription>
                 This action cannot be undone. This will permanently delete the project
-                "{projectToDelete?.title[language] || projectToDelete?.title.en}".
+                "{projectToDelete?.title?.[language] || projectToDelete?.title?.en || 'Untitled Project'}".
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>

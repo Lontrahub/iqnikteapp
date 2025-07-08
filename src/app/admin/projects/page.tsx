@@ -1,7 +1,6 @@
 import { getAllProjects } from "@/lib/data";
 import ProjectListAdminClient from "./project-list-admin-client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useTranslation } from "@/hooks/use-translation";
 
 export default async function AdminProjectsPage() {
     const projectsRaw = await getAllProjects();
