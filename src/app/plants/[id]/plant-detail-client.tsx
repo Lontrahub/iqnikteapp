@@ -7,6 +7,7 @@ import Link from 'next/link';
 import type { Plant as PlantWithTimestamp, Blog as BlogWithTimestamp, BilingualString } from '@/lib/types';
 import { useAuth } from '@/hooks/use-auth';
 import { useLanguage } from '@/hooks/use-language';
+import { useTranslation } from '@/hooks/use-translation';
 import {
     Accordion,
     AccordionContent,
@@ -34,6 +35,7 @@ interface PlantDetailClientProps {
 export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailClientProps) {
   const { user, loading } = useAuth();
   const language = useLanguage();
+  const { t } = useTranslation();
 
   const getBilingualText = (text?: BilingualString) => {
     if (!text) return '';
@@ -82,7 +84,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
     return (
         <div className="flex flex-col justify-center items-center min-h-[50vh]">
             <CircleNotch className="h-8 w-8 animate-spin text-primary" />
-            <p className="mt-2 text-muted-foreground">Checking access...</p>
+            <p className="mt-2 text-muted-foreground">{t('plantDetailPage.checkingAccess')}</p>
         </div>
     );
   }
@@ -126,7 +128,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 <AccordionTrigger className="px-4 py-3 text-lg font-serif text-destructive hover:no-underline">
                    <div className="flex items-center gap-3">
                       <WarningCircle className="h-5 w-5 flex-shrink-0" />
-                      Precautions & Warnings
+                      {t('plantDetailPage.precautions')}
                    </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-4 pb-4 text-base text-foreground/90">
@@ -142,10 +144,10 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 <AccordionItem value="description" className="bg-foreground/5 rounded-lg border-none">
                     <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                         <div className="flex items-center gap-3">
-                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-foreground p-1.5 text-background">
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary p-1.5 text-primary-foreground">
                                 <BookOpen className="h-5 w-5" />
                             </div>
-                            <span>Description</span>
+                            <span>{t('plantDetailPage.description')}</span>
                         </div>
                     </AccordionTrigger>
                     <AccordionContent className="text-base text-foreground/80 pl-16 pr-4">
@@ -157,10 +159,10 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                     <AccordionItem value="properties" className="bg-foreground/5 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                             <div className="flex items-center gap-3">
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-foreground p-1">
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary p-1 text-primary-foreground">
                                     <Image src="/logo.png" alt="Property Icon" width={24} height={24} className="rounded-full" />
                                 </div>
-                                <span>Key Properties</span>
+                                <span>{t('plantDetailPage.keyProperties')}</span>
                             </div>
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-16 pr-4">
@@ -173,10 +175,10 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                      <AccordionItem value="uses" className="bg-foreground/5 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                             <div className="flex items-center gap-3">
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-foreground p-1.5 text-background">
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary p-1.5 text-primary-foreground">
                                     <FirstAidKit className="h-5 w-5" />
                                 </div>
-                                <span>Basic Uses</span>
+                                <span>{t('plantDetailPage.basicUses')}</span>
                             </div>
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-16 pr-4">
@@ -189,26 +191,26 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                     <AccordionItem value="preparation" className="bg-foreground/5 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                              <div className="flex items-center gap-3">
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-foreground p-1.5 text-background">
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary p-1.5 text-primary-foreground">
                                     <Flask className="h-5 w-5" />
                                 </div>
-                                <span>Preparation & Dosage</span>
+                                <span>{t('plantDetailPage.preparationAndDosage')}</span>
                             </div>
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-16 pr-4 space-y-4">
                             {preparationMethods && (
                                 <div>
-                                    <h4 className="font-semibold text-lg mb-2">Preparation Methods</h4>
+                                    <h4 className="font-semibold text-lg mb-2">{t('plantDetailPage.preparationMethods')}</h4>
                                     <div className="prose prose-sm dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: sanitizedPreparationMethods }} />
                                 </div>
                             )}
                              {dosage && (
                                 <div>
                                     <h4 className="font-semibold text-lg mb-2 flex items-center gap-2">
-                                        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-foreground p-1 text-background">
+                                        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary p-1 text-primary-foreground">
                                             <Heartbeat className="h-4 w-4" />
                                         </div>
-                                        <span>Dosage</span>
+                                        <span>{t('plantDetailPage.dosage')}</span>
                                     </h4>
                                     <p>{dosage}</p>
                                 </div>
@@ -221,10 +223,10 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                     <AccordionItem value="culturalSignificance" className="bg-foreground/5 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                            <div className="flex items-center gap-3">
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-foreground p-1.5 text-background">
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary p-1.5 text-primary-foreground">
                                     <Globe className="h-5 w-5" />
                                 </div>
-                                <span>Cultural Significance</span>
+                                <span>{t('plantDetailPage.culturalSignificance')}</span>
                             </div>
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-16 pr-4">
@@ -237,10 +239,10 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                     <AccordionItem value="harvesting" className="bg-foreground/5 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                            <div className="flex items-center gap-3">
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-foreground p-1.5 text-background">
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary p-1.5 text-primary-foreground">
                                     <Handshake className="h-5 w-5" />
                                 </div>
-                                <span>Ethical Harvesting</span>
+                                <span>{t('plantDetailPage.ethicalHarvesting')}</span>
                             </div>
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-foreground/80 pl-16 pr-4">
@@ -255,7 +257,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
             <div className="mt-12">
                 <h2 className="text-3xl font-serif text-primary mb-4 flex items-center gap-3 tracking-wide">
                     <YoutubeLogo className="h-8 w-8 text-[#FF0000]" />
-                    Related Video
+                    {t('plantDetailPage.relatedVideo')}
                 </h2>
                 <div className="aspect-video w-full rounded-lg overflow-hidden shadow-lg">
                     <iframe 
@@ -273,7 +275,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
         
         {relatedBlogs.length > 0 && (
             <div className="mt-12">
-                <h2 className="text-3xl font-serif text-primary mb-4 tracking-wide">Related Articles</h2>
+                <h2 className="text-3xl font-serif text-primary mb-4 tracking-wide">{t('plantDetailPage.relatedArticles')}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {relatedBlogs.map(blog => {
                         const blogTitle = getBilingualText(blog.title);

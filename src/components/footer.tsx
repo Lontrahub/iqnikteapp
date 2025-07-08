@@ -6,10 +6,12 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { InstagramLogo, YoutubeLogo, LinkedinLogo } from 'phosphor-react';
 import { Separator } from './ui/separator';
+import { useTranslation } from '@/hooks/use-translation';
 
 export default function Footer() {
   const pathname = usePathname();
   const [isClient, setIsClient] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsClient(true);
@@ -31,12 +33,12 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm text-muted-foreground">
-              A tribute to the preservation of traditional knowledge.
+              {t('footer.slogan')}
             </p>
           </div>
           
           <div className="flex-shrink-0">
-            <h3 className="font-semibold text-foreground mb-3">Follow Us</h3>
+            <h3 className="font-semibold text-foreground mb-3">{t('footer.followUs')}</h3>
             <div className="flex items-center gap-4">
               <Link href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <InstagramLogo className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
@@ -55,7 +57,7 @@ export default function Footer() {
 
         <div className="text-center text-sm text-muted-foreground">
           <p>
-            Developed by{' '}
+            {t('footer.developedBy')}{' '}
             <a
               href="https://digital-alignment.com"
               target="_blank"
@@ -66,7 +68,7 @@ export default function Footer() {
             </a>
           </p>
           {isClient && (
-            <p className="mt-1">&copy; {new Date().getFullYear()} Mayan Medicine Guide. All rights reserved.</p>
+            <p className="mt-1">&copy; {new Date().getFullYear()} Mayan Medicine Guide. {t('footer.allRightsReserved')}</p>
           )}
         </div>
       </div>

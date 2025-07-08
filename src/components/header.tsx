@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 import { useAuth } from '@/hooks/use-auth';
 import { Button } from './ui/button';
 import { Skeleton } from './ui/skeleton';
+import { useTranslation } from '@/hooks/use-translation';
 
 const ThemeToggle = dynamic(
   () => import('@/components/theme-toggle').then((mod) => mod.ThemeToggle),
@@ -44,6 +45,7 @@ const UserNav = dynamic(
 export default function Header() {
   const pathname = usePathname();
   const { user, loading } = useAuth();
+  const { t } = useTranslation();
 
   if (pathname.startsWith('/admin')) {
     return null;
@@ -61,10 +63,10 @@ export default function Header() {
         
         <nav className="hidden md:flex items-center gap-6 text-base font-medium">
             <Link href="/plants" className="text-muted-foreground transition-colors hover:text-foreground dark:text-foreground/90 dark:hover:text-foreground">
-                Plants
+                {t('header.plants')}
             </Link>
             <Link href="/blogs" className="text-muted-foreground transition-colors hover:text-foreground dark:text-foreground/90 dark:hover:text-foreground">
-                Articles
+                {t('header.articles')}
             </Link>
         </nav>
 
@@ -83,10 +85,10 @@ export default function Header() {
               <LanguageSwitcher />
               <ThemeToggle />
               <Button asChild variant="ghost">
-                <Link href="/login">Login</Link>
+                <Link href="/login">{t('header.login')}</Link>
               </Button>
               <Button asChild>
-                <Link href="/register">Register</Link>
+                <Link href="/register">{t('header.register')}</Link>
               </Button>
             </>
           )}

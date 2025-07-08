@@ -12,6 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Textarea } from '@/components/ui/textarea';
 import { Robot, CircleNotch } from 'phosphor-react';
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from '@/hooks/use-translation';
 
 const formSchema = z.object({
   symptoms: z.string().min(10, {
@@ -25,6 +26,7 @@ export default function RecommendationClient() {
   const [recommendations, setRecommendations] = useState<RecommendMedicinalPlantsOutput['recommendations'] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -43,8 +45,8 @@ export default function RecommendationClient() {
       } else {
         toast({
             variant: "destructive",
-            title: "No recommendations found",
-            description: "We couldn't find any recommendations for your symptoms. Please try again with different keywords.",
+            title: t('aiRecommender.noRecommendationsToast'),
+            description: t('aiRecommender.noRecommendationsToastDescription'),
         });
       }
     } catch (error) {
@@ -66,8 +68,8 @@ export default function RecommendationClient() {
           <div className="flex items-center gap-3">
             <Robot className="w-8 h-8 text-primary" />
             <div className="flex-1">
-              <CardTitle className="font-serif text-2xl">AI Plant Recommendation</CardTitle>
-              <CardDescription>Describe your symptoms and our AI will suggest traditional Mayan plants that may help.</CardDescription>
+              <CardTitle className="font-serif text-2xl">{t('aiRecommender.title')}</CardTitle>
+              <CardDescription>{t('aiRecommender.description')}</CardDescription>
             </div>
           </div>
         </CardHeader>
@@ -79,10 +81,10 @@ export default function RecommendationClient() {
                 name="symptoms"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-semibold">Your Symptoms</FormLabel>
+                    <FormLabel className="font-semibold">{t('aiRecommender.symptomsLabel')}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="e.g., 'I have a headache and an upset stomach...'"
+                        placeholder={t('aiRecommender.symptomsPlaceholder')}
                         className="resize-none"
                         rows={4}
                         {...field}
@@ -96,12 +98,12 @@ export default function RecommendationClient() {
                 {isLoading ? (
                   <>
                     <CircleNotch className="mr-2 h-4 w-4 animate-spin" />
-                    Getting Recommendations...
+                    {t('aiRecommender.gettingRecommendations')}
                   </>
                 ) : (
                   <>
                     <Image src="/logo.png" alt="Find Plants Icon" width={20} height={20} className="mr-2 rounded-lg" />
-                    Find Plants
+                    {t('aiRecommender.findPlantsButton')}
                   </>
                 )}
               </Button>
@@ -112,7 +114,7 @@ export default function RecommendationClient() {
 
       {recommendations && (
         <div className="space-y-4 animate-in fade-in-50 duration-500">
-            <h2 className="text-2xl font-serif text-center">Recommended Plants</h2>
+            <h2 className="text-2xl font-serif text-center">{t('aiRecommender.recommendationsTitle')}</h2>
             {recommendations.map((plant, index) => (
                 <Card key={index} className="bg-card/80">
                 <CardHeader>

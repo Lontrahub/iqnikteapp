@@ -1,0 +1,124 @@
+{
+  "header": {
+    "plants": "Plants",
+    "articles": "Articles",
+    "login": "Login",
+    "register": "Register"
+  },
+  "userNav": {
+    "home": "Home",
+    "profile": "Profile",
+    "adminPanel": "Admin Panel",
+    "logout": "Log out"
+  },
+  "footer": {
+    "slogan": "A tribute to the preservation of traditional knowledge.",
+    "followUs": "Follow Us",
+    "developedBy": "Developed by",
+    "allRightsReserved": "All rights reserved."
+  },
+  "loginPage": {
+    "title": "Login",
+    "description": "Enter your email below to login to your account.",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "forgotPassword": "Forgot password?",
+    "signInButton": "Sign In",
+    "orContinueWith": "Or continue with",
+    "googleSignIn": "Sign in with Google",
+    "noAccount": "Don't have an account?",
+    "signUpLink": "Sign up"
+  },
+  "registerPage": {
+    "title": "Register",
+    "description": "Create an account to access all features.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your Name",
+    "passwordLabel": "Password",
+    "createAccountButton": "Create Account",
+    "googleSignUp": "Sign up with Google",
+    "hasAccount": "Already have an account?",
+    "signInLink": "Sign in"
+  },
+  "forgotPasswordPage": {
+    "title": "Forgot Password",
+    "description": "Enter your email and we'll send you a link to reset your password.",
+    "descriptionSubmitted": "You can now close this page.",
+    "sendResetLink": "Send Reset Link",
+    "backToLogin": "Back to Login",
+    "checkEmailToastTitle": "Check your email",
+    "checkEmailToastDescription": "If an account exists, a password reset link has been sent.",
+    "checkInbox": "Please check your inbox (and spam folder) for the reset link."
+  },
+  "homePage": {
+    "newPlants": "New Plants",
+    "recentArticles": "Recent Articles",
+    "welcomeMessage": "Content is coming soon! Please check back later for new plants and articles."
+  },
+  "plantListPage": {
+    "title": "Plant Database",
+    "description": "Explore our collection of traditional medicinal plants.",
+    "searchPlaceholder": "Search for a plant...",
+    "filterByTag": "Filter by Tag",
+    "filterByTags": "Filter by Tags",
+    "activeFilters": "Active Filters:",
+    "clearAll": "Clear all",
+    "noPlantsFound": "No plants found matching your criteria."
+  },
+  "blogListPage": {
+    "title": "Educational Resources",
+    "description": "Browse our collection of articles and educational content.",
+    "searchPlaceholder": "Search articles by title, content, or tag...",
+    "noArticlesFound": "No articles found matching your criteria."
+  },
+  "plantDetailPage": {
+    "checkingAccess": "Checking access...",
+    "precautions": "Precautions & Warnings",
+    "description": "Description",
+    "keyProperties": "Key Properties",
+    "basicUses": "Basic Uses",
+    "preparationAndDosage": "Preparation & Dosage",
+    "preparationMethods": "Preparation Methods",
+    "dosage": "Dosage",
+    "culturalSignificance": "Cultural Significance",
+    "ethicalHarvesting": "Ethical Harvesting",
+    "relatedVideo": "Related Video",
+    "relatedArticles": "Related Articles"
+  },
+  "blogDetailPage": {
+    "relatedPlants": "Related Plants",
+    "checkingAccess": "Checking access..."
+  },
+  "lockedContent": {
+    "title": "Content Locked",
+    "description": "This content is available to registered members. Please log in or create an account to view it.",
+    "loginButton": "Log In",
+    "registerButton": "Register"
+  },
+  "profilePage": {
+    "title": "User Profile",
+    "description": "View and manage your account information and preferences.",
+    "displayName": "Display Name:",
+    "email": "Email:",
+    "role": "User Role:",
+    "joined": "Joined:",
+    "adminButton": "Go to Admin Panel",
+    "notSet": "Not set"
+  },
+  "aiRecommender": {
+    "title": "AI Plant Recommendation",
+    "description": "Describe your symptoms and our AI will suggest traditional Mayan plants that may help.",
+    "symptomsLabel": "Your Symptoms",
+    "symptomsPlaceholder": "e.g., 'I have a headache and an upset stomach...'",
+    "findPlantsButton": "Find Plants",
+    "gettingRecommendations": "Getting Recommendations...",
+    "recommendationsTitle": "Recommended Plants",
+    "noRecommendationsToast": "No recommendations found",
+    "noRecommendationsToastDescription": "We couldn't find any recommendations for your symptoms. Please try again with different keywords."
+  },
+  "notificationsPage": {
+    "title": "Notifications",
+    "description": "Recent announcements and updates from the community.",
+    "noNotifications": "You have no new notifications."
+  }
+}

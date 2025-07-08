@@ -24,11 +24,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from '@/hooks/use-translation';
 
 export function UserNav() {
   const { user, userProfile } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const handleSignOut = async () => {
     try {
@@ -84,20 +86,20 @@ export function UserNav() {
           <DropdownMenuItem asChild>
             <Link href="/home">
               <House className="mr-2 h-4 w-4" />
-              <span>Home</span>
+              <span>{t('userNav.home')}</span>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Link href="/profile">
               <User className="mr-2 h-4 w-4" />
-              <span>Profile</span>
+              <span>{t('userNav.profile')}</span>
             </Link>
           </DropdownMenuItem>
           {userProfile?.role === 'admin' && (
             <DropdownMenuItem asChild>
               <Link href="/admin/dashboard">
                 <Layout className="mr-2 h-4 w-4" />
-                <span>Admin Panel</span>
+                <span>{t('userNav.adminPanel')}</span>
               </Link>
             </DropdownMenuItem>
           )}
@@ -105,7 +107,7 @@ export function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut}>
           <SignOut className="mr-2 h-4 w-4" />
-          <span>Log out</span>
+          <span>{t('userNav.logout')}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

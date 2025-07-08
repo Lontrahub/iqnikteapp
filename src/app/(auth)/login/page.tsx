@@ -27,6 +27,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/use-translation';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email.' }),
@@ -38,6 +39,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [isProviderLoading, setIsProviderLoading] = useState(false);
 
@@ -83,15 +85,15 @@ export default function LoginPage() {
   return (
     <Card className="w-full max-w-sm shadow-lg">
       <CardHeader>
-        <CardTitle className="text-2xl font-serif tracking-wide">Login</CardTitle>
+        <CardTitle className="text-2xl font-serif tracking-wide">{t('loginPage.title')}</CardTitle>
         <CardDescription>
-          Enter your email below to login to your account.
+          {t('loginPage.description')}
         </CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">
         <form onSubmit={form.handleSubmit(handleEmailLogin)} className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t('loginPage.emailLabel')}</Label>
             <Input id="email" type="email" placeholder="m@example.com" {...form.register('email')} />
             {form.formState.errors.email && (
               <p className="text-sm text-destructive">{form.formState.errors.email.message}</p>
@@ -99,9 +101,9 @@ export default function LoginPage() {
           </div>
           <div className="grid gap-2">
             <div className="flex items-center">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t('loginPage.passwordLabel')}</Label>
               <Link href="/forgot-password" className={cn(buttonVariants({variant: 'link'}), 'p-0 h-auto ml-auto text-sm')}>
-                Forgot password?
+                {t('loginPage.forgotPassword')}
               </Link>
             </div>
             <Input id="password" type="password" {...form.register('password')} />
@@ -111,7 +113,7 @@ export default function LoginPage() {
           </div>
           <Button type="submit" className="w-full" disabled={isLoading || isProviderLoading}>
             {isLoading && <CircleNotch className="mr-2 h-4 w-4 animate-spin" />}
-            Sign In
+            {t('loginPage.signInButton')}
           </Button>
         </form>
         <div className="relative">
@@ -120,19 +122,19 @@ export default function LoginPage() {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
-              Or continue with
+              {t('loginPage.orContinueWith')}
             </span>
           </div>
         </div>
         <Button variant="secondary" className="w-full" onClick={handleGoogleLogin} disabled={isProviderLoading || isLoading}>
-            {isProviderLoading ? 'Signing in...' : 'Sign in with Google'}
+            {isProviderLoading ? 'Signing in...' : t('loginPage.googleSignIn')}
         </Button>
       </CardContent>
       <CardFooter className="text-sm">
         <span>
-          Don&apos;t have an account?{' '}
+          {t('loginPage.noAccount')}{' '}
           <Link href="/register" className={cn(buttonVariants({variant: 'link'}), 'p-0')}>
-            Sign up
+            {t('loginPage.signUpLink')}
           </Link>
         </span>
       </CardFooter>

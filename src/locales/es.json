@@ -1,0 +1,124 @@
+{
+  "header": {
+    "plants": "Plantas",
+    "articles": "Artículos",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse"
+  },
+  "userNav": {
+    "home": "Inicio",
+    "profile": "Perfil",
+    "adminPanel": "Panel de Admin",
+    "logout": "Cerrar Sesión"
+  },
+  "footer": {
+    "slogan": "Un tributo a la preservación del conocimiento tradicional.",
+    "followUs": "Síguenos",
+    "developedBy": "Desarrollado por",
+    "allRightsReserved": "Todos los derechos reservados."
+  },
+  "loginPage": {
+    "title": "Iniciar Sesión",
+    "description": "Ingresa tu correo electrónico para acceder a tu cuenta.",
+    "emailLabel": "Correo Electrónico",
+    "passwordLabel": "Contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "signInButton": "Iniciar Sesión",
+    "orContinueWith": "O continuar con",
+    "googleSignIn": "Iniciar con Google",
+    "noAccount": "¿No tienes una cuenta?",
+    "signUpLink": "Regístrate"
+  },
+  "registerPage": {
+    "title": "Registrarse",
+    "description": "Crea una cuenta para acceder a todas las funciones.",
+    "nameLabel": "Nombre",
+    "namePlaceholder": "Tu Nombre",
+    "passwordLabel": "Contraseña",
+    "createAccountButton": "Crear Cuenta",
+    "googleSignUp": "Registrarse con Google",
+    "hasAccount": "¿Ya tienes una cuenta?",
+    "signInLink": "Inicia Sesión"
+  },
+  "forgotPasswordPage": {
+    "title": "Olvidé mi Contraseña",
+    "description": "Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.",
+    "descriptionSubmitted": "Ya puedes cerrar esta página.",
+    "sendResetLink": "Enviar Enlace",
+    "backToLogin": "Volver a Iniciar Sesión",
+    "checkEmailToastTitle": "Revisa tu correo",
+    "checkEmailToastDescription": "Si existe una cuenta, se ha enviado un enlace para restablecer la contraseña.",
+    "checkInbox": "Por favor, revisa tu bandeja de entrada (y la carpeta de spam) para el enlace de reinicio."
+  },
+  "homePage": {
+    "newPlants": "Nuevas Plantas",
+    "recentArticles": "Artículos Recientes",
+    "welcomeMessage": "¡El contenido llegará pronto! Por favor, vuelve más tarde para ver nuevas plantas y artículos."
+  },
+  "plantListPage": {
+    "title": "Base de Datos de Plantas",
+    "description": "Explora nuestra colección de plantas medicinales tradicionales.",
+    "searchPlaceholder": "Buscar una planta...",
+    "filterByTag": "Filtrar por Etiqueta",
+    "filterByTags": "Filtrar por Etiquetas",
+    "activeFilters": "Filtros Activos:",
+    "clearAll": "Limpiar todo",
+    "noPlantsFound": "No se encontraron plantas que coincidan con tus criterios."
+  },
+  "blogListPage": {
+    "title": "Recursos Educativos",
+    "description": "Explora nuestra colección de artículos y contenido educativo.",
+    "searchPlaceholder": "Buscar artículos por título, contenido o etiqueta...",
+    "noArticlesFound": "No se encontraron artículos que coincidan con tus criterios."
+  },
+  "plantDetailPage": {
+    "checkingAccess": "Verificando acceso...",
+    "precautions": "Precauciones y Advertencias",
+    "description": "Descripción",
+    "keyProperties": "Propiedades Clave",
+    "basicUses": "Usos Básicos",
+    "preparationAndDosage": "Preparación y Dosis",
+    "preparationMethods": "Métodos de Preparación",
+    "dosage": "Dosis",
+    "culturalSignificance": "Importancia Cultural",
+    "ethicalHarvesting": "Cosecha Ética",
+    "relatedVideo": "Video Relacionado",
+    "relatedArticles": "Artículos Relacionados"
+  },
+  "blogDetailPage": {
+    "relatedPlants": "Plantas Relacionadas",
+    "checkingAccess": "Verificando acceso..."
+  },
+  "lockedContent": {
+    "title": "Contenido Bloqueado",
+    "description": "Este contenido está disponible para miembros registrados. Por favor, inicia sesión o crea una cuenta para verlo.",
+    "loginButton": "Iniciar Sesión",
+    "registerButton": "Registrarse"
+  },
+  "profilePage": {
+    "title": "Perfil de Usuario",
+    "description": "Ver y gestionar la información y preferencias de tu cuenta.",
+    "displayName": "Nombre:",
+    "email": "Correo Electrónico:",
+    "role": "Rol de Usuario:",
+    "joined": "Miembro desde:",
+    "adminButton": "Ir al Panel de Administrador",
+    "notSet": "No establecido"
+  },
+  "aiRecommender": {
+    "title": "Recomendador IA de Plantas",
+    "description": "Describe tus síntomas y nuestra IA sugerirá plantas tradicionales Mayas que podrían ayudar.",
+    "symptomsLabel": "Tus Síntomas",
+    "symptomsPlaceholder": "Ej: 'Tengo dolor de cabeza y malestar estomacal...'",
+    "findPlantsButton": "Encontrar Plantas",
+    "gettingRecommendations": "Obteniendo Recomendaciones...",
+    "recommendationsTitle": "Plantas Recomendadas",
+    "noRecommendationsToast": "No se encontraron recomendaciones",
+    "noRecommendationsToastDescription": "No pudimos encontrar ninguna recomendación para tus síntomas. Intenta de nuevo con otras palabras."
+  },
+  "notificationsPage": {
+    "title": "Notificaciones",
+    "description": "Anuncios y actualizaciones recientes de la comunidad.",
+    "noNotifications": "No tienes notificaciones nuevas."
+  }
+}

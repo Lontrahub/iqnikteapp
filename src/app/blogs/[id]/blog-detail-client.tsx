@@ -6,6 +6,7 @@ import Link from 'next/link';
 import type { Blog as BlogWithTimestamp, Plant as PlantWithTimestamp, BilingualString, BilingualTag } from '@/lib/types';
 import { useAuth } from '@/hooks/use-auth';
 import { useLanguage } from '@/hooks/use-language';
+import { useTranslation } from '@/hooks/use-translation';
 import LockedContentPrompt from '@/components/locked-content-prompt';
 import { CircleNotch } from 'phosphor-react';
 import { Badge } from '@/components/ui/badge';
@@ -26,6 +27,7 @@ interface BlogDetailClientProps {
 export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClientProps) {
   const { user, loading } = useAuth();
   const language = useLanguage();
+  const { t } = useTranslation();
 
   const getBilingualText = (text?: BilingualString | BilingualTag) => {
     if (!text) return '';
@@ -41,7 +43,7 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
     return (
         <div className="flex flex-col justify-center items-center min-h-[50vh]">
             <CircleNotch className="h-8 w-8 animate-spin text-primary" />
-            <p className="mt-2 text-muted-foreground">Checking access...</p>
+            <p className="mt-2 text-muted-foreground">{t('blogDetailPage.checkingAccess')}</p>
         </div>
     );
   }
@@ -85,7 +87,7 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
             <div className="mt-12">
                 <h2 className="text-3xl font-serif text-primary mb-4 flex items-center">
                     <Image src="/logo.png" alt="Related Plants Icon" width={32} height={32} className="mr-3 rounded-lg" />
-                    Related Plants
+                    {t('blogDetailPage.relatedPlants')}
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {relatedPlants.map(plant => {

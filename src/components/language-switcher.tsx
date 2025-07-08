@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Globe } from 'lucide-react';
-import { useLanguage } from '@/hooks/use-language';
+import { LanguageContext } from '@/contexts/language-context';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -12,14 +12,14 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import type { Language } from '@/hooks/use-language';
 
 export function LanguageSwitcher() {
-  const language = useLanguage();
+  const { language, setLanguage } = React.useContext(LanguageContext);
 
   const handleLanguageChange = (lang: string) => {
     if (lang && (lang === 'en' || lang === 'es')) {
-      localStorage.setItem('app_language', lang);
-      window.location.reload();
+      setLanguage(lang as Language);
     }
   };
 

@@ -30,6 +30,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import type { UserProfile } from '@/lib/types';
+import { useTranslation } from '@/hooks/use-translation';
 
 const registerSchema = z.object({
   displayName: z.string().min(1, { message: 'Name is required.' }),
@@ -42,6 +43,7 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 export default function RegisterPage() {
   const router = useRouter();
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [isProviderLoading, setIsProviderLoading] = useState(false);
 
@@ -103,27 +105,27 @@ export default function RegisterPage() {
   return (
     <Card className="w-full max-w-sm shadow-lg">
       <CardHeader>
-        <CardTitle className="text-2xl font-serif tracking-wide">Register</CardTitle>
-        <CardDescription>Create an account to access all features.</CardDescription>
+        <CardTitle className="text-2xl font-serif tracking-wide">{t('registerPage.title')}</CardTitle>
+        <CardDescription>{t('registerPage.description')}</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">
         <form onSubmit={form.handleSubmit(handleEmailRegister)} className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="displayName">Name</Label>
-            <Input id="displayName" placeholder="Your Name" {...form.register('displayName')} />
+            <Label htmlFor="displayName">{t('registerPage.nameLabel')}</Label>
+            <Input id="displayName" placeholder={t('registerPage.namePlaceholder')} {...form.register('displayName')} />
             {form.formState.errors.displayName && (
               <p className="text-sm text-destructive">{form.formState.errors.displayName.message}</p>
             )}
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t('loginPage.emailLabel')}</Label>
             <Input id="email" type="email" placeholder="m@example.com" {...form.register('email')} />
             {form.formState.errors.email && (
               <p className="text-sm text-destructive">{form.formState.errors.email.message}</p>
             )}
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t('registerPage.passwordLabel')}</Label>
             <Input id="password" type="password" {...form.register('password')} />
             {form.formState.errors.password && (
               <p className="text-sm text-destructive">{form.formState.errors.password.message}</p>
@@ -131,7 +133,7 @@ export default function RegisterPage() {
           </div>
           <Button type="submit" className="w-full" disabled={isLoading || isProviderLoading}>
             {isLoading && <CircleNotch className="mr-2 h-4 w-4 animate-spin" />}
-            Create Account
+            {t('registerPage.createAccountButton')}
           </Button>
         </form>
 
@@ -140,7 +142,7 @@ export default function RegisterPage() {
             <span className="w-full border-t" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+            <span className="bg-background px-2 text-muted-foreground">{t('loginPage.orContinueWith')}</span>
           </div>
         </div>
         <Button
@@ -149,14 +151,14 @@ export default function RegisterPage() {
           onClick={handleGoogleSignUp}
           disabled={isProviderLoading || isLoading}
         >
-          {isProviderLoading ? 'Signing up...' : 'Sign up with Google'}
+          {isProviderLoading ? 'Signing up...' : t('registerPage.googleSignUp')}
         </Button>
       </CardContent>
       <CardFooter className="text-sm">
         <span>
-          Already have an account?{' '}
+          {t('registerPage.hasAccount')}{' '}
           <Link href="/login" className={cn(buttonVariants({ variant: 'link' }), 'p-0')}>
-            Sign in
+            {t('registerPage.signInLink')}
           </Link>
         </span>
       </CardFooter>
