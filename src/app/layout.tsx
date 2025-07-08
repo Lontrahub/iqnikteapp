@@ -6,6 +6,7 @@ import Footer from '@/components/footer';
 import { AuthProvider } from '@/contexts/auth-context';
 import { LanguageProvider } from '@/contexts/language-context';
 import { ThemeProvider } from '@/components/theme-provider';
+import SecondaryNav from '@/components/secondary-nav';
 
 export const metadata: Metadata = {
   title: 'Mayan Medicine Guide',
@@ -35,6 +36,7 @@ export default function RootLayout({
             <AuthProvider>
               <div className="relative flex min-h-screen flex-col">
                 <Header />
+                <SecondaryNav />
                 <div className="flex-1">{children}</div>
                 <Footer />
               </div>

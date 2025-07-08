@@ -65,15 +65,6 @@ export default function Header() {
           </span>
         </Link>
         
-        <nav className="hidden md:flex items-center gap-6 text-base font-medium">
-            <Link href="/plants" className="text-muted-foreground transition-colors hover:text-foreground dark:text-foreground/90 dark:hover:text-foreground">
-                {t('header.plants')}
-            </Link>
-            <Link href="/blogs" className="text-muted-foreground transition-colors hover:text-foreground dark:text-foreground/90 dark:hover:text-foreground">
-                {t('header.articles')}
-            </Link>
-        </nav>
-
         <div className="flex flex-1 items-center justify-end gap-2">
           {loading ? (
             <Skeleton className="h-8 w-20" />
