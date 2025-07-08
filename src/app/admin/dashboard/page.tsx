@@ -52,7 +52,7 @@ export default function AdminDashboardPage() {
             <section>
               <Skeleton className="h-6 w-32 mb-4" />
               <div className="grid gap-4 md:grid-cols-3">
-                <Card>
+                <Card className="shadow-md">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <Skeleton className="h-4 w-24" />
                     <Skeleton className="h-5 w-5 rounded-lg" />
@@ -61,7 +61,7 @@ export default function AdminDashboardPage() {
                     <Skeleton className="h-8 w-12" />
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="shadow-md">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                      <Skeleton className="h-4 w-24" />
                      <Skeleton className="h-5 w-5 rounded-lg" />
@@ -70,7 +70,7 @@ export default function AdminDashboardPage() {
                     <Skeleton className="h-8 w-12" />
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="shadow-md">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                      <Skeleton className="h-4 w-24" />
                      <Skeleton className="h-5 w-5 rounded-lg" />
@@ -107,7 +107,7 @@ export default function AdminDashboardPage() {
             <section>
               <h2 className="text-xl font-semibold mb-4 text-primary/90">At a Glance</h2>
               <div className="grid gap-4 md:grid-cols-3">
-                <Card>
+                <Card className="shadow-md">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Total Users</CardTitle>
                     <Users className="h-5 w-5 text-muted-foreground" />
@@ -116,7 +116,7 @@ export default function AdminDashboardPage() {
                     <div className="text-2xl font-bold">{stats?.users ?? 0}</div>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="shadow-md">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Total Plants</CardTitle>
                     <Image src="/logo.png" alt="Plant Icon" width={24} height={24} className="rounded-lg" />
@@ -125,7 +125,7 @@ export default function AdminDashboardPage() {
                     <div className="text-2xl font-bold">{stats?.plants ?? 0}</div>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="shadow-md">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Total Articles</CardTitle>
                     <FileText className="h-5 w-5 text-muted-foreground" />
