@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from 'next/image';
@@ -16,7 +17,6 @@ import {
 import { Badge } from '@/components/ui/badge';
 import LockedContentPrompt from '@/components/locked-content-prompt';
 import { BookOpen, FirstAidKit, Globe, CircleNotch, Flask, Heartbeat, Handshake, WarningCircle } from 'phosphor-react';
-import { Youtube } from 'lucide-react';
 
 // Client-safe types
 type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
@@ -255,8 +255,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
 
         {embedUrl && (
             <div className="mt-12">
-                <h2 className="text-3xl font-serif text-primary mb-4 flex items-center gap-3 tracking-wide">
-                    <Youtube className="h-8 w-8 text-[#FF0000]" />
+                <h2 className="text-3xl font-serif text-primary mb-4 tracking-wide">
                     {t('plantDetailPage.relatedVideo')}
                 </h2>
                 <div className="aspect-video w-full rounded-lg overflow-hidden shadow-lg">
@@ -292,3 +291,5 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
     </div>
   );
 }
+
+    
