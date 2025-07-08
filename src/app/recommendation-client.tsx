@@ -100,7 +100,7 @@ export default function RecommendationClient() {
                   </>
                 ) : (
                   <>
-                    <Image src="/logo.png" alt="Find Plants Icon" width={20} height={20} className="mr-2" />
+                    <Image src="/logo.png" alt="Find Plants Icon" width={20} height={20} className="mr-2 rounded-full" />
                     Find Plants
                   </>
                 )}
@@ -117,7 +117,7 @@ export default function RecommendationClient() {
                 <Card key={index} className="bg-card/80">
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-xl font-headline text-primary">
-                        <Image src="/logo.png" alt="Plant Icon" width={20} height={20}/>
+                        <Image src="/logo.png" alt="Plant Icon" width={20} height={20} className="rounded-full"/>
                         {plant.plantName}
                     </CardTitle>
                 </CardHeader>

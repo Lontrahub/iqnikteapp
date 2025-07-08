@@ -119,7 +119,7 @@ export default function AdminDashboardPage() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Total Plants</CardTitle>
-                    <Image src="/logo.png" alt="Plant Icon" width={24} height={24} />
+                    <Image src="/logo.png" alt="Plant Icon" width={24} height={24} className="rounded-full" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">{stats?.plants ?? 0}</div>

@@ -34,7 +34,7 @@ export default function SplashScreen() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background">
       <div className="flex items-center gap-4 mb-4">
-        <Image src="/logo.png" alt="IQ Nikte' Logo" width={80} height={80} />
+        <Image src="/logo.png" alt="IQ Nikte' Logo" width={80} height={80} className="rounded-full" />
         <span className="font-headline text-5xl font-bold text-primary">
           IQ Nikte'
         </span>
