@@ -144,7 +144,7 @@ export default function RegisterPage() {
           </div>
         </div>
         <Button
-          variant="outline"
+          variant="secondary"
           className="w-full"
           onClick={handleGoogleSignUp}
           disabled={isProviderLoading || isLoading}

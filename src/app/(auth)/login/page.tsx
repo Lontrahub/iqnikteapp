@@ -124,7 +124,7 @@ export default function LoginPage() {
             </span>
           </div>
         </div>
-        <Button variant="outline" className="w-full" onClick={handleGoogleLogin} disabled={isProviderLoading || isLoading}>
+        <Button variant="secondary" className="w-full" onClick={handleGoogleLogin} disabled={isProviderLoading || isLoading}>
             {isProviderLoading ? 'Signing in...' : 'Sign in with Google'}
         </Button>
       </CardContent>
