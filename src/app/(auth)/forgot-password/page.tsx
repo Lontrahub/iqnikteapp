@@ -60,9 +60,9 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full max-w-sm shadow-lg">
       <CardHeader>
-        <CardTitle className="text-2xl font-serif">Forgot Password</CardTitle>
+        <CardTitle className="text-2xl font-serif tracking-wide">Forgot Password</CardTitle>
         <CardDescription>
           {isSubmitted 
             ? "You can now close this page."

@@ -81,9 +81,9 @@ export default function LoginPage() {
   };
 
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full max-w-sm shadow-lg">
       <CardHeader>
-        <CardTitle className="text-2xl font-serif">Login</CardTitle>
+        <CardTitle className="text-2xl font-serif tracking-wide">Login</CardTitle>
         <CardDescription>
           Enter your email below to login to your account.
         </CardDescription>
