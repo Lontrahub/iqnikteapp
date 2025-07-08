@@ -70,7 +70,7 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
         <div className="flex justify-between items-start mt-6 gap-4">
             <h1 className="font-serif text-4xl md:text-5xl text-primary">{title}</h1>
             <div className="flex-shrink-0 mt-1">
-                <ShareButton title={title} isLocked={blog.isLocked} />
+                {user && <ShareButton title={title} isLocked={blog.isLocked} />}
             </div>
         </div>
 

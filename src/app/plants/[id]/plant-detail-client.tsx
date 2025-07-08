@@ -17,8 +17,9 @@ import {
 } from "@/components/ui/accordion"
 import { Badge } from '@/components/ui/badge';
 import LockedContentPrompt from '@/components/locked-content-prompt';
-import { BookOpen, FirstAidKit, Globe, CircleNotch, Flask, Heartbeat, Handshake, WarningCircle, Youtube } from 'phosphor-react';
+import { BookOpen, FirstAidKit, Globe, CircleNotch, Flask, Heartbeat, Handshake, WarningCircle } from 'phosphor-react';
 import ShareButton from '@/components/share-button';
+import { Youtube } from 'lucide-react';
 
 // Client-safe types
 type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
@@ -111,7 +112,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
         <div className="flex justify-between items-start mt-6 gap-4">
             <h1 className="font-serif text-4xl md:text-5xl text-primary tracking-wide">{name}</h1>
             <div className="flex-shrink-0 mt-1">
-                <ShareButton title={name} isLocked={plant.isLocked} />
+                {user && <ShareButton title={name} isLocked={plant.isLocked} />}
             </div>
         </div>
         
