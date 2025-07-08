@@ -2,6 +2,7 @@
   "header": {
     "plants": "Plants",
     "articles": "Articles",
+    "projects": "Projects",
     "login": "Login",
     "register": "Register"
   },
@@ -71,6 +72,11 @@
     "searchPlaceholder": "Search articles by title, content, or tag...",
     "noArticlesFound": "No articles found matching your criteria."
   },
+  "projectListPage": {
+    "title": "Community Projects",
+    "description": "Explore ongoing and completed initiatives within our community.",
+    "noProjectsFound": "No projects found at the moment. Please check back later!"
+  },
   "plantDetailPage": {
     "checkingAccess": "Checking access...",
     "precautions": "Precautions & Warnings",
@@ -88,6 +94,11 @@
   "blogDetailPage": {
     "relatedPlants": "Related Plants",
     "checkingAccess": "Checking access..."
+  },
+  "projectDetailPage": {
+    "goals": "Our Goals",
+    "team": "Our Team",
+    "about": "About the Project"
   },
   "lockedContent": {
     "title": "Content Locked",
