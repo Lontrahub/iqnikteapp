@@ -24,11 +24,11 @@ export default async function NotificationsPage() {
             <div className="container mx-auto py-10 px-4">
                 <Card className="w-full max-w-2xl mx-auto">
                     <CardHeader>
-                        <CardTitle className="font-headline text-3xl">Notifications</CardTitle>
+                        <CardTitle className="font-serif text-3xl">Notifications</CardTitle>
                         <CardDescription>Recent announcements and updates from the community.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <NotificationListClient notifications={notifications} />
+                        <NotificationListClient initialNotifications={notifications} />
                     </CardContent>
                 </Card>
             </div>
