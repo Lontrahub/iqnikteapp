@@ -129,12 +129,12 @@ export default function LoginPage() {
         </Button>
       </CardContent>
       <CardFooter className="text-sm">
-        <p>
+        <span>
           Don&apos;t have an account?{' '}
           <Link href="/register" className={cn(buttonVariants({variant: 'link'}), 'p-0')}>
             Sign up
           </Link>
-        </p>
+        </span>
       </CardFooter>
     </Card>
   );
