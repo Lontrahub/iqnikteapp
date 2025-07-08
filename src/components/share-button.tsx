@@ -7,17 +7,20 @@ import { useTranslation } from '@/hooks/use-translation';
 
 interface ShareButtonProps {
   title: string;
+  isLocked: boolean;
 }
 
-export default function ShareButton({ title }: ShareButtonProps) {
+export default function ShareButton({ title, isLocked }: ShareButtonProps) {
   const { toast } = useToast();
   const { t } = useTranslation();
 
   const handleShare = async () => {
     const shareData = {
-      title: title,
-      text: `Check out this article: ${title}`,
-      url: window.location.href,
+      title: isLocked ? "IQ Nikte' | Mayan Medicine Guide" : title,
+      text: isLocked
+        ? 'Explore traditional Mayan knowledge about medicinal plants on IQ Nikte\'.'
+        : `Check out this content on IQ Nikte': ${title}`,
+      url: isLocked ? window.location.origin : window.location.href,
     };
 
     if (navigator.share) {
@@ -36,7 +39,7 @@ export default function ShareButton({ title }: ShareButtonProps) {
     } else {
       // Fallback for browsers that don't support the Web Share API
       try {
-        await navigator.clipboard.writeText(window.location.href);
+        await navigator.clipboard.writeText(shareData.url);
         toast({
           title: t('shareButton.toast'),
         });
