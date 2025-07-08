@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from 'next/image';
@@ -93,8 +94,8 @@ export default function BlogDetailClient({ blog, relatedPlants }: BlogDetailClie
                     {relatedPlants.map(plant => {
                         const plantName = getBilingualText(plant.name);
                         return (
-                            <Link key={plant.id} href={`/plants/${plant.id}`} className="block p-4 border rounded-lg hover:bg-card transition-colors">
-                                <h3 className="font-semibold text-accent">{plantName}</h3>
+                            <Link key={plant.id} href={`/plants/${plant.id}`} className="block p-4 rounded-lg border bg-card hover:bg-muted transition-all shadow-md hover:shadow-lg">
+                                <h3 className="font-semibold text-accent dark:text-foreground">{plantName}</h3>
                             </Link>
                         )
                     })}

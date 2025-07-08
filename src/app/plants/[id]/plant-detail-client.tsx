@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import Image from 'next/image';
@@ -16,7 +17,7 @@ import {
 } from "@/components/ui/accordion"
 import { Badge } from '@/components/ui/badge';
 import LockedContentPrompt from '@/components/locked-content-prompt';
-import { BookOpen, FirstAidKit, Globe, CircleNotch, Flask, Heartbeat, Handshake, WarningCircle } from 'phosphor-react';
+import { BookOpen, FirstAidKit, Globe, CircleNotch, Flask, Heartbeat, Handshake, WarningCircle, Youtube } from 'phosphor-react';
 
 // Client-safe types
 type Plant = Omit<PlantWithTimestamp, 'createdAt'> & {
@@ -279,8 +280,8 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                     {relatedBlogs.map(blog => {
                         const blogTitle = getBilingualText(blog.title);
                         return (
-                            <Link key={blog.id} href={`/blogs/${blog.id}`} className="block p-4 rounded-lg hover:bg-card transition-colors">
-                                <h3 className="font-semibold text-accent">{blogTitle}</h3>
+                            <Link key={blog.id} href={`/blogs/${blog.id}`} className="block p-4 rounded-lg border bg-card hover:bg-muted transition-all shadow-md hover:shadow-lg">
+                                <h3 className="font-semibold text-accent dark:text-foreground">{blogTitle}</h3>
                             </Link>
                         )
                     })}
