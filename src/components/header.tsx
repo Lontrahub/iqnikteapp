@@ -9,6 +9,7 @@ import { useAuth } from '@/hooks/use-auth';
 import { Button } from './ui/button';
 import { Skeleton } from './ui/skeleton';
 import { useTranslation } from '@/hooks/use-translation';
+import { cn } from '@/lib/utils';
 
 const ThemeToggle = dynamic(
   () => import('@/components/theme-toggle').then((mod) => mod.ThemeToggle),
@@ -47,7 +48,7 @@ export default function Header() {
   const { user, loading } = useAuth();
   const { t } = useTranslation();
 
-  if (pathname.startsWith('/admin')) {
+  if (pathname.startsWith('/admin') || pathname === '/' || pathname.startsWith('/language-selection')) {
     return null;
   }
 
@@ -56,7 +57,10 @@ export default function Header() {
       <div className="container mx-auto flex h-16 items-center px-4">
         <Link href="/home" className="flex items-center gap-2 mr-6">
           <Image src="/logo.png" alt="IQ Nikte' Logo" width={32} height={32} className="rounded-lg" />
-          <span className="font-serif text-2xl font-bold text-primary">
+          <span className={cn(
+            "font-serif text-2xl font-bold text-primary",
+            !user && !loading && "hidden md:inline"
+          )}>
             IQ Nikte'
           </span>
         </Link>
