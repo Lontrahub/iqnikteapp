@@ -10,18 +10,20 @@ import { useState, useEffect } from 'react';
 export default function SecondaryNav() {
   const pathname = usePathname();
   const { t } = useTranslation();
-  const [isMounted, setIsMounted] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
+    // This effect runs only on the client, after initial render
+    setIsClient(true);
 
     const handleScroll = () => {
       // Header height is h-16 which is 4rem or 64px
       setIsSticky(window.scrollY > 64);
     };
     
-    handleScroll(); // Check initial scroll position
+    // Set initial state
+    handleScroll();
     
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -57,7 +59,9 @@ export default function SecondaryNav() {
   return (
     <nav className={cn(
       "sticky top-0 z-40 w-full bg-background/80 backdrop-blur-sm transition-shadow duration-200",
-      isMounted && isSticky ? 'shadow-md' : 'border-b border-transparent'
+      // On server & initial client render, isClient is false, so this is 'border-b border-transparent'
+      // After hydration, this class will be applied dynamically on the client.
+      isClient && isSticky ? 'shadow-md' : 'border-b border-transparent'
     )}>
       <div className="container flex h-12 items-center justify-center gap-8">
         {navLinks.map(link => (
@@ -72,7 +76,8 @@ export default function SecondaryNav() {
             )}
           >
             <span className="md:hidden">{link.icon}</span>
-            <span className="hidden md:block">{isMounted ? t(link.labelKey) : link.defaultLabel}</span>
+            {/* On server & initial client render, use defaultLabel. After hydration, use translated text. */}
+            <span className="hidden md:block">{isClient ? t(link.labelKey) : link.defaultLabel}</span>
           </Link>
         ))}
       </div>
