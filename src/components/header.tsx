@@ -37,7 +37,7 @@ const UserNav = dynamic(
   () => import('@/components/user-nav').then((mod) => mod.UserNav),
   {
     ssr: false,
-    loading: () => <Skeleton className="h-8 w-8 rounded-full" />,
+    loading: () => <Skeleton className="h-10 w-10 rounded-full" />,
   }
 );
 
