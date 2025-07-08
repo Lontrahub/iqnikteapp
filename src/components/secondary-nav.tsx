@@ -19,7 +19,12 @@ export default function SecondaryNav() {
     '/forgot-password'
   ];
 
-  const isHidden = hiddenPaths.some(path => pathname.startsWith(path) || pathname === path.replace(/\/$/, ''));
+  const isHidden = hiddenPaths.some(path => {
+    if (path === '/') {
+      return pathname === '/';
+    }
+    return pathname.startsWith(path);
+  });
 
   if (isHidden) {
     return null;
