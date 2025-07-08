@@ -144,7 +144,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                 <AccordionItem value="description" className="bg-foreground/5 rounded-lg border-none">
                     <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                         <div className="flex items-center gap-3">
-                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary p-1.5 text-primary-foreground">
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent p-1.5 text-accent-foreground">
                                 <BookOpen className="h-5 w-5" />
                             </div>
                             <span>{t('plantDetailPage.description')}</span>
@@ -159,7 +159,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                     <AccordionItem value="properties" className="bg-foreground/5 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                             <div className="flex items-center gap-3">
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary p-1 text-primary-foreground">
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent p-1 text-accent-foreground">
                                     <Image src="/logo.png" alt="Property Icon" width={24} height={24} className="rounded-full" />
                                 </div>
                                 <span>{t('plantDetailPage.keyProperties')}</span>
@@ -175,7 +175,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                      <AccordionItem value="uses" className="bg-foreground/5 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                             <div className="flex items-center gap-3">
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary p-1.5 text-primary-foreground">
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent p-1.5 text-accent-foreground">
                                     <FirstAidKit className="h-5 w-5" />
                                 </div>
                                 <span>{t('plantDetailPage.basicUses')}</span>
@@ -191,7 +191,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                     <AccordionItem value="preparation" className="bg-foreground/5 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                              <div className="flex items-center gap-3">
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary p-1.5 text-primary-foreground">
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent p-1.5 text-accent-foreground">
                                     <Flask className="h-5 w-5" />
                                 </div>
                                 <span>{t('plantDetailPage.preparationAndDosage')}</span>
@@ -207,7 +207,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                              {dosage && (
                                 <div>
                                     <h4 className="font-semibold text-lg mb-2 flex items-center gap-2">
-                                        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary p-1 text-primary-foreground">
+                                        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent p-1 text-accent-foreground">
                                             <Heartbeat className="h-4 w-4" />
                                         </div>
                                         <span>{t('plantDetailPage.dosage')}</span>
@@ -223,7 +223,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                     <AccordionItem value="culturalSignificance" className="bg-foreground/5 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                            <div className="flex items-center gap-3">
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary p-1.5 text-primary-foreground">
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent p-1.5 text-accent-foreground">
                                     <Globe className="h-5 w-5" />
                                 </div>
                                 <span>{t('plantDetailPage.culturalSignificance')}</span>
@@ -239,7 +239,7 @@ export default function PlantDetailClient({ plant, relatedBlogs }: PlantDetailCl
                     <AccordionItem value="harvesting" className="bg-foreground/5 rounded-lg border-none">
                         <AccordionTrigger className="text-2xl font-serif hover:no-underline px-4">
                            <div className="flex items-center gap-3">
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary p-1.5 text-primary-foreground">
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent p-1.5 text-accent-foreground">
                                     <Handshake className="h-5 w-5" />
                                 </div>
                                 <span>{t('plantDetailPage.ethicalHarvesting')}</span>
