@@ -18,8 +18,8 @@ export default function SecondaryNav() {
     setIsMounted(true);
 
     const handleScroll = () => {
-      // Header height is h-16 which is 4rem or 64px
-      setIsSticky(window.scrollY > 64);
+      // A small offset of 1px to ensure it triggers after header
+      setIsSticky(window.scrollY > 1);
     };
     
     window.addEventListener('scroll', handleScroll);

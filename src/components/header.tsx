@@ -59,7 +59,7 @@ export default function Header() {
   }
 
   return (
-    <header className="bg-background border-b z-50">
+    <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-50 border-b">
       <div className="container flex h-16 items-center">
         <Link href="/home" className="flex items-center gap-2 mr-6">
           <Image src="/logo.png" alt="IQ Nikte' Logo" width={32} height={32} className="rounded-lg" />
@@ -73,7 +73,7 @@ export default function Header() {
         
         <div className="flex flex-1 items-center justify-end gap-2">
           {!isMounted ? (
-            <Skeleton className="h-10 w-44" />
+            <div className="h-10 w-44" />
           ) : user ? (
             <>
               <NotificationBell />
