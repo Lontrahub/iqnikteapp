@@ -7,7 +7,7 @@ import { Separator } from './ui/separator';
 
 export default function AdminFooter() {
   return (
-    <footer className="bg-background border-t mt-auto">
+    <footer className="bg-background mt-auto">
       <div className="container mx-auto py-8 px-4">
         <div className="flex flex-col md:flex-row justify-between items-start gap-8">
           <div className="flex-1 max-w-sm">
