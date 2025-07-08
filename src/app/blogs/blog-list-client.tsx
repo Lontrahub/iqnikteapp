@@ -83,7 +83,7 @@ export default function BlogListClient({ blogs, tags }: BlogListClientProps) {
                             Filter by Tag ({selectedTags.length})
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
+                    <DropdownMenuContent className="w-56 max-h-60 overflow-y-auto">
                         <DropdownMenuLabel>Filter by Tags</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         {tags.map(tag => (
