@@ -16,18 +16,24 @@ export default function SecondaryNav() {
 
   useEffect(() => {
     setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) {
+      return;
+    }
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
+    handleScroll(); // Initial check for scroll position on mount
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [isMounted]);
 
   const hiddenPaths = [
     '/admin',
