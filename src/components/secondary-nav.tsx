@@ -11,10 +11,22 @@ export default function SecondaryNav() {
   const pathname = usePathname();
   const { t } = useTranslation();
   const [isMounted, setIsMounted] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
 
   useEffect(() => {
-    // This effect runs only on the client, after initial render
     setIsMounted(true);
+
+    const handleScroll = () => {
+      // Any scroll will trigger the shadow since the nav is at the top
+      setIsSticky(window.scrollY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const hiddenPaths = [
@@ -44,7 +56,10 @@ export default function SecondaryNav() {
   ];
 
   return (
-    <nav className="sticky top-0 z-40 w-full bg-background/80 backdrop-blur-sm border-b shadow-sm">
+    <nav className={cn(
+        "sticky top-0 z-40 w-full bg-background/80 backdrop-blur-sm transition-shadow duration-200",
+        isMounted && isSticky ? 'shadow-md' : 'border-b'
+      )}>
       <div className="container flex h-12 items-center justify-center gap-8">
         {navLinks.map(link => (
           <Link
