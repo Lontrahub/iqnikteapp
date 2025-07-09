@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -75,7 +76,7 @@ export default function Header() {
   }
 
   return (
-    <header className="bg-background/80 backdrop-blur-sm z-50 border-b">
+    <header className="bg-background border-b z-10">
       <div className="container flex h-16 items-center">
         <Link href="/home" className="flex items-center gap-2 mr-6">
           <Image src="/logo.png" alt="IQ Nikte' Logo" width={32} height={32} className="rounded-lg" />

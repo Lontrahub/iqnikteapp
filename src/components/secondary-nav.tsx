@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -11,13 +12,13 @@ export default function SecondaryNav() {
   const pathname = usePathname();
   const { t } = useTranslation();
   const [isMounted, setIsMounted] = useState(false);
-  const [isSticky, setIsSticky] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
 
     const handleScroll = () => {
-      setIsSticky(window.scrollY > 0);
+      setIsScrolled(window.scrollY > 0);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -57,7 +58,7 @@ export default function SecondaryNav() {
   return (
     <nav className={cn(
         "sticky top-0 z-40 w-full bg-background/80 backdrop-blur-sm transition-shadow duration-200",
-        isMounted && isSticky ? 'shadow-md' : 'border-b'
+        isMounted && isScrolled ? 'shadow-md' : 'border-b'
       )}>
       <div className="container flex h-12 items-center justify-center gap-8">
         {navLinks.map(link => (
