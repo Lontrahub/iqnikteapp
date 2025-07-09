@@ -17,7 +17,6 @@ export default function SecondaryNav() {
     setIsMounted(true);
 
     const handleScroll = () => {
-      // Any scroll will trigger the shadow since the nav is at the top
       setIsSticky(window.scrollY > 0);
     };
 
