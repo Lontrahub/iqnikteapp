@@ -71,7 +71,7 @@ export default function ProjectDetailClient({ project }: ProjectDetailClientProp
             </Carousel>
         )}
 
-        <header className="text-center mb-10">
+        <header className="mb-10">
             <h1 className="font-serif text-4xl md:text-5xl text-primary mb-2">{title}</h1>
             <Badge variant={
                 project.status === 'Completed' ? 'default' : 
