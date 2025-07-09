@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -59,9 +58,7 @@ export default function Header() {
     '/admin',
     '/',
     '/language-selection',
-    '/login',
-    '/register',
-    '/forgot-password'
+    '/forgot-password',
   ];
 
   const isHidden = hiddenPaths.some(path => {

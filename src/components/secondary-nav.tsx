@@ -16,32 +16,24 @@ export default function SecondaryNav() {
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isMounted) {
-      return;
-    }
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check for scroll position on mount
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isMounted]);
+  }, []);
 
   const hiddenPaths = [
     '/admin',
     '/',
     '/language-selection',
-    '/login',
-    '/register',
-    '/forgot-password'
+    '/forgot-password',
   ];
 
   const isHidden = hiddenPaths.some(path => {
