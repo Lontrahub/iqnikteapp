@@ -46,7 +46,7 @@ const UserNav = dynamic(
 
 export default function Header() {
   const pathname = usePathname();
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
   const { t } = useTranslation();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -54,12 +54,28 @@ export default function Header() {
     setIsMounted(true);
   }, []);
 
-  if (pathname.startsWith('/admin') || pathname === '/' || pathname.startsWith('/language-selection')) {
+  const hiddenPaths = [
+    '/admin',
+    '/',
+    '/language-selection',
+    '/login',
+    '/register',
+    '/forgot-password'
+  ];
+
+  const isHidden = hiddenPaths.some(path => {
+    if (path === '/') {
+      return pathname === '/';
+    }
+    return pathname.startsWith(path);
+  });
+
+  if (isHidden) {
     return null;
   }
 
   return (
-    <header className="bg-background/80 backdrop-blur-sm sticky top-0 z-50 border-b">
+    <header className="bg-background/80 backdrop-blur-sm z-50 border-b">
       <div className="container flex h-16 items-center">
         <Link href="/home" className="flex items-center gap-2 mr-6">
           <Image src="/logo.png" alt="IQ Nikte' Logo" width={32} height={32} className="rounded-lg" />
@@ -73,7 +89,7 @@ export default function Header() {
         
         <div className="flex flex-1 items-center justify-end gap-2">
           {!isMounted ? (
-            <div className="h-10 w-44" />
+            <Skeleton className="h-10 w-44" />
           ) : user ? (
             <>
               <NotificationBell />
