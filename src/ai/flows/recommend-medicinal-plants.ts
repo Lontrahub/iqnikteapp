@@ -135,13 +135,18 @@ const answerUserQueryFlow = ai.defineFlow(
     outputSchema: UserQueryOutputSchema,
   },
   async input => {
-    const {output} = await guidePrompt(input);
-    if (!output) {
+    try {
+      const {output} = await guidePrompt(input);
+      if (!output) {
+        throw new Error('AI returned a null output.');
+      }
+      return output;
+    } catch (error) {
+      console.error('Error in answerUserQueryFlow:', error);
       return {
         answer:
-          "I'm sorry, I couldn't find an answer for that. Please try rephrasing your question.",
+          "I'm sorry, I encountered a problem while trying to find an answer. This could be due to a temporary issue or a safety filter. Please try rephrasing your question.",
       };
     }
-    return output;
   }
 );
