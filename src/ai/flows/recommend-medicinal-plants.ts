@@ -3,8 +3,6 @@
  * @fileOverview This file defines a Genkit flow for a knowledgeable Mayan medicine guide.
  *
  * - answerUserQuery - A function that takes a user's query and uses tools to answer questions about plants and articles.
- * - UserQueryInput - The input type for the answerUserQuery function.
- * - UserQueryOutput - The return type for the answerUserQuery function.
  */
 
 import {ai} from '@/ai/genkit';
@@ -15,6 +13,12 @@ import {
   getAllBlogs,
   getBlogById,
 } from '@/lib/data';
+import {
+  UserQueryInputSchema,
+  type UserQueryInput,
+  UserQueryOutputSchema,
+  type UserQueryOutput,
+} from './recommend-medicinal-plants.types';
 
 // Schemas for Tools
 const PlantSchema = z.object({
@@ -91,21 +95,6 @@ const getArticleDetails = ai.defineTool(
     };
   }
 );
-
-// Main Flow Input and Output Schemas
-export const UserQueryInputSchema = z.object({
-  query: z.string().describe('The user question or symptoms.'),
-});
-export type UserQueryInput = z.infer<typeof UserQueryInputSchema>;
-
-export const UserQueryOutputSchema = z.object({
-  answer: z
-    .string()
-    .describe(
-      'The comprehensive answer to the user query, formatted in Markdown.'
-    ),
-});
-export type UserQueryOutput = z.infer<typeof UserQueryOutputSchema>;
 
 // The Flow itself
 export async function answerUserQuery(
