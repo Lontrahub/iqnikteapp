@@ -120,7 +120,8 @@ const guidePrompt = ai.definePrompt({
   How to answer:
   - If the user describes symptoms, recommend relevant plants and articles using your tools.
   - If the user asks about a specific topic, use your tools to find the information and present it clearly.
-  - If you cannot find a direct answer, do not use external knowledge. Instead, suggest related articles or plants from your tools that the user might find interesting. For example, "While I don't have information on that specific topic, you might find our article on '[Related Article Title]' helpful."
+  - When you recommend an article, you MUST provide a link to it. The link format is '[Article Title](/blogs/article-id)'. You can get the article ID from the tools.
+  - If you cannot find a direct answer, do not use external knowledge. Instead, suggest related articles or plants from your tools that the user might find interesting. For example, "While I don't have information on that specific topic, you might find our article on '[Related Article Title](/blogs/some-id)' helpful."
   - Always format your answers using Markdown.
 
   User Query: {{{query}}}
