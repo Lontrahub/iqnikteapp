@@ -7,6 +7,7 @@ import { AuthProvider } from '@/contexts/auth-context';
 import { LanguageProvider } from '@/contexts/language-context';
 import { ThemeProvider } from '@/components/theme-provider';
 import SecondaryNav from '@/components/secondary-nav';
+import { ChatBubble } from '@/components/chat-bubble';
 
 export const metadata: Metadata = {
   title: 'Mayan Medicine Guide',
@@ -38,6 +39,7 @@ export default function RootLayout({
                 <Header />
                 <SecondaryNav />
                 <div className="flex-1">{children}</div>
+                <ChatBubble />
                 <Footer />
               </div>
               <Toaster />

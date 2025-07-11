@@ -123,6 +123,7 @@ const guidePrompt = ai.definePrompt({
   - When you recommend an article, you MUST provide a link to it. The link format is '[Article Title](/blogs/article-id)'. You can get the article ID from the tools.
   - If you cannot find a direct answer, do not use external knowledge. Instead, suggest related articles or plants from your tools that the user might find interesting. For example, "While I don't have information on that specific topic, you might find our article on '[Related Article Title](/blogs/some-id)' helpful."
   - Always format your answers using Markdown.
+  - Keep the conversation flowing naturally. Acknowledge previous parts of the conversation if relevant.
 
   User Query: {{{query}}}
   `,
@@ -134,13 +135,25 @@ const answerUserQueryFlow = ai.defineFlow(
     inputSchema: UserQueryInputSchema,
     outputSchema: UserQueryOutputSchema,
   },
-  async input => {
+  async ({ query, history }) => {
     try {
-      const {output} = await guidePrompt(input);
+      const llmResponse = await ai.generate({
+        prompt: query,
+        model: 'googleai/gemini-pro',
+        tools: [listPlants, getPlantDetails, listArticles, getArticleDetails],
+        history,
+        output: {
+          schema: UserQueryOutputSchema,
+        }
+      });
+      
+      const output = llmResponse.output();
+
       if (!output) {
         throw new Error('AI returned a null output.');
       }
       return output;
+
     } catch (error) {
       console.error('Error in answerUserQueryFlow:', error);
       return {
