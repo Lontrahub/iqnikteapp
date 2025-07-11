@@ -1,4 +1,5 @@
 import { getMainBanner, getRecentPlants, getRecentBlogs } from '@/lib/data';
+import RecommendationClient from '../recommendation-client';
 import HomeClient from './home-client';
 
 export default async function HomePage() {
@@ -19,6 +20,7 @@ export default async function HomePage() {
   return (
     <main className="flex-1 bg-gradient-to-b from-background to-secondary/30">
         <div className="container py-8">
+            <RecommendationClient />
             <HomeClient banner={banner} recentPlants={recentPlants} recentBlogs={recentBlogs} />
         </div>
     </main>
