@@ -1,56 +1,144 @@
 'use server';
 /**
- * @fileOverview This file defines a Genkit flow for recommending medicinal plants based on user-provided symptoms.
+ * @fileOverview This file defines a Genkit flow for a knowledgeable Mayan medicine guide.
  *
- * - recommendMedicinalPlants - A function that takes user symptoms as input and returns a list of recommended medicinal plants with descriptions.
- * - RecommendMedicinalPlantsInput - The input type for the recommendMedicinalPlants function.
- * - RecommendMedicinalPlantsOutput - The return type for the recommendMedicinalPlants function.
+ * - answerUserQuery - A function that takes a user's query and uses tools to answer questions about plants and articles.
+ * - UserQueryInput - The input type for the answerUserQuery function.
+ * - UserQueryOutput - The return type for the answerUserQuery function.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import {
+  getAllPlants,
+  getPlantById,
+  getAllBlogs,
+  getBlogById,
+} from '@/lib/data';
 
-const RecommendMedicinalPlantsInputSchema = z.object({
-  symptoms: z
+// Schemas for Tools
+const PlantSchema = z.object({
+  id: z.string(),
+  name: z.object({en: z.string(), es: z.string()}),
+  scientificName: z.string().optional(),
+  description: z.object({en: z.string(), es: z.string()}),
+});
+const BlogSchema = z.object({
+  id: z.string(),
+  title: z.object({en: z.string(), es: z.string()}),
+  content: z.object({en: z.string(), es: z.string()}),
+});
+
+// Tool Definitions
+const listPlants = ai.defineTool(
+  {
+    name: 'listPlants',
+    description: 'List all available medicinal plants.',
+    outputSchema: z.array(z.object({id: z.string(), name: z.string()})),
+  },
+  async () => {
+    const plants = await getAllPlants();
+    // For listing, we only need basic info.
+    return plants.map(p => ({id: p.id, name: p.name.en}));
+  }
+);
+
+const getPlantDetails = ai.defineTool(
+  {
+    name: 'getPlantDetails',
+    description: 'Get detailed information for a specific plant by its ID.',
+    inputSchema: z.object({id: z.string()}),
+    outputSchema: PlantSchema,
+  },
+  async ({id}) => {
+    const plant = await getPlantById(id);
+    if (!plant) throw new Error('Plant not found');
+    return {
+      id: plant.id,
+      name: plant.name,
+      scientificName: plant.scientificName,
+      description: plant.description,
+    };
+  }
+);
+
+const listArticles = ai.defineTool(
+  {
+    name: 'listArticles',
+    description: 'List all available articles and educational content.',
+    outputSchema: z.array(z.object({id: z.string(), title: z.string()})),
+  },
+  async () => {
+    const blogs = await getAllBlogs();
+    return blogs.map(b => ({id: b.id, title: b.title.en}));
+  }
+);
+
+const getArticleDetails = ai.defineTool(
+  {
+    name: 'getArticleDetails',
+    description: 'Get the full content for a specific article by its ID.',
+    inputSchema: z.object({id: z.string()}),
+    outputSchema: BlogSchema,
+  },
+  async ({id}) => {
+    const blog = await getBlogById(id);
+    if (!blog) throw new Error('Article not found');
+    return {
+      id: blog.id,
+      title: blog.title,
+      content: blog.content,
+    };
+  }
+);
+
+// Main Flow Input and Output Schemas
+export const UserQueryInputSchema = z.object({
+  query: z.string().describe('The user question or symptoms.'),
+});
+export type UserQueryInput = z.infer<typeof UserQueryInputSchema>;
+
+export const UserQueryOutputSchema = z.object({
+  answer: z
     .string()
-    .describe('The symptoms experienced by the user.'),
+    .describe(
+      'The comprehensive answer to the user query, formatted in Markdown.'
+    ),
 });
-export type RecommendMedicinalPlantsInput = z.infer<typeof RecommendMedicinalPlantsInputSchema>;
+export type UserQueryOutput = z.infer<typeof UserQueryOutputSchema>;
 
-const RecommendMedicinalPlantsOutputSchema = z.object({
-  recommendations: z.array(
-    z.object({
-      plantName: z.string().describe('The name of the recommended plant.'),
-      description: z.string().describe('A brief description of the plant and its medicinal uses.'),
-    })
-  ).describe('A list of medicinal plant recommendations.'),
-});
-export type RecommendMedicinalPlantsOutput = z.infer<typeof RecommendMedicinalPlantsOutputSchema>;
-
-export async function recommendMedicinalPlants(input: RecommendMedicinalPlantsInput): Promise<RecommendMedicinalPlantsOutput> {
-  return recommendMedicinalPlantsFlow(input);
+// The Flow itself
+export async function answerUserQuery(
+  input: UserQueryInput
+): Promise<UserQueryOutput> {
+  return answerUserQueryFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'recommendMedicinalPlantsPrompt',
-  input: {schema: RecommendMedicinalPlantsInputSchema},
-  output: {schema: RecommendMedicinalPlantsOutputSchema},
-  prompt: `You are a knowledgeable guide on Mayan medicinal plants.
+const guidePrompt = ai.definePrompt({
+  name: 'guidePrompt',
+  input: {schema: UserQueryInputSchema},
+  output: {schema: UserQueryOutputSchema},
+  tools: [listPlants, getPlantDetails, listArticles, getArticleDetails],
+  prompt: `You are a knowledgeable and friendly guide to Mayan medicinal plants.
+  Your goal is to answer the user's question based on the information available in your tools.
 
-  Based on the user's symptoms, recommend a list of medicinal plants with descriptions of their uses.
+  - If the user describes symptoms, recommend relevant plants.
+  - If the user asks about a specific plant or article, use your tools to find the information and present it clearly.
+  - If the user asks a general question, use your knowledge of the available plants and articles to provide a helpful response.
+  - Always use Markdown for formatting your answer.
 
-  Symptoms: {{{symptoms}}}
+  User Query: {{{query}}}
   `,
 });
 
-const recommendMedicinalPlantsFlow = ai.defineFlow(
+const answerUserQueryFlow = ai.defineFlow(
   {
-    name: 'recommendMedicinalPlantsFlow',
-    inputSchema: RecommendMedicinalPlantsInputSchema,
-    outputSchema: RecommendMedicinalPlantsOutputSchema,
+    name: 'answerUserQueryFlow',
+    inputSchema: UserQueryInputSchema,
+    outputSchema: UserQueryOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+    const {output} = await guidePrompt(input);
     return output!;
   }
 );

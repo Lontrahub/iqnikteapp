@@ -117,15 +117,15 @@
     "notSet": "Not set"
   },
   "aiRecommender": {
-    "title": "AI Plant Recommendation",
-    "description": "Describe your symptoms and our AI will suggest traditional Mayan plants that may help.",
-    "symptomsLabel": "Your Symptoms",
-    "symptomsPlaceholder": "e.g., 'I have a headache and an upset stomach...'",
-    "findPlantsButton": "Find Plants",
-    "gettingRecommendations": "Getting Recommendations...",
-    "recommendationsTitle": "Recommended Plants",
-    "noRecommendationsToast": "No recommendations found",
-    "noRecommendationsToastDescription": "We couldn't find any recommendations for your symptoms. Please try again with different keywords."
+    "title": "Mayan Medicine Guide",
+    "description": "Ask me anything about Mayan medicinal plants, or describe your symptoms for a recommendation.",
+    "symptomsLabel": "Your question or symptoms",
+    "symptomsPlaceholder": "e.g., 'Tell me about chamomile' or 'I have a headache and an upset stomach...'",
+    "findPlantsButton": "Ask the Guide",
+    "gettingRecommendations": "Thinking...",
+    "recommendationsTitle": "Answer",
+    "noRecommendationsToast": "No answer found",
+    "noRecommendationsToastDescription": "I couldn't find an answer for your query. Please try again with different keywords."
   },
   "notificationsPage": {
     "title": "Notifications",

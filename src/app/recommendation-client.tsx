@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { z } from 'zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { recommendMedicinalPlants, RecommendMedicinalPlantsOutput } from '@/ai/flows/recommend-medicinal-plants';
+import { answerUserQuery, UserQueryOutput } from '@/ai/flows/recommend-medicinal-plants';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -13,17 +13,19 @@ import { Textarea } from '@/components/ui/textarea';
 import { Robot, CircleNotch } from 'phosphor-react';
 import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from '@/hooks/use-translation';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const formSchema = z.object({
   symptoms: z.string().min(10, {
-    message: 'Please describe your symptoms in at least 10 characters.',
+    message: 'Please describe your query in at least 10 characters.',
   }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
 export default function RecommendationClient() {
-  const [recommendations, setRecommendations] = useState<RecommendMedicinalPlantsOutput['recommendations'] | null>(null);
+  const [response, setResponse] = useState<UserQueryOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const { t } = useTranslation();
@@ -37,11 +39,11 @@ export default function RecommendationClient() {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setIsLoading(true);
-    setRecommendations(null);
+    setResponse(null);
     try {
-      const result = await recommendMedicinalPlants({ symptoms: data.symptoms });
-      if (result && result.recommendations && result.recommendations.length > 0) {
-        setRecommendations(result.recommendations);
+      const result = await answerUserQuery({ query: data.symptoms });
+      if (result && result.answer) {
+        setResponse(result);
       } else {
         toast({
             variant: "destructive",
@@ -54,7 +56,7 @@ export default function RecommendationClient() {
       toast({
         variant: "destructive",
         title: "An error occurred",
-        description: "Failed to get recommendations. Please try again later.",
+        description: "Failed to get an answer. Please try again later.",
       });
     } finally {
       setIsLoading(false);
@@ -112,23 +114,17 @@ export default function RecommendationClient() {
         </CardContent>
       </Card>
 
-      {recommendations && (
-        <div className="space-y-4 animate-in fade-in-50 duration-500">
-            <h2 className="text-2xl font-serif text-center">{t('aiRecommender.recommendationsTitle')}</h2>
-            {recommendations.map((plant, index) => (
-                <Card key={index} className="bg-card/80">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-xl font-serif text-primary">
-                        <Image src="/logo.png" alt="Plant Icon" width={20} height={20} className="rounded-lg"/>
-                        {plant.plantName}
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-foreground/80">{plant.description}</p>
-                </CardContent>
-                </Card>
-            ))}
-        </div>
+      {response && (
+        <Card className="animate-in fade-in-50 duration-500 bg-card/80">
+            <CardHeader>
+                <CardTitle className="font-serif text-2xl text-primary">{t('aiRecommender.recommendationsTitle')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <div className="prose prose-sm dark:prose-invert max-w-none">
+                    <Markdown remarkPlugins={[remarkGfm]}>{response.answer}</Markdown>
+                </div>
+            </CardContent>
+        </Card>
       )}
     </div>
   );

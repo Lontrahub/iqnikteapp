@@ -117,15 +117,15 @@
     "notSet": "No establecido"
   },
   "aiRecommender": {
-    "title": "Recomendador IA de Plantas",
-    "description": "Describe tus síntomas y nuestra IA sugerirá plantas tradicionales Mayas que podrían ayudar.",
-    "symptomsLabel": "Tus Síntomas",
-    "symptomsPlaceholder": "Ej: 'Tengo dolor de cabeza y malestar estomacal...'",
-    "findPlantsButton": "Encontrar Plantas",
-    "gettingRecommendations": "Obteniendo Recomendaciones...",
-    "recommendationsTitle": "Plantas Recomendadas",
-    "noRecommendationsToast": "No se encontraron recomendaciones",
-    "noRecommendationsToastDescription": "No pudimos encontrar ninguna recomendación para tus síntomas. Intenta de nuevo con otras palabras."
+    "title": "Guía de Medicina Maya",
+    "description": "Pregúntame cualquier cosa sobre plantas medicinales mayas, o describe tus síntomas para una recomendación.",
+    "symptomsLabel": "Tu pregunta o síntomas",
+    "symptomsPlaceholder": "Ej: 'Háblame de la manzanilla' o 'Tengo dolor de cabeza y malestar estomacal...'",
+    "findPlantsButton": "Preguntar al Guía",
+    "gettingRecommendations": "Pensando...",
+    "recommendationsTitle": "Respuesta",
+    "noRecommendationsToast": "No se encontró respuesta",
+    "noRecommendationsToastDescription": "No pude encontrar una respuesta para tu consulta. Por favor, intenta de nuevo con otras palabras."
   },
   "notificationsPage": {
     "title": "Notificaciones",
