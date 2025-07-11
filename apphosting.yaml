@@ -1,8 +1,6 @@
 # Specifies the version of the App Hosting platform.
 # For more information, see https://firebase.google.com/docs/app-hosting/app-hosting-yamls
 runtime: nodejs20
-# Explicitly set the source directory to the project root.
-source: .
 # Specifies the command to run to build your app.
 build:
   - npm install
