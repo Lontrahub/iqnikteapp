@@ -6,7 +6,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import {z} from 'zod';
 import {
   getAllPlants,
   getPlantById,
@@ -128,6 +128,12 @@ const answerUserQueryFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await guidePrompt(input);
-    return output!;
+    if (!output) {
+      return {
+        answer:
+          "I'm sorry, I couldn't find an answer for that. Please try rephrasing your question.",
+      };
+    }
+    return output;
   }
 );
